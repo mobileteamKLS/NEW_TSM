@@ -8,7 +8,7 @@
 * Clone a repo
 
 ```markdown
-git clone https://github.com/mobileteamKLS/WFS_ACS_UPGD.git 
+git clone https://github.com/mobileteamKLS/NEW_TSM.git 
 ```
 
 * First Create a new branch with your Name and Date
