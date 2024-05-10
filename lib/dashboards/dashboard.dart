@@ -96,18 +96,17 @@ class _DashboardsState extends State<Dashboards> {
     dummyList = [];
     selectedBaseStationBranchID = 0;
     selectedBaseStationBranch = "Select Terminal";
-    var queryParams = {"CityId": cityId, "OrganizationId": loggedinUser.OrganizationId.toString(), "UserId": loggedinUser.CreatedByUserId.toString()};
+    var queryParams = {"CityId": cityId.toString(), "OrganizationId": loggedinUser.OrganizationId.toString(), "UserId": loggedinUser.CreatedByUserId.toString()};
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['GetBaseStationBranch'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
 
       baseStationBranchList = resp
           .map<WarehouseBaseStationBranch>(

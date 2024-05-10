@@ -279,7 +279,7 @@ const iPadToggleTextFontStyleWhite = TextStyle(
 
 class Settings {
   //New TSM
-  static const String ACSServiceURL = "https://wfssrvuat.kalelogistics.com/srvMobile.asmx"; //WFS UAT Server
+  static const String ACSServiceURL = "https://acsintapigateway.kalelogistics.com/api_tsm/SrvMobile"; //WFS UAT Server
   //default API
  // static const String ACSServiceURL = "https://wfssrvuat.kalelogistics.com/srvMobile.asmx"; //WFS UAT Server
   // static const String ACSServiceImageURL = 'https://wfssrvuat.kalelogistics.com/';

@@ -44,9 +44,9 @@ class _YardCheckInNewState extends State<YardCheckInNew> {
 
   @override
   void initState() {
-    // getTerminal();
-    print("####### ${baseStationBranchList.toString()}########");
-    print("####### $selectedBaseStation ########");
+    // getVehicleList();
+    // print("####### ${baseStationBranchList.toString()}########");
+    // print("####### $selectedBaseStation ########");
     if (!isTerminalAlreadySelected) {
       selectedBaseStationID = 0;
       terminalsListDDL = [];
@@ -63,6 +63,50 @@ class _YardCheckInNewState extends State<YardCheckInNew> {
 
     super.initState();
   }
+
+  // getVehicleList() async {
+  //   if (isLoading) return;
+  //
+  //   setState(() {
+  //     isLoading = true;
+  //   });
+  //
+  //   var queryParams = {
+  //     "OrgID": "2"
+  //   };
+  //   await Global()
+  //       .getData(
+  //     Settings.SERVICES['VehicleTypesList'],
+  //     queryParams,
+  //   )
+  //       .then((response) {
+  //     print("data received ");
+  //     print(json.decode(response.body)['ResponseObject']);
+  //
+  //
+  //     // var resp = json.decode(msg).cast<Map<String, dynamic>>();
+  //     //
+  //     // vehicletypesList = resp
+  //     //     .map<Vehicletypes>((json) => Vehicletypes.fromJson(json))
+  //     //     .toList();
+  //     //
+  //     // Vehicletypes vt =
+  //     // new Vehicletypes(TruckTypeId: 0, TruckTypeName: "Select");
+  //     // vehicletypesList.add(vt);
+  //     // vehicletypesList.sort((a, b) => a.TruckTypeId.compareTo(b.TruckTypeId));
+  //     //
+  //     // print("length vehicletypesList = " + vehicletypesList.length.toString());
+  //
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //   }).catchError((onError) {
+  //     // setState(() {
+  //     //   isLoading = false;
+  //     // });
+  //     print(onError);
+  //   });
+  // }
 
   getCommodity(baseStation) async {
     commodityList = [];
@@ -110,16 +154,15 @@ class _YardCheckInNewState extends State<YardCheckInNew> {
   getTerminal() async {
     var queryParams = {'UserId': 0, 'OrganizationId': 0};
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['GetBaseStation'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
 
       baseStationList = resp
           .map<WarehouseBaseStation>(
@@ -127,7 +170,7 @@ class _YardCheckInNewState extends State<YardCheckInNew> {
           .toList();
 
       WarehouseBaseStation wt = new WarehouseBaseStation(
-          airportcode: "Select", cityid: 0, organizationId: "", orgName: "");
+          airportcode: "Select", cityid: 0, organizationId: 0, orgName: "");
       // baseStationList.add(wt);
       baseStationList.sort((a, b) => a.cityid.compareTo(b.cityid));
       print("length baseStationList = " + baseStationList.length.toString());
@@ -147,18 +190,17 @@ class _YardCheckInNewState extends State<YardCheckInNew> {
     dummyList = [];
     selectedBaseStationBranchID = 0;
     selectedBaseStationBranch = "Select";
-    var queryParams = {"CityId": cityId, "OrganizationId": 0, "UserId": 0};
+    var queryParams = {"CityId": cityId.toString(), "OrganizationId": 0, "UserId": 0};
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['GetBaseStationBranch'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
 
       baseStationBranchList = resp
           .map<WarehouseBaseStationBranch>(
@@ -788,16 +830,15 @@ class _YardCheckInNewState extends State<YardCheckInNew> {
 
     var queryParams = {};
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['VehicleTypesList'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
 
       vehicletypesList = resp
           .map<Vehicletypes>((json) => Vehicletypes.fromJson(json))

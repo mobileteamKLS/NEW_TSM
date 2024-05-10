@@ -107,16 +107,15 @@ class _WalkInAwbDetailsNewState extends State<WalkInAwbDetailsNew> {
   getPrefix() async {
     var queryParams = {'GHABranchId': selectedBaseStationBranchID.toString()};
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['GetAirlinePrefixList'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
 
       airlinesPrefixList = resp
           .map<AirlinesPrefix>((json) => AirlinesPrefix.fromJson(json))
