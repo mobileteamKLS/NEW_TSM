@@ -1179,23 +1179,32 @@ class _ScanQRCodeState extends State<ScanQRCode> {
     var queryParams = {
       "OperationType":  scannedCodeReceived.startsWith("I") ? "2" : "1",//modeType.toString(),
       "TokenNo": scannedCodeReceived,
+      "OrganizationBranchId" : 11094  // Add OrganizationBranchId Parameter
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['SearchByVTNO'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
+      print(json.decode(response.body)['ResponseObject']);
 
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+    /*  var msg = json.decode(response.body)['d'];
+      var resp = json.decode(msg).cast<Map<String, dynamic>>();*/
+
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
+
 
       setState(() {
-        walkInTokensList = resp
+       /* walkInTokensList = resp
             .map<WalInTokenDetails>((json) => WalInTokenDetails.fromJson(json))
-            .toList();
+            .toList();*/
+
+        walkInTokensList = responseObjectList.map((e) => WalInTokenDetails.fromJson(e)).toList();
+
+
 
         print(
             "length walkInTokensList = " + walkInTokensList.length.toString());

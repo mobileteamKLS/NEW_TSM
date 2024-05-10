@@ -238,7 +238,7 @@ class _YardCheckInNewState extends State<YardCheckInNew> {
               (terminal) => terminal.custodianName == selectedBaseStationBranch)
           .toList();
       setState(() {
-        isWalkInEnable = filteredTerminals[0].iswalkinEnable;
+        isWalkInEnable = filteredTerminals[0].iswalkinEnable!;
         custodianId = filteredTerminals[0].custudian;
       });
     }

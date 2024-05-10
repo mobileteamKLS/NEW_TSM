@@ -77,6 +77,7 @@ class Global {
     //   this.showToast("No internet Connection Available !");
     // } else {
     return fetchDataPOST(service, payload);
+
     //}
   }
   Future<Post> getData(service, payload) async {
@@ -90,7 +91,6 @@ class Global {
     return fetchDataGET(service, payload);
     //}
   }
-
 
   Future<Post> fetchDataPOST(apiname, payload) async {
     var newURL = Settings.ACSServiceURL + apiname;
@@ -169,6 +169,7 @@ class Global {
       });
 
 
+
     //return http.get(Uri.parse('http://113.193.225.56:8080/POCMobile/api/DOAPILogin'));
   }
 
@@ -188,29 +189,29 @@ class Global {
     print("payload " + json.encode(payload));
     return await http
         .post(
-          Uri.parse(newURL),
-          body: json.encode(payload),
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        )
+      Uri.parse(newURL),
+      body: json.encode(payload),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    )
         .then((http.Response response) {
-          print("response received");
-          print(response.body);
+      print("response received");
+      print(response.body);
 
-          final int statusCode = response.statusCode;
-          if (statusCode == 401) {
-            return Post.fromJson(response.body, statusCode);
-          }
-          if (statusCode < 200 || statusCode > 400 || json == null) {
-            throw new Exception("Error while fetching data");
-          }
-          return Post.fromJson(response.body, statusCode);
-        })
+      final int statusCode = response.statusCode;
+      if (statusCode == 401) {
+        return Post.fromJson(response.body, statusCode);
+      }
+      if (statusCode < 200 || statusCode > 400 || json == null) {
+        throw new Exception("Error while fetching data");
+      }
+      return Post.fromJson(response.body, statusCode);
+    })
         .catchError((onError) {})
         .whenComplete(() {
-          print("completed");
-        })
+      print("completed");
+    })
         .catchError((onError) => print(onError));
   }
 
@@ -280,3 +281,4 @@ getData() async{
     print(result);
   }
 }
+

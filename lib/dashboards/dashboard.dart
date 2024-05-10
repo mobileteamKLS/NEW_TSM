@@ -106,12 +106,10 @@ class _DashboardsState extends State<Dashboards> {
       print("data received ");
       print(json.decode(response.body)['ResponseObject']);
       Map<String, dynamic> jsonResponse = json.decode(response.body);
-      List<dynamic> resp = jsonResponse['ResponseObject'];
+      List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
+      baseStationBranchList = responseObjectList.map((e) => WarehouseBaseStationBranch.fromJson(e)).toList();
 
-      baseStationBranchList = resp
-          .map<WarehouseBaseStationBranch>(
-              (json) => WarehouseBaseStationBranch.fromJson(json))
-          .toList();
+
 
       WarehouseBaseStationBranch wt = new WarehouseBaseStationBranch(
           orgName: "",

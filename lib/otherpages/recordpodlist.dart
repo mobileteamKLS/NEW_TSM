@@ -67,19 +67,25 @@ class _RecordPodListState extends State<RecordPodList> {
       selectedBaseStationBranchID, //  loggedinUser.OrganizationBranchId,
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['DockOutList'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
+      print(json.decode(response.body)['ResponseObject']);
 
-      var msg = json.decode(response.body)['d'];
+     /* var msg = json.decode(response.body)['d'];
       var resp = json.decode(msg).cast<Map<String, dynamic>>();
 
       dockInOutVTListImport =
-          resp.map<DockInOutVT>((json) => DockInOutVT.fromJson(json)).toList();
+          resp.map<DockInOutVT>((json) => DockInOutVT.fromJson(json)).toList();*/
+
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
+      dockInOutVTListImport = responseObjectList.map((e) => DockInOutVT.fromJson(e)).toList();
+
+
 
       print("length dockInOutVTListImport = " +
           dockInOutVTListImport.length.toString());

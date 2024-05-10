@@ -675,9 +675,13 @@ class _LoginPageState extends State<LoginPage> {
       var resp = json.decode(msg).cast<Map<String, dynamic>>();
 
       setState(() {
-        locationDetailsSaved = resp
+
+        locationDetailsSaved = responseObjectList.map((e) => LocationDetails.fromJson(e)).toList();
+
+
+        /*locationDetailsSaved = resp
             .map<LocationDetails>((json) => LocationDetails.fromJson(json))
-            .toList();
+            .toList();*/
 
         print("length locationDetailsSaved = " +
             locationDetailsSaved.length.toString());
@@ -802,7 +806,7 @@ class _LoginPageState extends State<LoginPage> {
       });
       //showLoadingDialog(context, true);
       await Global()
-          .postData(
+          .getData(
         Settings.SERVICES['Login'],
         userCred,
       )
@@ -973,22 +977,28 @@ class _LoginPageState extends State<LoginPage> {
       isLoading = true;
     });
 
-    var queryParams = {};
+    var queryParams = {"AdminOrgProdId":"2"};
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['TerminalsList'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
+      print(json.decode(response.body)['ResponseObject']);
 
-      var msg = json.decode(response.body)['d'];
+     /* var msg = json.decode(response.body)['d'];
       var resp = json.decode(msg).cast<Map<String, dynamic>>();
 
       terminalsList = resp
           .map<WarehouseTerminals>((json) => WarehouseTerminals.fromJson(json))
-          .toList();
+          .toList();*/
+
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
+      terminalsList = responseObjectList.map((e) => WarehouseTerminals.fromJson(e)).toList();
+
+
 
       WarehouseTerminals wt = new WarehouseTerminals(custudian: 0, custodianName: "Select",iswalkinEnable: false);
       terminalsList.add(wt);
@@ -1344,7 +1354,8 @@ class _LoginPageState extends State<LoginPage> {
       print("data received ");
       print(json.decode(response.body)['ResponseObject']);
       Map<String, dynamic> jsonResponse = json.decode(response.body);
-      List<dynamic> resp = jsonResponse['ResponseObject'];
+      List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
+    
 
       baseStationList2 = resp
           .map<WarehouseBaseStationTrucker>(

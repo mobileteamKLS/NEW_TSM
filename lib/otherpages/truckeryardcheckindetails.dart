@@ -91,8 +91,7 @@ class _TruckYardCheckInDetailsState extends State<TruckYardCheckInDetails> {
     print(latitude.toString());
     print(longitude.toString());
 
-    var disCalc = await distance(double.parse(locationDetailsSaved[0].Latitude),
-        double.parse(locationDetailsSaved[0].Longitude), latitude, longitude);
+    var disCalc = await distance(locationDetailsSaved[0].Latitude, locationDetailsSaved[0].Longitude, latitude, longitude);
     print(disCalc);
 
  print(locationDetailsSaved[0].RadiousinMeter.toString());
