@@ -77,10 +77,9 @@ class Global {
     //   this.showToast("No internet Connection Available !");
     // } else {
     return fetchDataPOST(service, payload);
+
     //}
   }
-
-
   Future<Post> getData(service, payload) async {
     print("payload " + payload.toString());
     print("encoded payload " + json.encode(payload));
@@ -92,72 +91,6 @@ class Global {
     return fetchDataGET(service, payload);
     //}
   }
-
-  Future<Post> postDatav2(service, payload) async {
-    print("payload " + payload.toString());
-    print("encoded payload " + json.encode(payload));
-
-    // var connectivityResult = await (Connectivity().checkConnectivity());
-    // if (connectivityResult == ConnectivityResult.none) {
-    //   this.showToast("No internet Connection Available !");
-    // } else {
-    return fetchDataPOSTv2(service, payload);
-    //}
-  }
-  Future<Post> fetchDataPOSTv2(apiname, payload) async {
-    var newURL = Settings.ACSServiceURLV2 + apiname;
-    print("fetch data for API = " + newURL);
-    if (payload == "") {
-      print("payload blank");
-      return await http.post(
-        Uri.parse(newURL),
-        body: json.encode({}),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      ).then((http.Response response) {
-        print(response.body);
-        print(response.statusCode);
-
-        final int statusCode = response.statusCode;
-        if (statusCode == 401) {
-          return Post.fromJson(response.body, statusCode);
-        }
-        //  if (statusCode == 404) {
-        //   return Post.fromJson(response.body, statusCode);
-        // }
-        if (statusCode < 200 || statusCode > 400) {
-          throw new Exception("Error while fetching data");
-        }
-        print("sending data to post");
-        return Post.fromJson(response.body, statusCode);
-      });
-    } else {
-      return await http.post(
-        Uri.parse(newURL),
-        body: json.encode(payload),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      ).then((http.Response response) {
-        print(response.body);
-        print(response.statusCode);
-
-        final int statusCode = response.statusCode;
-        if (statusCode == 401) {
-          return Post.fromJson(response.body, statusCode);
-        }
-        if (statusCode < 200 || statusCode > 400) {
-          return Post.fromJson(response.body, statusCode);
-        }
-        print("sending data to post");
-        return Post.fromJson(response.body, statusCode);
-      });
-    }
-
-    //return http.get(Uri.parse('http://113.193.225.56:8080/POCMobile/api/DOAPILogin'));
-  }
-
 
   Future<Post> fetchDataPOST(apiname, payload) async {
     var newURL = Settings.ACSServiceURL + apiname;
@@ -218,22 +151,23 @@ class Global {
     print("fetch data for API = " + newURL);
     var url = Uri.parse(newURL);
     url = Uri.https(url.authority, url.path, payload);
-    return await http.get(url, headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    }).then((http.Response response) {
-      print(response.body);
-      print(response.statusCode);
+      return await http.get(url, headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      }).then((http.Response response) {
+        print(response.body);
+        print(response.statusCode);
 
-      final int statusCode = response.statusCode;
-      if (statusCode == 401) {
+        final int statusCode = response.statusCode;
+        if (statusCode == 401) {
+          return Post.fromJson(response.body, statusCode);
+        }
+        if (statusCode < 200 || statusCode > 400) {
+          return Post.fromJson(response.body, statusCode);
+        }
+        print("sending data to post");
         return Post.fromJson(response.body, statusCode);
-      }
-      if (statusCode < 200 || statusCode > 400) {
-        return Post.fromJson(response.body, statusCode);
-      }
-      print("sending data to post");
-      return Post.fromJson(response.body, statusCode);
-    });
+      });
+
 
 
     //return http.get(Uri.parse('http://113.193.225.56:8080/POCMobile/api/DOAPILogin'));
@@ -347,3 +281,4 @@ getData() async{
     print(result);
   }
 }
+

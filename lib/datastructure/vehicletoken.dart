@@ -576,7 +576,9 @@ class WarehouseBaseStation {
 
   factory WarehouseBaseStation.fromJson(Map<String, dynamic> json) =>
       WarehouseBaseStation(
-        organizationId: json["OrgId"] == null ? 0 : json["OrgId"],
+        organizationId:
+            json["OrgId"] == null ?0 : json["OrgId"],
+
         orgName: json["OrgName"] == null ? "" : json["OrgName"],
         cityid: json["CityId"] == null ? 0 : json["CityId"],
         airportcode: json["AirportCode"] == null ? "" : json["AirportCode"],

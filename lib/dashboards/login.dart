@@ -669,16 +669,10 @@ class _LoginPageState extends State<LoginPage> {
       queryParams,
     )
         .then((response) {
-      print("data received Location login");
-     /* print(json.decode(response.body)['d']);
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();*/
-
-      Map<String, dynamic> jsonResponse = json.decode(response.body);
-      List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
-
-
-
+      print("data received ");
+      print(json.decode(response.body)['ResponseObject']);
+      var msg = json.decode(response.body)['ResponseObject'];
+      var resp = json.decode(msg).cast<Map<String, dynamic>>();
 
       setState(() {
 
@@ -1037,16 +1031,15 @@ class _LoginPageState extends State<LoginPage> {
       "UserId": loggedinUser.CreatedByUserId,
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['UsersBranchList'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
 
       userOrganizationsList = resp
           .map<UserOrganizationDetails>(
@@ -1106,15 +1099,15 @@ class _LoginPageState extends State<LoginPage> {
       "OperationType": "1",
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['Get_ReasonAndDamageList'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
 
       setState(() {
         damageTypeList =
@@ -1148,16 +1141,15 @@ class _LoginPageState extends State<LoginPage> {
       "OperationType": "3",
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['Get_ReasonAndDamageList'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
 
       setState(() {
         acceptanceTypeList = resp
@@ -1193,15 +1185,15 @@ class _LoginPageState extends State<LoginPage> {
       "OperationType": "2",
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['Get_ReasonAndDamageList'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
 
       setState(() {
         rejectionReasonsList = resp
@@ -1233,16 +1225,15 @@ class _LoginPageState extends State<LoginPage> {
 
     var queryParams = {};
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['VehicleTypesList'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
 
       vehicletypesList = resp
           .map<Vehicletypes>((json) => Vehicletypes.fromJson(json))
@@ -1277,7 +1268,7 @@ class _LoginPageState extends State<LoginPage> {
       "OrganisationBranchID": selectedTerminalID,
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['GetDriversList'],
       queryParams,
     )
@@ -1285,11 +1276,10 @@ class _LoginPageState extends State<LoginPage> {
       print("data received ");
       // print(response.body);
 
-      print(json.decode(response.body)['d']);
 
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
-
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
       driverNamesList = resp
           .map<DriverDetails>((json) => DriverDetails.fromJson(json))
           .toList();
@@ -1318,7 +1308,7 @@ class _LoginPageState extends State<LoginPage> {
       "OrganisationBranchID": selectedTerminalID,
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['GetVehicleNoList'],
       queryParams,
     )
@@ -1326,10 +1316,9 @@ class _LoginPageState extends State<LoginPage> {
       print("data received ");
       //print(response.body);
 
-      print(json.decode(response.body)['d']);
-
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
 
       vehicleNosList =
           resp.map<VehicleNos>((json) => VehicleNos.fromJson(json)).toList();
@@ -1364,19 +1353,14 @@ class _LoginPageState extends State<LoginPage> {
         .then((response) {
       print("data received ");
       print(json.decode(response.body)['ResponseObject']);
-
       Map<String, dynamic> jsonResponse = json.decode(response.body);
       List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
-      baseStationList2 = responseObjectList.map((e) => WarehouseBaseStationTrucker.fromJson(e)).toList();
-
-
-      /* var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+    
 
       baseStationList2 = resp
           .map<WarehouseBaseStationTrucker>(
               (json) => WarehouseBaseStationTrucker.fromJson(json))
-          .toList();*/
+          .toList();
       WarehouseBaseStationTrucker wt = new WarehouseBaseStationTrucker(
           airportcode: "Select", cityid: 0, organizationId: 0, orgName: "");
       baseStationList2.add(wt);
