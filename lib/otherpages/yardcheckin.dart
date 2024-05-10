@@ -79,7 +79,7 @@ class _YardCheckInState extends State<YardCheckIn> {
           .toList();
 
       WarehouseBaseStation wt = new WarehouseBaseStation(
-          airportcode: "Select", cityid: 0, organizationId: "", orgName: "");
+          airportcode: "Select", cityid: 0, organizationId: 0, orgName: "");
       baseStationList.add(wt);
       baseStationList.sort((a, b) => a.cityid.compareTo(b.cityid));
       print("length baseStationList = " + baseStationList.length.toString());
@@ -148,7 +148,7 @@ class _YardCheckInState extends State<YardCheckIn> {
               (terminal) => terminal.custodianName == selectedBaseStationBranch)
           .toList();
       setState(() {
-        isWalkInEnable = filteredTerminals[0].iswalkinEnable;
+        isWalkInEnable = filteredTerminals[0].iswalkinEnable!;
         custodianId = filteredTerminals[0].custudian;
       });
     }

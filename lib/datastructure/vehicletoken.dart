@@ -530,20 +530,20 @@ class PODAWB {
 class WarehouseTerminals {
   final int custudian;
   final String custodianName;
-  final bool iswalkinEnable;
+  final bool? iswalkinEnable;
 
   WarehouseTerminals({
     required this.custudian,
     required this.custodianName,
-    required this.iswalkinEnable,
+    this.iswalkinEnable = true,
   });
 
   factory WarehouseTerminals.fromJson(Map<String, dynamic> json) {
     return WarehouseTerminals(
       custodianName: json['CustodianName'] == null ? "" : json['CustodianName'],
       custudian: json['CUSTODIAN'] == null ? 0 : json['CUSTODIAN'],
-      iswalkinEnable:
-          json['IswalkinEnable'] == null ? 0 : json['IswalkinEnable'],
+   /*   iswalkinEnable:
+          json['IswalkinEnable'] == null ? 0 : json['IswalkinEnable'],*/
     );
   }
 
@@ -551,7 +551,7 @@ class WarehouseTerminals {
     var map = new Map<String, dynamic>();
     map["CUSTODIAN"] = custudian;
     map["CustodianName"] = custodianName;
-    map["IswalkinEnable"] = iswalkinEnable;
+   /* map["IswalkinEnable"] = iswalkinEnable;*/
     return map;
   }
 
@@ -562,7 +562,7 @@ class WarehouseTerminals {
 }
 
 class WarehouseBaseStation {
-  String organizationId;
+  int organizationId;
   String orgName;
   int cityid;
   String airportcode;
@@ -576,18 +576,17 @@ class WarehouseBaseStation {
 
   factory WarehouseBaseStation.fromJson(Map<String, dynamic> json) =>
       WarehouseBaseStation(
-        organizationId:
-            json["OrganizationId"] == null ? "" : json["OrganizationId"],
+        organizationId: json["OrgId"] == null ? 0 : json["OrgId"],
         orgName: json["OrgName"] == null ? "" : json["OrgName"],
-        cityid: json["cityid"] == null ? 0 : json["cityid"],
-        airportcode: json["airportcode"] == null ? "" : json["airportcode"],
+        cityid: json["CityId"] == null ? 0 : json["CityId"],
+        airportcode: json["AirportCode"] == null ? "" : json["AirportCode"],
       );
 
   Map<String, dynamic> toMap() => {
-        "OrganizationId": organizationId,
+        "OrgId": organizationId,
         "OrgName": orgName,
-        "cityid": cityid,
-        "airportcode": airportcode,
+        "CityId": cityid,
+        "AirportCode": airportcode,
       };
 }
 
@@ -631,17 +630,17 @@ class WarehouseBaseStationTrucker {
   factory WarehouseBaseStationTrucker.fromJson(Map<String, dynamic> json) =>
       WarehouseBaseStationTrucker(
         organizationId:
-            json["OrganizationId"] == null ? 0 : json["OrganizationId"],
+            json["OrgId"] == null ? 0 : json["OrgId"],
         orgName: json["OrgName"] == null ? "" : json["OrgName"],
-        cityid: json["cityid"] == null ? 0 : json["cityid"],
-        airportcode: json["airportcode"] == null ? "" : json["airportcode"],
+        cityid: json["CityId"] == null ? 0 : json["CityId"],
+        airportcode: json["AirportCode"] == null ? "" : json["AirportCode"],
       );
 
   Map<String, dynamic> toMap() => {
-        "OrganizationId": organizationId,
+        "OrgId": organizationId,
         "OrgName": orgName,
-        "cityid": cityid,
-        "airportcode": airportcode,
+        "CityId": cityid,
+        "AirportCode": airportcode,
       };
 }
 
@@ -711,10 +710,10 @@ class WalInTokenDetails {
       SlotDate: json['SlotDate'] == null ? "" : json['SlotDate'],
       TimeStart: json['TimeStart'] == null ? "" : json['TimeStart'],
       TimeEnd: json['TimeEnd'] == null ? "" : json['TimeEnd'],
-      TokenNo: json['TokenNo'] == null ? "" : json['TokenNo'],
+      TokenNo: json['VTNo'] == null ? "" : json['VTNo'],
       VehicleRegNo: json['VehicleRegNo'] == null ? "" : json['VehicleRegNo'],
-      DriverName: json['DriverName'] == null ? "" : json['DriverName'],
-      DriverNumber: json['DriverNumber'] == null ? "" : json['DriverNumber'],
+      DriverName: json['DRIVERNAME'] == null ? "" : json['DRIVERNAME'],
+      DriverNumber: json['DRIVERMOBILENO'] == null ? "" : json['DRIVERMOBILENO'],
     );
   }
 
@@ -724,10 +723,10 @@ class WalInTokenDetails {
     map["SlotDate"] = SlotDate;
     map["TimeStart"] = TimeStart;
     map["TimeEnd"] = TimeEnd;
-    map["TokenNo"] = TokenNo;
+    map["VTNo"] = TokenNo;
     map["VehicleRegNo"] = VehicleRegNo;
-    map["DriverName"] = DriverName;
-    map["DriverNumber"] = DriverNumber;
+    map["DRIVERNAME"] = DriverName;
+    map["DRIVERMOBILENO"] = DriverNumber;
     map["isChecked"] = isChecked;
     return map;
   }

@@ -221,30 +221,42 @@ class _DockOutState extends State<DockOut> {
           selectedBaseStationBranchID, // loggedinUser.OrganizationBranchId,
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['DockOutList'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
 
-      var msg = json.decode(response.body)['d'];
-      if (msg == "[]") {
+      print(json.decode(response.body)['ResponseObject']);
+
+      /*print(json.decode(response.body)['d']);
+
+      var msg = json.decode(response.body)['d'];*/
+
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
+
+
+      if (responseObjectList == "[]") {
         setState(() {
           hasNoRecord = true;
         });
       }
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+     // var resp = json.decode(msg).cast<Map<String, dynamic>>();
 
       if (modeType == 2) //export
-        dockInOutVTListExport = resp
+        /*dockInOutVTListExport = resp
             .map<DockInOutVT>((json) => DockInOutVT.fromJson(json))
-            .toList();
+            .toList();*/
+        dockInOutVTListExport = responseObjectList.map((e) => DockInOutVT.fromJson(e)).toList();
+
       else
-        dockInOutVTListImport = resp
+        /*dockInOutVTListImport = resp
             .map<DockInOutVT>((json) => DockInOutVT.fromJson(json))
-            .toList();
+            .toList();*/
+        dockInOutVTListImport = responseObjectList.map((e) => DockInOutVT.fromJson(e)).toList();
+
 
       print("length dockInOutVTListExport = " +
           dockInOutVTListExport.length.toString());

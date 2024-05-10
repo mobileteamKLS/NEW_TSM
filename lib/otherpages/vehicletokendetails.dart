@@ -131,20 +131,28 @@ class _VehicleTokenDetailsState extends State<VehicleTokenDetails> {
       "VTNo": widget.selectedVtDetails.VTNo,
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['MessageListTrucker'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
+      print(json.decode(response.body)['ResponseObject']);
 
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+    /*  var msg = json.decode(response.body)['d'];
+      var resp = json.decode(msg).cast<Map<String, dynamic>>();*/
+
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
+
+
 
       setState(() {
-        vehicleSMSToBind =
-            resp.map<vehicleSMS>((json) => vehicleSMS.fromJson(json)).toList();
+        /*vehicleSMSToBind =
+            resp.map<vehicleSMS>((json) => vehicleSMS.fromJson(json)).toList();*/
+
+        vehicleSMSToBind = responseObjectList.map((e) => vehicleSMS.fromJson(e)).toList();
+
 
         print(
             "length vehicleSMSToBind = " + vehicleSMSToBind.length.toString());

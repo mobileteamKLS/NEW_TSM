@@ -1,7 +1,5 @@
-
-
 class UserOrganizationDetails {
-  final String UserId;
+  final int UserId;
   final int OrganizationId;
   final String OrgName;
   final int OrganizationBranchId;
@@ -14,20 +12,21 @@ class UserOrganizationDetails {
     required this.OrgName,
     required this.OrganizationBranchId,
     required this.OrgBranchName,
-    required this.OrganizationTypeId,
+    this.OrganizationTypeId = 0,
   });
+
   factory UserOrganizationDetails.fromJson(Map<String, dynamic> json) {
     return UserOrganizationDetails(
-      UserId: json['UserId'] == null ? "" : json['UserId'],
+      UserId: json['UserId'] == 0 ? 0 : json['UserId'],
       OrganizationId:
-          json['OrganizationId'] == null ? 0 : json['OrganizationId'],
+          json['OrganizationId'] == 0 ? 0 : json['OrganizationId'],
       OrgName: json['OrgName'] == null ? "" : json['OrgName'],
-      OrganizationBranchId: json['OrganizationBranchId'] == null
+      OrganizationBranchId: json['OrganizationBranchId'] == 0
           ? 0
           : json['OrganizationBranchId'],
       OrgBranchName: json['OrgBranchName'] == null ? "" : json['OrgBranchName'],
-      OrganizationTypeId:
-          json['OrganizationTypeId'] == null ? 0 : json['OrganizationTypeId'],
+      /* OrganizationTypeId:
+          json['OrganizationTypeId'] == null ? 0 : json['OrganizationTypeId'],*/
     );
   }
 
@@ -38,7 +37,7 @@ class UserOrganizationDetails {
     map["OrgName"] = OrgName;
     map["OrganizationBranchId"] = OrganizationBranchId;
     map["OrgBranchName"] = OrgBranchName;
-    map["OrganizationTypeId"] = OrganizationTypeId;
+    // map["OrganizationTypeId"] = OrganizationTypeId;
     return map;
   }
 }
@@ -71,6 +70,7 @@ class UserDetails {
     required this.OrganizationBranchIdString,
     required this.OrganizationtypeIdString,
   });
+
   factory UserDetails.fromJson(Map<String, dynamic> json) {
     return UserDetails(
       UserId: json['UserId'] == null ? "" : json['UserId'],
@@ -114,16 +114,16 @@ class UserDetails {
 
 //[{"Latitude":"19.46626366","Longitude":"72.81160143","IsActive":true,"RadiousinMeter":50}]
 class LocationDetails {
-  final String Latitude;
-  final String Longitude;
-  final bool IsActive;
+  final double Latitude;
+  final double Longitude;
+  final int IsActive;
   final double RadiousinMeter;
 
   LocationDetails({
     required this.Latitude,
     required this.Longitude,
     required this.IsActive,
-    required this.RadiousinMeter,
+    this.RadiousinMeter = 0,
   });
 
   factory LocationDetails.fromJson(Map<String, dynamic> json) {
@@ -131,8 +131,8 @@ class LocationDetails {
       Latitude: json['Latitude'] == null ? "" : json['Latitude'],
       Longitude: json['Longitude'] == null ? "" : json['Longitude'],
       IsActive: json['IsActive'] == null ? false : json['IsActive'],
-      RadiousinMeter:
-          json['RadiousinMeter'] == null ? 0 : json['RadiousinMeter'],
+      /* RadiousinMeter:
+          json['RadiousinMeter'] == null ? 0 : json['RadiousinMeter'],*/
     );
   }
 
@@ -141,7 +141,7 @@ class LocationDetails {
     map["Latitude"] = Latitude;
     map["Longitude"] = Longitude;
     map["IsActive"] = IsActive;
-    map["RadiousinMeter"] = RadiousinMeter;
+    /* map["RadiousinMeter"] = RadiousinMeter;*/
     return map;
   }
 }

@@ -135,21 +135,27 @@ class _WalkInAwbDetailsNewState extends State<WalkInAwbDetailsNew> {
   }
 
   getAirport() async {
-    var queryParams = {};
+    var queryParams = {"AdminOrgId": "${11084}"}; // Enter AdminOrgId in Parameter
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['GetAiportsList'],
       queryParams,
     )
         .then((response) {
-      print("data received ");
-      print(json.decode(response.body)['d']);
+      print("data received WalkInDetail");
+      print(json.decode(response.body)['ResponseObject']);
 
-      var msg = json.decode(response.body)['d'];
+     /* var msg = json.decode(response.body)['d'];
       var resp = json.decode(msg).cast<Map<String, dynamic>>();
 
       airportList =
-          resp.map<Airport>((json) => Airport.fromJson(json)).toList();
+          resp.map<Airport>((json) => Airport.fromJson(json)).toList();*/
+
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
+      airportList = responseObjectList.map((e) => Airport.fromJson(e)).toList();
+
+
 
       print("length baseStationList = " + airportList.length.toString());
       setState(() {

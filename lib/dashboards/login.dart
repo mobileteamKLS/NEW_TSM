@@ -664,20 +664,30 @@ class _LoginPageState extends State<LoginPage> {
       "OperationType": "1",
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['GetLocation'],
       queryParams,
     )
         .then((response) {
-      print("data received ");
-      print(json.decode(response.body)['d']);
+      print("data received Location login");
+     /* print(json.decode(response.body)['d']);
       var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      var resp = json.decode(msg).cast<Map<String, dynamic>>();*/
+
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
+
+
+
 
       setState(() {
-        locationDetailsSaved = resp
+
+        locationDetailsSaved = responseObjectList.map((e) => LocationDetails.fromJson(e)).toList();
+
+
+        /*locationDetailsSaved = resp
             .map<LocationDetails>((json) => LocationDetails.fromJson(json))
-            .toList();
+            .toList();*/
 
         print("length locationDetailsSaved = " +
             locationDetailsSaved.length.toString());
@@ -802,7 +812,7 @@ class _LoginPageState extends State<LoginPage> {
       });
       //showLoadingDialog(context, true);
       await Global()
-          .postData(
+          .getData(
         Settings.SERVICES['Login'],
         userCred,
       )
@@ -973,22 +983,28 @@ class _LoginPageState extends State<LoginPage> {
       isLoading = true;
     });
 
-    var queryParams = {};
+    var queryParams = {"AdminOrgProdId":"2"};
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['TerminalsList'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
+      print(json.decode(response.body)['ResponseObject']);
 
-      var msg = json.decode(response.body)['d'];
+     /* var msg = json.decode(response.body)['d'];
       var resp = json.decode(msg).cast<Map<String, dynamic>>();
 
       terminalsList = resp
           .map<WarehouseTerminals>((json) => WarehouseTerminals.fromJson(json))
-          .toList();
+          .toList();*/
+
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
+      terminalsList = responseObjectList.map((e) => WarehouseTerminals.fromJson(e)).toList();
+
+
 
       WarehouseTerminals wt = new WarehouseTerminals(custudian: 0, custodianName: "Select",iswalkinEnable: false);
       terminalsList.add(wt);
@@ -1341,21 +1357,26 @@ class _LoginPageState extends State<LoginPage> {
       'OrganizationId': loggedinUser.OrganizationId
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['GetBaseStation'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
+      print(json.decode(response.body)['ResponseObject']);
 
-      var msg = json.decode(response.body)['d'];
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
+      baseStationList2 = responseObjectList.map((e) => WarehouseBaseStationTrucker.fromJson(e)).toList();
+
+
+      /* var msg = json.decode(response.body)['d'];
       var resp = json.decode(msg).cast<Map<String, dynamic>>();
 
       baseStationList2 = resp
           .map<WarehouseBaseStationTrucker>(
               (json) => WarehouseBaseStationTrucker.fromJson(json))
-          .toList();
+          .toList();*/
       WarehouseBaseStationTrucker wt = new WarehouseBaseStationTrucker(
           airportcode: "Select", cityid: 0, organizationId: 0, orgName: "");
       baseStationList2.add(wt);

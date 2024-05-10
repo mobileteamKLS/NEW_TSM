@@ -1355,27 +1355,32 @@ class _CheckInYardState extends State<CheckInYard> {
     });
 
     var queryParams = {
-      "OperationType":
-      txtVTNO.text.startsWith("I") ? "2" : "1", // modeType.toString(),
+      "OperationType": txtVTNO.text.startsWith("I") ? "2" : "1", // modeType.toString(),
       "TokenNo": txtVTNO.text.trim(),
       "OrganizationBranchId":terminalsListDDL[0].custudian.toString()
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['SearchByVTNO'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
+      print(json.decode(response.body)['ResponseObject']);
 
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+     /* var msg = json.decode(response.body)['d'];
+      var resp = json.decode(msg).cast<Map<String, dynamic>>();*/
+
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
+
 
       setState(() {
-        walkInTokensList = resp
+       /* walkInTokensList = resp
             .map<WalInTokenDetails>((json) => WalInTokenDetails.fromJson(json))
-            .toList();
+            .toList();*/
+
+        walkInTokensList = responseObjectList.map((e) => WalInTokenDetails.fromJson(e)).toList();
 
         print(
             "length walkInTokensList = " + walkInTokensList.length.toString());
@@ -1403,24 +1408,33 @@ class _CheckInYardState extends State<CheckInYard> {
     var queryParams = {
       "OperationType": "1",
       "VehicleNo": txtVehicleNo.text.trim(),
-      "OrganizationBranchId":terminalsListDDL[0].custudian.toString()
+      "OrganizationBranchId":terminalsListDDL[0].custudian
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['SearchByVehicleNO'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
+      print(json.decode(response.body)['ResponseObject']);
 
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+     /* var msg = json.decode(response.body)['d'];
+      var resp = json.decode(msg).cast<Map<String, dynamic>>();*/
+
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
+
+
+
 
       setState(() {
-        walkInTokensList = resp
+
+        walkInTokensList = responseObjectList.map((e) => WalInTokenDetails.fromJson(e)).toList();
+
+       /* walkInTokensList = resp
             .map<WalInTokenDetails>((json) => WalInTokenDetails.fromJson(json))
-            .toList();
+            .toList();*/
 
         print(
             "length walkInTokensList = " + walkInTokensList.length.toString());

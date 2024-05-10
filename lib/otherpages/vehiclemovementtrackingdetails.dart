@@ -1217,27 +1217,33 @@ class _VehicleMovementTrackingDetailsState
     var queryParams = {
       "OperationType": modeType.toString(), // "",
       "VTNo": widget.selectedVtDetails.VTNo,
-      "CreatedByUserId": loggedinUser.CreatedByUserId,
+      /*"CreatedByUserId": loggedinUser.CreatedByUserId,*/
       "OrganizationBranchId": loggedinUser.OrganizationBranchId.toString(),
       "OrganizationId": loggedinUser.OrganizationId.toString(),
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['VehicleMovementTrackingDetails'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
+      print(json.decode(response.body)['ResponseObject']);
 
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      /*var msg = json.decode(response.body)['d'];
+      var resp = json.decode(msg).cast<Map<String, dynamic>>();*/
+
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
+
 
       setState(() {
-        vTrackingDets = resp
+
+        vTrackingDets = responseObjectList.map((e) => VehicleTrackingDetails.fromJson(e)).toList();
+        /*vTrackingDets = resp
             .map<VehicleTrackingDetails>(
                 (json) => VehicleTrackingDetails.fromJson(json))
-            .toList();
+            .toList();*/
 
         print("length vTrackingDets = " + vTrackingDets.length.toString());
         isLoadingTrackingDetails = false;
@@ -1262,27 +1268,35 @@ class _VehicleMovementTrackingDetailsState
     var queryParams = {
       "OperationType": modeType.toString(), // "",
       "VTNo": widget.selectedVtDetails.VTNo,
-      "CreatedByUserId": loggedinUser.CreatedByUserId,
+      /*"CreatedByUserId": loggedinUser.CreatedByUserId,*/
       "OrganizationBranchId": loggedinUser.OrganizationBranchId.toString(),
       "OrganizationId": loggedinUser.OrganizationId.toString(),
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['VehicleMovementTrackingDetails'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
+      print(json.decode(response.body)['ResponseObject']);
 
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+     /* var msg = json.decode(response.body)['d'];
+      var resp = json.decode(msg).cast<Map<String, dynamic>>();*/
+
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
+
 
       setState(() {
-        vShipmentDets = resp
+        /*vShipmentDets = resp
             .map<VehicleShipmentDetails>(
                 (json) => VehicleShipmentDetails.fromJson(json))
-            .toList();
+            .toList();*/
+
+        vShipmentDets = responseObjectList.map((e) => VehicleShipmentDetails.fromJson(e)).toList();
+
+
 
         print("length vShipmentDets = " + vShipmentDets.length.toString());
         isLoadingShipmentDetails = false;

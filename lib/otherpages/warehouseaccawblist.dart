@@ -223,21 +223,26 @@ class _WarehouseAcceptanceAwbListState
       selectedBaseStationBranchID,//selectedTerminalID, // loggedinUser.OrganizationBranchId,
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['WarehouseAwbList'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
+      print(json.decode(response.body)['ResponseObject']);
 
-      var msg = json.decode(response.body)['d'];
+     /* var msg = json.decode(response.body)['d'];
       var resp = json.decode(msg).cast<Map<String, dynamic>>();
 
       dockInOutVTListExport = resp
           .map<WarehouseAcceptanceAWB>(
               (json) => WarehouseAcceptanceAWB.fromJson(json))
-          .toList();
+          .toList();*/
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
+      dockInOutVTListExport = responseObjectList.map((e) => WarehouseAcceptanceAWB.fromJson(e)).toList();
+
+
 
       print("length dockInOutVTListExport = " +
           dockInOutVTListExport.length.toString());
