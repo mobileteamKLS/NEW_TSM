@@ -2884,20 +2884,22 @@ class _WalkInLiveDockStatusState extends State<WalkInLiveDockStatus> {
         "UnAssignedDocks": "",
       };
       await Global()
-          .postData(
+          .getData(
         Settings.SERVICES['UpdateDocks'],
         queryParams,
       )
           .then((response) {
         print("data received ");
-        print(json.decode(response.body)['d']);
-        if (json.decode(response.body)['d'] == null) {
+        print(json.decode(response.body)['ResponseObject']);
+        Map<String, dynamic> jsonResponse = json.decode(response.body);
+        List<dynamic> resp = jsonResponse['ResponseObject'];
+        if (resp== null) {
           isValid = true;
         } else {
-          if (json.decode(response.body)['d'] == "") {
+          if (resp == "") {
             isValid = true;
           } else {
-            var responseText = json.decode(response.body)['d'].toString();
+            var responseText = resp.toString();
 
             if (responseText.toLowerCase().contains("errormsg")) {
               responseTextUpdated =
@@ -2958,20 +2960,22 @@ class _WalkInLiveDockStatusState extends State<WalkInLiveDockStatus> {
         "UnAssignedDocks": newDockName,
       };
       await Global()
-          .postData(
+          .getData(
         Settings.SERVICES['UpdateDocks'],
         queryParams,
       ) //successMsg\
           .then((response) {
         print("data received ");
-        print(json.decode(response.body)['d']);
-        if (json.decode(response.body)['d'] == null) {
+        print(json.decode(response.body)['ResponseObject']);
+        Map<String, dynamic> jsonResponse = json.decode(response.body);
+        List<dynamic> resp = jsonResponse['ResponseObject'];
+        if (resp == null) {
           isValid = true;
         } else {
-          if (json.decode(response.body)['d'] == "") {
+          if (resp == "") {
             isValid = true;
           } else {
-            var responseText = json.decode(response.body)['d'].toString();
+            var responseText = resp.toString();
             if (responseText.toLowerCase().contains("successmsg"))
               isValid = true;
             else {

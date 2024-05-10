@@ -543,7 +543,7 @@ class WarehouseTerminals {
       custodianName: json['CustodianName'] == null ? "" : json['CustodianName'],
       custudian: json['CUSTODIAN'] == null ? 0 : json['CUSTODIAN'],
       iswalkinEnable:
-          json['IswalkinEnable'] == null ? 0 : json['IswalkinEnable'],
+          json['IswalkinEnable'] == null ? true : json['IswalkinEnable'],
     );
   }
 
@@ -562,7 +562,7 @@ class WarehouseTerminals {
 }
 
 class WarehouseBaseStation {
-  String organizationId;
+  int organizationId;
   String orgName;
   int cityid;
   String airportcode;
@@ -577,17 +577,17 @@ class WarehouseBaseStation {
   factory WarehouseBaseStation.fromJson(Map<String, dynamic> json) =>
       WarehouseBaseStation(
         organizationId:
-            json["OrganizationId"] == null ? "" : json["OrganizationId"],
+            json["OrgId"] == null ?0 : json["OrgId"],
         orgName: json["OrgName"] == null ? "" : json["OrgName"],
-        cityid: json["cityid"] == null ? 0 : json["cityid"],
-        airportcode: json["airportcode"] == null ? "" : json["airportcode"],
+        cityid: json["CityId"] == null ? 0 : json["CityId"],
+        airportcode: json["AirportCode"] == null ? "" : json["AirportCode"],
       );
 
   Map<String, dynamic> toMap() => {
-        "OrganizationId": organizationId,
+        "OrgId": organizationId,
         "OrgName": orgName,
-        "cityid": cityid,
-        "airportcode": airportcode,
+        "CityId": cityid,
+        "AirportCode": airportcode,
       };
 }
 

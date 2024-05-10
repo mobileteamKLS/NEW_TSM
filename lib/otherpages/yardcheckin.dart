@@ -62,16 +62,15 @@ class _YardCheckInState extends State<YardCheckIn> {
   getTerminal() async {
     var queryParams = {'UserId': 0, 'OrganizationId': 0};
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['GetBaseStation'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
 
       baseStationList = resp
           .map<WarehouseBaseStation>(
@@ -79,7 +78,7 @@ class _YardCheckInState extends State<YardCheckIn> {
           .toList();
 
       WarehouseBaseStation wt = new WarehouseBaseStation(
-          airportcode: "Select", cityid: 0, organizationId: "", orgName: "");
+          airportcode: "Select", cityid: 0, organizationId: 0, orgName: "");
       baseStationList.add(wt);
       baseStationList.sort((a, b) => a.cityid.compareTo(b.cityid));
       print("length baseStationList = " + baseStationList.length.toString());
@@ -791,16 +790,15 @@ class _YardCheckInState extends State<YardCheckIn> {
 
     var queryParams = {};
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['VehicleTypesList'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
 
       vehicletypesList = resp
           .map<Vehicletypes>((json) => Vehicletypes.fromJson(json))

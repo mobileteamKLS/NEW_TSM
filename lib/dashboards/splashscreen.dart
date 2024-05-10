@@ -181,14 +181,14 @@ class _SplashScreenState extends State<SplashScreen> {
       "OperationType": "1",
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['GetLocation'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-      var msg = json.decode(response.body)['d'];
+      print(json.decode(response.body)['ResponseObject']);
+      var msg = json.decode(response.body)['ResponseObject'];
       var resp = json.decode(msg).cast<Map<String, dynamic>>();
 
       setState(() {
@@ -466,24 +466,20 @@ class _SplashScreenState extends State<SplashScreen> {
     setState(() {
       isLoading = true;
     });
-    var queryParams = {'UserId': 0, 'OrganizationId': 0};
+    var queryParams = {'UserId': "0", 'OrganizationId': "0"};
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['GetBaseStation'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
-
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
       baseStationList = resp
           .map<WarehouseBaseStation>((json) => WarehouseBaseStation.fromJson(json))
           .toList();
-      WarehouseBaseStation wt = new WarehouseBaseStation(airportcode: "Select",cityid: 0,organizationId: "",orgName: "");
-      // baseStationList.add(wt);
       baseStationList.sort((a, b) => a.cityid.compareTo(b.cityid));
 
       print("length baseStationList = " + baseStationList.length.toString());
@@ -509,18 +505,17 @@ class _SplashScreenState extends State<SplashScreen> {
       isLoading = true;
     });
 
-    var queryParams = {};
+    var queryParams = {"":""};// original  {"AdminOrgProdId":"2"}
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['TerminalsList'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
 
       terminalsList = resp
           .map<WarehouseTerminals>((json) => WarehouseTerminals.fromJson(json))
@@ -543,7 +538,6 @@ class _SplashScreenState extends State<SplashScreen> {
       print(onError);
     });
   }
-
   getUserBranchList() async {
     if (isLoading) return;
 
@@ -555,19 +549,18 @@ class _SplashScreenState extends State<SplashScreen> {
     });
 
     var queryParams = {
-      "UserId": loggedinUser.CreatedByUserId,
+      "UserId": loggedinUser.CreatedByUserId.toString(),
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['UsersBranchList'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
 
       userOrganizationsList = resp
           .map<UserOrganizationDetails>(
@@ -613,7 +606,6 @@ class _SplashScreenState extends State<SplashScreen> {
       print(onError);
     });
   }
-
   getDamageTypeList() async {
     if (isLoading) return;
 
@@ -627,15 +619,15 @@ class _SplashScreenState extends State<SplashScreen> {
       "OperationType": "1",
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['Get_ReasonAndDamageList'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
 
       setState(() {
         damageTypeList =
@@ -655,7 +647,6 @@ class _SplashScreenState extends State<SplashScreen> {
       print(onError);
     });
   }
-
   getAcceptanceResonList() async {
     if (isLoading) return;
 
@@ -669,16 +660,15 @@ class _SplashScreenState extends State<SplashScreen> {
       "OperationType": "3",
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['Get_ReasonAndDamageList'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
 
       setState(() {
         acceptanceTypeList = resp
@@ -700,7 +690,6 @@ class _SplashScreenState extends State<SplashScreen> {
       print(onError);
     });
   }
-
   getRejectionReasonList() async {
     if (isLoading) return;
 
@@ -714,15 +703,15 @@ class _SplashScreenState extends State<SplashScreen> {
       "OperationType": "2",
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['Get_ReasonAndDamageList'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
 
       setState(() {
         rejectionReasonsList = resp
@@ -744,7 +733,6 @@ class _SplashScreenState extends State<SplashScreen> {
       print(onError);
     });
   }
-
   getVehicleTypesList() async {
     if (isLoading) return;
 
@@ -752,19 +740,19 @@ class _SplashScreenState extends State<SplashScreen> {
       isLoading = true;
     });
 
-    var queryParams = {};
+    var queryParams = {
+      "":""
+    };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['VehicleTypesList'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
-
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
       vehicletypesList = resp
           .map<Vehicletypes>((json) => Vehicletypes.fromJson(json))
           .toList();
@@ -786,7 +774,6 @@ class _SplashScreenState extends State<SplashScreen> {
       print(onError);
     });
   }
-
   getDriversList() async {
     if (isLoading) return;
 
@@ -795,10 +782,10 @@ class _SplashScreenState extends State<SplashScreen> {
     });
 
     var queryParams = {
-      "OrganisationBranchID": selectedTerminalID,
+      "OrganisationBranchID": selectedTerminalID.toString(),
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['GetDriversList'],
       queryParams,
     )
@@ -806,10 +793,9 @@ class _SplashScreenState extends State<SplashScreen> {
       print("data received ");
       // print(response.body);
 
-      print(json.decode(response.body)['d']);
-
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
 
       driverNamesList = resp
           .map<DriverDetails>((json) => DriverDetails.fromJson(json))
@@ -827,7 +813,6 @@ class _SplashScreenState extends State<SplashScreen> {
       print(onError);
     });
   }
-
   getVehicleNoList() async {
     if (isLoading) return;
 
@@ -836,21 +821,19 @@ class _SplashScreenState extends State<SplashScreen> {
     });
 
     var queryParams = {
-      "OrganisationBranchID": selectedTerminalID,
+      "OrganisationBranchID": selectedTerminalID.toString(),
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['GetVehicleNoList'],
       queryParams,
     )
         .then((response) {
       print("data received ");
       //print(response.body);
-
-      print(json.decode(response.body)['d']);
-
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
 
       vehicleNosList =
           resp.map<VehicleNos>((json) => VehicleNos.fromJson(json)).toList();
