@@ -352,14 +352,11 @@ class _SplashScreenState extends State<SplashScreen> {
                     OrgName: userDetails[1].OrgName,
                     Name: userDetails[1].Name,
                     EmailId: userDetails[1].EmailId,
-                    MobileNo: userDetails[1].MobileNo,
                     OrganizationBranchId: userDetails[1].OrganizationBranchId,
                     OrganizationId: userDetails[1].OrganizationId,
                     CreatedByUserId: userDetails[1].CreatedByUserId,
                     OrganizationTypeId: userDetails[1].OrganizationTypeId,
-                    IsWFSIntegration: userDetails[1].IsWFSIntegration,
-                    OrganizationBranchIdString: organizationsAccess,
-                    OrganizationtypeIdString: organizationTypes);
+                    );
 
                 // setPreferences(userDetails[1]);
               } else {
@@ -368,14 +365,11 @@ class _SplashScreenState extends State<SplashScreen> {
                     OrgName: userDetails[0].OrgName,
                     Name: userDetails[0].Name,
                     EmailId: userDetails[0].EmailId,
-                    MobileNo: userDetails[0].MobileNo,
                     OrganizationBranchId: userDetails[0].OrganizationBranchId,
                     OrganizationId: userDetails[0].OrganizationId,
                     CreatedByUserId: userDetails[0].CreatedByUserId,
                     OrganizationTypeId: userDetails[0].OrganizationTypeId,
-                    IsWFSIntegration: userDetails[0].IsWFSIntegration,
-                    OrganizationBranchIdString: organizationsAccess,
-                    OrganizationtypeIdString: organizationTypes);
+                );
 
                 // setPreferences(userDetails[0]);
               }

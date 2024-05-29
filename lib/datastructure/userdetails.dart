@@ -47,28 +47,21 @@ class UserDetails {
   final String OrgName;
   final String Name;
   final String EmailId;
-  final String MobileNo;
   final int OrganizationBranchId;
   final int OrganizationId;
   final int CreatedByUserId;
-  final int OrganizationTypeId;
-  final String IsWFSIntegration;
-  String OrganizationBranchIdString;
-  String OrganizationtypeIdString;
+  final String OrganizationTypeId;
 
   UserDetails({
     required this.UserId,
     required this.OrgName,
     required this.Name,
     required this.EmailId,
-    required this.MobileNo,
     required this.OrganizationBranchId,
     required this.OrganizationId,
     required this.CreatedByUserId,
     required this.OrganizationTypeId,
-    required this.IsWFSIntegration,
-    required this.OrganizationBranchIdString,
-    required this.OrganizationtypeIdString,
+
   });
 
   factory UserDetails.fromJson(Map<String, dynamic> json) {
@@ -77,7 +70,6 @@ class UserDetails {
       OrgName: json['OrgName'] == null ? "" : json['OrgName'],
       Name: json['Name'] == null ? "" : json['Name'],
       EmailId: json['EmailId'] == null ? "" : json['EmailId'],
-      MobileNo: json['MobileNo'] == null ? "" : json['MobileNo'],
       OrganizationBranchId: json['OrganizationBranchId'] == null
           ? 0
           : json['OrganizationBranchId'],
@@ -86,11 +78,8 @@ class UserDetails {
       CreatedByUserId:
           json['CreatedByUserId'] == null ? 0 : json['CreatedByUserId'],
       OrganizationTypeId:
-          json['OrganizationTypeId'] == null ? 0 : json['OrganizationTypeId'],
-      IsWFSIntegration:
-          json['IsWFSIntegration'] == null ? "" : json['IsWFSIntegration'],
-      OrganizationBranchIdString: "",
-      OrganizationtypeIdString: "",
+          json['OrganizationTypeId'] == null ? "" : json['OrganizationTypeId'],
+
     );
   }
 
@@ -100,14 +89,10 @@ class UserDetails {
     map["OrgName"] = OrgName;
     map["Name"] = Name;
     map["EmailId"] = EmailId;
-    map["MobileNo"] = MobileNo;
     map["OrganizationBranchId"] = OrganizationBranchId;
     map["OrganizationId"] = OrganizationId;
     map["CreatedByUserId"] = CreatedByUserId;
     map["OrganizationTypeId"] = OrganizationTypeId;
-    map["IsWFSIntegration"] = IsWFSIntegration;
-    map["OrganizationBranchIdString"] = OrganizationBranchIdString;
-    map["OrganizationtypeIdString"] = OrganizationtypeIdString;
     return map;
   }
 }

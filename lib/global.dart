@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:luxair/datastructure/acceptancepod.dart';
 
 import 'constants.dart';
+import 'datastructure/ipinfo.dart';
 import 'datastructure/slotbooking.dart';
 import 'datastructure/userdetails.dart';
 import 'datastructure/vehicletoken.dart';
@@ -22,14 +23,10 @@ UserDetails loggedinUser = new UserDetails(
     OrgName: "",
     Name: "",
     EmailId: "",
-    MobileNo: "",
     OrganizationBranchId: 0,
     OrganizationId: 0,
     CreatedByUserId: 0,
-    OrganizationTypeId: 0,
-    IsWFSIntegration: "",
-    OrganizationBranchIdString: "",
-    OrganizationtypeIdString: "");
+    OrganizationTypeId: "");
 String displayName = "un";
 bool isTerminalAlreadySelected = false;
 bool isWalkInEnable = false;
@@ -219,6 +216,7 @@ class Global {
     var url = Uri.parse(newURL);
     url = Uri.https(url.authority, url.path, payload);
     return await http.get(url, headers: <String, String>{
+      'accept' : "text/plain",
       'Content-Type': 'application/json; charset=UTF-8',
     }).then((http.Response response) {
       print(response.body);
@@ -238,6 +236,20 @@ class Global {
 
     //return http.get(Uri.parse('http://113.193.225.56:8080/POCMobile/api/DOAPILogin'));
   }
+
+  Future<IpInfo> fetchIpInfo() async {
+    final response = await http.get(Uri.parse("https://ipapi.co/json/"));
+    final int statusCode = response.statusCode;
+    if (statusCode <= 200 || statusCode > 400) {
+      final data = json.decode(response.body);
+      print("check_data=======${data}");
+      return IpInfo.fromJson(data);
+    } else {
+      throw Exception('Failed to load IP information');
+    }
+  }
+
+
 
   Future<Post> setData(apiname, payload) async {
     // var connectivityResult = await (Connectivity().checkConnectivity());
