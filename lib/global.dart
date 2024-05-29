@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:luxair/datastructure/acceptancepod.dart';
-
 import 'constants.dart';
 import 'datastructure/ipinfo.dart';
 import 'datastructure/slotbooking.dart';
@@ -77,7 +76,6 @@ class Global {
     //}
   }
 
-
   Future<Post> getData(service, payload) async {
     print("payload " + payload.toString());
     print("encoded payload " + json.encode(payload));
@@ -89,72 +87,6 @@ class Global {
     return fetchDataGET(service, payload);
     //}
   }
-
-  Future<Post> postDatav2(service, payload) async {
-    print("payload " + payload.toString());
-    print("encoded payload " + json.encode(payload));
-
-    // var connectivityResult = await (Connectivity().checkConnectivity());
-    // if (connectivityResult == ConnectivityResult.none) {
-    //   this.showToast("No internet Connection Available !");
-    // } else {
-    return fetchDataPOSTv2(service, payload);
-    //}
-  }
-  Future<Post> fetchDataPOSTv2(apiname, payload) async {
-    var newURL = Settings.ACSServiceURLV2 + apiname;
-    print("fetch data for API = " + newURL);
-    if (payload == "") {
-      print("payload blank");
-      return await http.post(
-        Uri.parse(newURL),
-        body: json.encode({}),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      ).then((http.Response response) {
-        print(response.body);
-        print(response.statusCode);
-
-        final int statusCode = response.statusCode;
-        if (statusCode == 401) {
-          return Post.fromJson(response.body, statusCode);
-        }
-        //  if (statusCode == 404) {
-        //   return Post.fromJson(response.body, statusCode);
-        // }
-        if (statusCode < 200 || statusCode > 400) {
-          throw new Exception("Error while fetching data");
-        }
-        print("sending data to post");
-        return Post.fromJson(response.body, statusCode);
-      });
-    } else {
-      return await http.post(
-        Uri.parse(newURL),
-        body: json.encode(payload),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      ).then((http.Response response) {
-        print(response.body);
-        print(response.statusCode);
-
-        final int statusCode = response.statusCode;
-        if (statusCode == 401) {
-          return Post.fromJson(response.body, statusCode);
-        }
-        if (statusCode < 200 || statusCode > 400) {
-          return Post.fromJson(response.body, statusCode);
-        }
-        print("sending data to post");
-        return Post.fromJson(response.body, statusCode);
-      });
-    }
-
-    //return http.get(Uri.parse('http://113.193.225.56:8080/POCMobile/api/DOAPILogin'));
-  }
-
 
   Future<Post> fetchDataPOST(apiname, payload) async {
     var newURL = Settings.ACSServiceURL + apiname;
@@ -215,12 +147,20 @@ class Global {
     print("fetch data for API = " + newURL);
     var url = Uri.parse(newURL);
     url = Uri.https(url.authority, url.path, payload);
+//<<<<<<< HEAD
     return await http.get(url, headers: <String, String>{
-      'accept' : "text/plain",
+      'accept': "text/plain",
       'Content-Type': 'application/json; charset=UTF-8',
     }).then((http.Response response) {
       print(response.body);
       print(response.statusCode);
+//=======
+      /*return await http.get(url, headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      }).then((http.Response response) {
+        print(response.body);
+        print(response.statusCode);*/
+//>>>>>>> e571877f92eb04d489a3871267d6f8b4ec2199bd
 
       final int statusCode = response.statusCode;
       if (statusCode == 401) {
@@ -233,7 +173,6 @@ class Global {
       return Post.fromJson(response.body, statusCode);
     });
 
-
     //return http.get(Uri.parse('http://113.193.225.56:8080/POCMobile/api/DOAPILogin'));
   }
 
@@ -242,14 +181,11 @@ class Global {
     final int statusCode = response.statusCode;
     if (statusCode <= 200 || statusCode > 400) {
       final data = json.decode(response.body);
-      print("check_data=======${data}");
       return IpInfo.fromJson(data);
     } else {
       throw Exception('Failed to load IP information');
     }
   }
-
-
 
   Future<Post> setData(apiname, payload) async {
     // var connectivityResult = await (Connectivity().checkConnectivity());
@@ -267,29 +203,29 @@ class Global {
     print("payload " + json.encode(payload));
     return await http
         .post(
-      Uri.parse(newURL),
-      body: json.encode(payload),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    )
+          Uri.parse(newURL),
+          body: json.encode(payload),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        )
         .then((http.Response response) {
-      print("response received");
-      print(response.body);
+          print("response received");
+          print(response.body);
 
-      final int statusCode = response.statusCode;
-      if (statusCode == 401) {
-        return Post.fromJson(response.body, statusCode);
-      }
-      if (statusCode < 200 || statusCode > 400 || json == null) {
-        throw new Exception("Error while fetching data");
-      }
-      return Post.fromJson(response.body, statusCode);
-    })
+          final int statusCode = response.statusCode;
+          if (statusCode == 401) {
+            return Post.fromJson(response.body, statusCode);
+          }
+          if (statusCode < 200 || statusCode > 400 || json == null) {
+            throw new Exception("Error while fetching data");
+          }
+          return Post.fromJson(response.body, statusCode);
+        })
         .catchError((onError) {})
         .whenComplete(() {
-      print("completed");
-    })
+          print("completed");
+        })
         .catchError((onError) => print(onError));
   }
 
@@ -321,6 +257,21 @@ class Global {
       return Post.fromJson(response.body, statusCode);
     });
   }
+
+  getVehicleData() async {
+    var params = {"OrgID": "2"};
+    var url = Uri.parse(
+        'https://acsintapigateway.kalelogistics.com/api_tsm/SrvMobile/GetVehicleType');
+    url = Uri.https(url.authority, url.path, params);
+    http.Response response = await http.get(url, headers: <String, String>{
+      'Content-Type': 'application/json; charset=UTF-8',
+    });
+    if (response.statusCode == 200) {
+      print("-----success-----------");
+      var result = jsonDecode(response.body);
+      print(result);
+    }
+  }
 }
 
 class Post {
@@ -341,21 +292,5 @@ class Post {
     map["statusCode"] = statusCode;
     map["body"] = body;
     return map;
-  }
-}
-
-getData() async{
-  var params = {
-    "OrgID": "2"
-  };
-  var url = Uri.parse('https://acsintapigateway.kalelogistics.com/api_tsm/SrvMobile/GetVehicleType');
-  url = Uri.https(url.authority, url.path, params);
-  http.Response response = await http.get(url, headers: <String, String>{
-    'Content-Type': 'application/json; charset=UTF-8',
-  });
-  if (response.statusCode == 200) {
-    print("-----success-----------");
-    var result = jsonDecode(response.body);
-    print(result);
   }
 }

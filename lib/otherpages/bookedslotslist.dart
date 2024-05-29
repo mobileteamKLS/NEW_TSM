@@ -828,18 +828,18 @@ class _BookedSlotsListState extends State<BookedSlotsList> {
             "OrganisationID": loggedinUser.OrganizationId.toString(),
             "organizationBranchID":
                 loggedinUser.OrganizationBranchId.toString(),
-            "createdByID": loggedinUser.CreatedByUserId,
+            "createdByID": loggedinUser.CreatedByUserId.toString(),
             "isWFSIntegrated": "0",
           }
         : queryParams = {
             "OrganisationID": loggedinUser.OrganizationId.toString(),
             "organizationBranchID":
                 loggedinUser.OrganizationBranchId.toString(),
-            "createdByID": loggedinUser.CreatedByUserId,
+            "createdByID": loggedinUser.CreatedByUserId.toString(),
             "isWFSIntegrated": "0",
           };
     await Global()
-        .postData(
+        .getData(
       selectedMode == "Import"
           ? Settings.SERVICES['BookedSlotsListImport']
           : Settings.SERVICES['BookedSlotsListExport'],
@@ -847,10 +847,9 @@ class _BookedSlotsListState extends State<BookedSlotsList> {
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
 
       if (selectedMode == "Import") {
         bookedSlotsListImport = resp
