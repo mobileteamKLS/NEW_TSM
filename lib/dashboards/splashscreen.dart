@@ -194,7 +194,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
       setState(() {
 
-        locationDetailsSaved = responseObjectList.map((e) => LocationDetails.fromJson(e)).toList();
+        locationDetailsSaved = resp.map((e) => LocationDetails.fromJson(e)).toList();
 
         /*
         locationDetailsSaved = resp
@@ -288,8 +288,7 @@ class _SplashScreenState extends State<SplashScreen> {
         // print(response);
         //https://yvruatsrv.kalelogistics.com/srvmobile.asmx?op=AUTGetLoginUserDetailByUserId
         var inValidMsg = "Please enter valid credentials.";
-        if (json.decode(response.body)['d'].toString().toLowerCase() ==
-            inValidMsg.toLowerCase()) {
+        if (json.decode(response.body)['ResponseObject'] == null) {
           print('Provided Username and Password is incorrect');
           isValid = false;
         } else {
@@ -298,11 +297,66 @@ class _SplashScreenState extends State<SplashScreen> {
           isTruckerFF = false;
           isTPS = false;
 
+          var msg = json.decode(response.body)['ResponseObject'];
+          // var parsed = json.decode(msg)['StatusMessage'];
+          // var table = json.decode(parsed)['Table'];
+
+
+          print("check_msg_responce==== ${msg}");
+
+          print("check_user_business_type======== ${msg['UserBusinesslineList'][0]['BusinessType']}");
+
+          String userType = msg['UserBusinesslineList'][0]['BusinessType'];
+
+          if(userType.contains("GHA")){
+            isGHA = true;
+          }else if(userType.contains("Agent")){
+            isTruckerFF = true;
+          }else if(userType.contains("Trucker")){
+            isTrucker = true;
+          }else if(userType.contains("TPS")){
+            isTPS = true;
+          }
+
+          String userID = msg['LoginName'];
+          String OrgName = msg['OrgName'];
+          String Name = "${msg['FirstName']} ${msg['LastName']}";
+          String EmailId = msg['BusinessEmailId'];
+          int OrganizationBranchId = msg['BranchId'];
+          int OrganizationId = msg['OrgId'];
+          int CreatedByUserId = msg['UserId'];
+          String OrganizationTypeId = userType;
+
+
+
+          Map<String, dynamic> userInfo = {
+
+            "UserId" : userID,
+            "OrgName" : OrgName,
+            "Name" : Name,
+            "EmailId" : EmailId,
+            "OrganizationBranchId" : OrganizationBranchId,
+            "OrganizationId" : OrganizationId,
+            "CreatedByUserId" : CreatedByUserId,
+            "OrganizationTypeId" : OrganizationTypeId,
+          };
+
+
+          print("checkData======= ${userInfo}");
+
+
+          loggedinUser = UserDetails.fromJson(userInfo);
+          //setPreferences(loggedinUser);
+
+
           // showLoadingDialog(context, true);
           // print(json.decode(response.body)['d']);
           // var msg = json.decode(response.body)['d'];
 
-          var msg = json.decode(response.body)['d'];
+
+
+
+          /*var msg = json.decode(response.body)['d'];
           // var parsed = json.decode(msg)['StatusMessage'];
           // var table = json.decode(parsed)['Table'];
 
@@ -375,7 +429,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
                 // setPreferences(userDetails[0]);
               }
-            });
+            });*/
           isValid = true;
           // showLoadingDialog(context, false);
         }
@@ -471,6 +525,8 @@ class _SplashScreenState extends State<SplashScreen> {
     setState(() {
       isLoading = true;
     });
+
+
     var queryParams = {'UserId': "0", 'OrganizationId': "0"};
 
     await Global()
@@ -523,9 +579,16 @@ class _SplashScreenState extends State<SplashScreen> {
         .then((response) {
       print("data received ");
       print(json.decode(response.body)['ResponseObject']);
-minalsList = responseObjectList.map((e) => WarehouseTerminals.fromJson(e)).toList();
+
+     /* terminalsList = responseObjectList.map((e) => WarehouseTerminals.fromJson(e)).toList();
       Map<String, dynamic> jsonResponse = json.decode(response.body);
-      List<dynamic> resp = jsonResponse['ResponseObject'];
+      List<dynamic> resp = jsonResponse['ResponseObject'];*/
+
+
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
+
+      terminalsList = responseObjectList.map((e) => WarehouseTerminals.fromJson(e)).toList();
 
 
 
@@ -577,7 +640,7 @@ minalsList = responseObjectList.map((e) => WarehouseTerminals.fromJson(e)).toLis
       List<dynamic> resp = jsonResponse['ResponseObject'];
 
 
-      userOrganizationsList = responseObjectList.map((e) => UserOrganizationDetails.fromJson(e)).toList();
+      userOrganizationsList = resp.map((e) => UserOrganizationDetails.fromJson(e)).toList();
 
       /*userOrganizationsList = resp
           .map<UserOrganizationDetails>(
