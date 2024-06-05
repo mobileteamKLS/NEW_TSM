@@ -96,7 +96,10 @@ class _DashboardsState extends State<Dashboards> {
     dummyList = [];
     selectedBaseStationBranchID = 0;
     selectedBaseStationBranch = "Select Terminal";
-    var queryParams = {"CityId": cityId.toString(), "OrganizationId": loggedinUser.OrganizationId.toString(), "UserId": loggedinUser.CreatedByUserId.toString()};
+
+
+
+    var queryParams = {"CityId": cityId.toString(), "OrganizationId": loggedinUser.OrganizationId, "UserId": loggedinUser.CreatedByUserId.toString()};
     await Global()
         .getData(
       Settings.SERVICES['GetBaseStationBranch'],
@@ -725,16 +728,10 @@ class _DashboardsState extends State<Dashboards> {
                                                               OrgName: "",
                                                               Name: "",
                                                               EmailId: "",
-                                                              MobileNo: "",
                                                               OrganizationBranchId: 0,
                                                               OrganizationId: 0,
                                                               CreatedByUserId: 0,
-                                                              OrganizationTypeId: 0,
-                                                              IsWFSIntegration: "",
-                                                              OrganizationBranchIdString:
-                                                              "",
-                                                              OrganizationtypeIdString:
-                                                              "");
+                                                              OrganizationTypeId: "");
                                                           selectedTerminal = "";
                                                           Navigator.pushReplacement(
                                                             context,
@@ -784,16 +781,10 @@ class _DashboardsState extends State<Dashboards> {
                                                                 OrgName: "",
                                                                 Name: "",
                                                                 EmailId: "",
-                                                                MobileNo: "",
                                                                 OrganizationBranchId: 0,
                                                                 OrganizationId: 0,
                                                                 CreatedByUserId: 0,
-                                                                OrganizationTypeId: 0,
-                                                                IsWFSIntegration: "",
-                                                                OrganizationBranchIdString:
-                                                                "",
-                                                                OrganizationtypeIdString:
-                                                                "");
+                                                                OrganizationTypeId: "");
                                                             selectedTerminal = "";
                                                             Navigator.pushReplacement(
                                                               context,
@@ -854,16 +845,11 @@ class _DashboardsState extends State<Dashboards> {
                                                                 OrgName: "",
                                                                 Name: "",
                                                                 EmailId: "",
-                                                                MobileNo: "",
                                                                 OrganizationBranchId: 0,
                                                                 OrganizationId: 0,
                                                                 CreatedByUserId: 0,
-                                                                OrganizationTypeId: 0,
-                                                                IsWFSIntegration: "",
-                                                                OrganizationBranchIdString:
-                                                                "",
-                                                                OrganizationtypeIdString:
-                                                                "");
+                                                                OrganizationTypeId: "",
+                                                            );
                                                             selectedTerminal = "";
                                                             Navigator.pushReplacement(
                                                               context,
@@ -927,15 +913,11 @@ class _DashboardsState extends State<Dashboards> {
                                                               OrgName: "",
                                                               Name: "",
                                                               EmailId: "",
-                                                              MobileNo: "",
                                                               OrganizationBranchId: 0,
                                                               OrganizationId: 0,
                                                               CreatedByUserId: 0,
-                                                              OrganizationTypeId: 0,
-                                                              IsWFSIntegration: "",
-                                                              OrganizationBranchIdString:
-                                                              "",
-                                                              OrganizationtypeIdString: "");
+                                                              OrganizationTypeId: ""
+                                                          );
 
                                                           Navigator.pushReplacement(
                                                             context,

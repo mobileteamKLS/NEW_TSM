@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:luxair/datastructure/acceptancepod.dart';
 
 import 'constants.dart';
+import 'datastructure/ipinfo.dart';
 import 'datastructure/slotbooking.dart';
 import 'datastructure/userdetails.dart';
 import 'datastructure/vehicletoken.dart';
@@ -22,14 +23,10 @@ UserDetails loggedinUser = new UserDetails(
     OrgName: "",
     Name: "",
     EmailId: "",
-    MobileNo: "",
     OrganizationBranchId: 0,
     OrganizationId: 0,
     CreatedByUserId: 0,
-    OrganizationTypeId: 0,
-    IsWFSIntegration: "",
-    OrganizationBranchIdString: "",
-    OrganizationtypeIdString: "");
+    OrganizationTypeId: "");
 String displayName = "un";
 bool isTerminalAlreadySelected = false;
 bool isWalkInEnable = false;
@@ -243,6 +240,19 @@ class Global {
       return Post.fromJson(response.body, statusCode);
     });
   }
+
+
+  Future<IpInfo> fetchIpInfo() async {
+    final response = await http.get(Uri.parse("https://ipapi.co/json/"));
+    final int statusCode = response.statusCode;
+    if (statusCode <= 200 || statusCode > 400) {
+      final data = json.decode(response.body);
+      return IpInfo.fromJson(data);
+    } else {
+      throw Exception('Failed to load IP information');
+    }
+  }
+
 }
 
 class Post {

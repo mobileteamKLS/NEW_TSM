@@ -15,6 +15,7 @@ import 'package:luxair/widgets/headers.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 import '../constants.dart';
+import '../datastructure/ipinfo.dart';
 import '../global.dart';
 import 'dart:convert';
 
@@ -41,12 +42,15 @@ class _LoginPageState extends State<LoginPage> {
   bool isPasswordEntered = true;
   bool isLoading = false, isLoadingMain = false, showLabel = false;
 
+  IpInfo? ipInfo;
+
   @override
   void initState() {
     //getLabelStatus();
     super.initState();
-  }
+    fetchIpInfo();
 
+  }
   @override
   Widget build(BuildContext context) {
     var smallestDimension = MediaQuery.of(context).size.shortestSide;
@@ -676,7 +680,7 @@ class _LoginPageState extends State<LoginPage> {
 
       setState(() {
 
-        locationDetailsSaved = responseObjectList.map((e) => LocationDetails.fromJson(e)).toList();
+        locationDetailsSaved = resp.map((e) => LocationDetails.fromJson(e)).toList();
 
 
         /*locationDetailsSaved = resp
@@ -798,15 +802,19 @@ class _LoginPageState extends State<LoginPage> {
     try {
       bool isValid = false;
       print("This is new function");
-      userCred['pUserID'] = userNameController.text;
-      userCred['pPassword'] = passWordController.text;
+      userCred['LoginName'] = userNameController.text;
+      userCred['LoginPassword'] = passWordController.text;
+      userCred['IpAddress'] = ipInfo!.ip.toString();
+      userCred['IpCity'] = ipInfo!.city.toString();
+      userCred['IpCountry'] = ipInfo!.country.toString();
+      userCred['IpOrg'] = ipInfo!.org.toString();
 
       setState(() {
         isLoading = true;
       });
       //showLoadingDialog(context, true);
       await Global()
-          .getData(
+          .postData(
         Settings.SERVICES['Login'],
         userCred,
       )
@@ -817,8 +825,7 @@ class _LoginPageState extends State<LoginPage> {
         //  showLoadingDialog(context, false);
         // print(response);
         var inValidMsg = "Please enter valid credentials.";
-        if (json.decode(response.body)['d'].toString().toLowerCase() ==
-            inValidMsg.toLowerCase()) {
+        if (json.decode(response.body)['ResponseObject'] == null) {
           print('Provided Username and Password is incorrect');
           isValid = false;
 
@@ -833,11 +840,61 @@ class _LoginPageState extends State<LoginPage> {
           // print(json.decode(response.body)['d']);
           // var msg = json.decode(response.body)['d'];
 
-          var msg = json.decode(response.body)['d'];
+          var msg = json.decode(response.body)['ResponseObject'];
           // var parsed = json.decode(msg)['StatusMessage'];
           // var table = json.decode(parsed)['Table'];
 
-          var resp = json.decode(msg).cast<Map<String, dynamic>>();
+
+          print("check_msg_responce==== ${msg}");
+
+          print("check_user_business_type======== ${msg['UserBusinesslineList'][0]['BusinessType']}");
+
+          String userType = msg['UserBusinesslineList'][0]['BusinessType'];
+
+          if(userType.contains("GHA")){
+            isGHA = true;
+          }else if(userType.contains("Agent")){
+            isTruckerFF = true;
+          }else if(userType.contains("Trucker")){
+            isTrucker = true;
+          }else if(userType.contains("TPS")){
+            isTPS = true;
+          }
+
+          String userID = msg['LoginName'];
+          String OrgName = msg['OrgName'];
+          String Name = "${msg['FirstName']} ${msg['LastName']}";
+          String EmailId = msg['BusinessEmailId'];
+          int OrganizationBranchId = msg['BranchId'];
+          int OrganizationId = msg['OrgId'];
+          int CreatedByUserId = msg['UserId'];
+          String OrganizationTypeId = userType;
+
+
+
+          Map<String, dynamic> userInfo = {
+
+            "UserId" : userID,
+            "OrgName" : OrgName,
+            "Name" : Name,
+            "EmailId" : EmailId,
+            "OrganizationBranchId" : OrganizationBranchId,
+            "OrganizationId" : OrganizationId,
+            "CreatedByUserId" : CreatedByUserId,
+            "OrganizationTypeId" : OrganizationTypeId,
+          };
+
+
+          print("checkData======= ${userInfo}");
+
+
+          loggedinUser = UserDetails.fromJson(userInfo);
+          setPreferences(loggedinUser);
+
+
+
+
+          /* var resp = json.decode(msg).cast<Map<String, dynamic>>();
           var resp1 = json.decode(msg).cast<Map<String, dynamic>>();
           userDetails = resp
               .map<UserDetails>((json) => UserDetails.fromJson(json))
@@ -906,7 +963,7 @@ class _LoginPageState extends State<LoginPage> {
 
                 setPreferences(userDetails[0]);
               }
-            });
+            });*/
           isValid = true;
           showLoadingDialog(context, false);
         }
@@ -1354,7 +1411,7 @@ class _LoginPageState extends State<LoginPage> {
       print("data received ");
       print(json.decode(response.body)['ResponseObject']);
       Map<String, dynamic> jsonResponse = json.decode(response.body);
-      List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
+      List<dynamic> resp = jsonResponse['ResponseObject'];
     
 
       baseStationList2 = resp
@@ -1390,7 +1447,23 @@ class _LoginPageState extends State<LoginPage> {
     prefs.setInt("UserId_WFS_LUX", _userDets.CreatedByUserId);
     prefs.setInt("OrganizationId_WFS_LUX", _userDets.OrganizationId);
     prefs.setInt("OrganizationBranchId_WFS_LUX", _userDets.OrganizationBranchId);
-    prefs.setInt("OrganizationTypeId_WFS_LUX", _userDets.OrganizationTypeId);
+    //prefs.setInt("OrganizationTypeId_WFS_LUX", _userDets.OrganizationTypeId);
+  }
+
+  Future<void> fetchIpInfo() async {
+    try {
+      final fetchedIpInfo = await Global().fetchIpInfo();
+      print("check_Api=======${fetchedIpInfo.ip}");
+
+      setState(() {
+        ipInfo = fetchedIpInfo;
+      });
+    } catch (e) {
+      setState(() {
+        // Update the state to reflect the error if needed
+      });
+      print('Failed to load IP information: $e');
+    }
   }
 
   // showAlertDialog(context, buttonText, titleText, msgText) {
