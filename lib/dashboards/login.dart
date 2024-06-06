@@ -30,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
   bool showPassword = false;
   bool useMobileLayout = false;
   static List<UserDetails> userDetails = [];
-  static final userCred = {'pUserID': "", "pPassword": ""};
+  static final userCred = {'LoginName': "", "LoginPassword": "", "IpAddress" : "", "IpCity" : "", "IpCountry" : "", "IpOrg" : ""};
   static List<UserOrganizationDetails> userOrganizationsList = [];
   static List<WarehouseTerminals> userTerminallist = [];
   static List<LableDisplay> lblDisplay = [];
