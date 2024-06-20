@@ -632,17 +632,17 @@ class WarehouseBaseStationTrucker {
   factory WarehouseBaseStationTrucker.fromJson(Map<String, dynamic> json) =>
       WarehouseBaseStationTrucker(
         organizationId:
-            json["OrgId"] == null ? 0 : json["OrgId"],
+            json["OrganizationId"] == null ? 0 : json["OrganizationId"],
         orgName: json["OrgName"] == null ? "" : json["OrgName"],
-        cityid: json["CityId"] == null ? 0 : json["CityId"],
-        airportcode: json["AirportCode"] == null ? "" : json["AirportCode"],
+        cityid: json["cityid"] == null ? 0 : json["cityid"],
+        airportcode: json["airportcode"] == null ? "" : json["airportcode"],
       );
 
   Map<String, dynamic> toMap() => {
-        "OrgId": organizationId,
+        "OrganizationId": organizationId,
         "OrgName": orgName,
-        "CityId": cityid,
-        "AirportCode": airportcode,
+        "cityid": cityid,
+        "airportcode": airportcode,
       };
 }
 

@@ -671,9 +671,28 @@ class _LoginPageState extends State<LoginPage> {
         .getData(
       Settings.SERVICES['GetLocation'],
       queryParams,
-    )
-        .then((response) {
-      print("data received ");
+    ).then((response) {
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
+
+
+      locationDetailsSaved = resp
+          .map<LocationDetails>(
+              (json) => LocationDetails.fromJson(json))
+          .toList();
+      /*WarehouseBaseStationTrucker wt = new WarehouseBaseStationTrucker(
+          airportcode: "Select", cityid: 0, organizationId: 0, orgName: "");
+      baseStationList2.add(wt);
+      baseStationList2.sort((a, b) => a.cityid.compareTo(b.cityid));*/
+
+      print("length baseStationList = " + locationDetailsSaved.length.toString());
+
+      setState(() {
+        isLoading = false;
+      });
+
+          /*  print("data received ");
       print(json.decode(response.body)['ResponseObject']);
       var msg = json.decode(response.body)['ResponseObject'];
       var resp = json.decode(msg).cast<Map<String, dynamic>>();
@@ -683,14 +702,10 @@ class _LoginPageState extends State<LoginPage> {
         locationDetailsSaved = resp.map((e) => LocationDetails.fromJson(e)).toList();
 
 
-        /*locationDetailsSaved = resp
-            .map<LocationDetails>((json) => LocationDetails.fromJson(json))
-            .toList();*/
-
         print("length locationDetailsSaved = " +
             locationDetailsSaved.length.toString());
         isLoading = false;
-      });
+      });*/
     }).catchError((onError) {
       // setState(() {
       //   isLoading = false;
@@ -1085,7 +1100,7 @@ class _LoginPageState extends State<LoginPage> {
     });
 
     var queryParams = {
-      "UserId": loggedinUser.CreatedByUserId,
+      "UserId": loggedinUser.CreatedByUserId.toString(),
     };
     await Global()
         .getData(
@@ -1097,6 +1112,12 @@ class _LoginPageState extends State<LoginPage> {
       print(json.decode(response.body)['ResponseObject']);
       Map<String, dynamic> jsonResponse = json.decode(response.body);
       List<dynamic> resp = jsonResponse['ResponseObject'];
+          /* print("data received ");
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];*/
+
+      print("cehck_data_recevied==== ${resp}");
 
       userOrganizationsList = resp
           .map<UserOrganizationDetails>(
@@ -1280,7 +1301,9 @@ class _LoginPageState extends State<LoginPage> {
       isLoading = true;
     });
 
-    var queryParams = {};
+    var queryParams = {
+      "OrgID":"2"
+    };
     await Global()
         .getData(
       Settings.SERVICES['VehicleTypesList'],
@@ -1322,7 +1345,7 @@ class _LoginPageState extends State<LoginPage> {
     });
 
     var queryParams = {
-      "OrganisationBranchID": selectedTerminalID,
+      "OrganisationBranchID": selectedTerminalID.toString(),
     };
     await Global()
         .getData(
@@ -1362,7 +1385,7 @@ class _LoginPageState extends State<LoginPage> {
     });
 
     var queryParams = {
-      "OrganisationBranchID": selectedTerminalID,
+      "OrganisationBranchID": loggedinUser.OrganizationBranchId.toString(),
     };
     await Global()
         .getData(
@@ -1399,8 +1422,8 @@ class _LoginPageState extends State<LoginPage> {
       isLoading = true;
     });
     var queryParams = {
-      'UserId': loggedinUser.CreatedByUserId,
-      'OrganizationId': loggedinUser.OrganizationId
+      'UserId': loggedinUser.CreatedByUserId.toString(),
+      'OrganizationId': loggedinUser.OrganizationId.toString()
     };
     await Global()
         .getData(
@@ -1412,15 +1435,16 @@ class _LoginPageState extends State<LoginPage> {
       print(json.decode(response.body)['ResponseObject']);
       Map<String, dynamic> jsonResponse = json.decode(response.body);
       List<dynamic> resp = jsonResponse['ResponseObject'];
-    
+
+
 
       baseStationList2 = resp
           .map<WarehouseBaseStationTrucker>(
               (json) => WarehouseBaseStationTrucker.fromJson(json))
           .toList();
-      WarehouseBaseStationTrucker wt = new WarehouseBaseStationTrucker(
+    /*  WarehouseBaseStationTrucker wt = new WarehouseBaseStationTrucker(
           airportcode: "Select", cityid: 0, organizationId: 0, orgName: "");
-      baseStationList2.add(wt);
+      baseStationList2.add(wt);*/
       baseStationList2.sort((a, b) => a.cityid.compareTo(b.cityid));
 
       print("length baseStationList = " + baseStationList2.length.toString());

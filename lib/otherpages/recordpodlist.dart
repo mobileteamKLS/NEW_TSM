@@ -64,7 +64,7 @@ class _RecordPodListState extends State<RecordPodList> {
     var queryParams = {
       "OperationType": modeType.toString(), // "",
       "OrganizationBranchId":
-      selectedBaseStationBranchID, //  loggedinUser.OrganizationBranchId,
+      selectedBaseStationBranchID.toString(), //  loggedinUser.OrganizationBranchId,
     };
     await Global()
         .getData(

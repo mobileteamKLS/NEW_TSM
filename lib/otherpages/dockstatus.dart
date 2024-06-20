@@ -3031,7 +3031,7 @@ class _LiveDockStatusState extends State<LiveDockStatus> {
           selectedTerminalID.toString(), // loggedinUser.OrganizationBranchId,
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['LiveQueueStatus'],
       queryParams,
     )

@@ -230,33 +230,37 @@ class _DockInState extends State<DockIn> {
     var queryParams = {
       "OperationType": modeType.toString(),
       // "",
-      "OrganizationBranchId": selectedBaseStationBranchID,
+      "OrganizationBranchId": selectedBaseStationBranchID.toString(),
       //selectedTerminalID, // loggedinUser.OrganizationBranchId,
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['DockInList'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
 
-      var msg = json.decode(response.body)['d'];
-      if (msg == "[]") {
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
+
+
+      if (resp.isEmpty) {
         setState(() {
           hasNoRecord = true;
         });
       }
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
 
       if (modeType == 2) //export
         dockInOutVTListExport = resp
-            .map<DockInOutVT>((json) => DockInOutVT.fromJson(json))
+            .map<DockInOutVT>(
+                (json) => DockInOutVT.fromJson(json))
             .toList();
       else
         dockInOutVTListImport = resp
-            .map<DockInOutVT>((json) => DockInOutVT.fromJson(json))
+            .map<DockInOutVT>(
+                (json) => DockInOutVT.fromJson(json))
             .toList();
 
       print("length dockInOutVTListExport = " +
