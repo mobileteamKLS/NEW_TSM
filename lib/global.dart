@@ -32,7 +32,7 @@ bool isTerminalAlreadySelected = false;
 bool isWalkInEnable = false;
 String selectedTerminal = "";
 String selectedBaseStation = "Select";
-String selectedBaseStationBranch = "";
+String selectedBaseStationBranch = "Select Terminal";
 int selectedTerminalID = 0;
 int selectedBaseStationID = 0;
 int selectedBaseStationBranchID = 0;
@@ -53,6 +53,7 @@ List<AirlinesPrefix> airlinesPrefixList = [];
 
 List<AcceptanceType> acceptanceTypeList = [];
 List<LocationDetails> locationDetailsSaved = [];
+List<GeofencingInfo> geofencingInfo = [];
 
 List<VehicleNos> vehicleNosList = [];
 List<DriverDetails> driverNamesList = [];

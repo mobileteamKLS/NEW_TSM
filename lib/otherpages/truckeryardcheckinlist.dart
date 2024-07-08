@@ -180,46 +180,7 @@ class _TruckYardCheckInListState extends State<TruckYardCheckInList> {
     });
   }
 
-  getGeoLocationOfStation(modeType) async {
-    var queryParams = {
-      "OperationType": modeType.toString(),
-      "OrganizationId": selectedBaseStationBranchID.toString(),
-      "VTNo": ""
-    };
-    await Global()
-        .getData(
-      Settings.SERVICES['VtDetailsMore'],
-      queryParams,
-    )
-        .then((response) {
-      print("data received ");
-      print(json.decode(response.body)['ResponseObject']);
-      Map<String, dynamic> jsonResponse = json.decode(response.body);
-      List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
-      baseStationBranchList = responseObjectList.map((e) => WarehouseBaseStationBranch.fromJson(e)).toList();
 
-
-
-      WarehouseBaseStationBranch wt = new WarehouseBaseStationBranch(
-          orgName: "",
-          organizationId: 0,
-          organizationBranchId: 0,
-          orgBranchName: "Select");
-      // baseStationBranchList.add(wt);
-      baseStationBranchList.sort(
-              (a, b) => a.organizationBranchId.compareTo(b.organizationBranchId));
-
-      print("length baseStationList = " +
-          baseStationBranchList.length.toString());
-      print(baseStationBranchList.toString());
-      setState(() {});
-    }).catchError((onError) {
-      // setState(() {
-      //   isLoading = false;
-      // });
-      print(onError);
-    });
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -856,3 +856,127 @@ class LableDisplay {
     return map;
   }
 }
+
+class GeofencingInfo {
+  int rowid;
+  String tokenno;
+  String tokendate;
+  String vehicleNo;
+  String drivername;
+  String dlno;
+  int pieces;
+  double grossweight;
+  String remark;
+  int iscancelled;
+  int isexpired;
+  String createdby;
+  String lastmodifiedby;
+  String lastModified;
+  bool isdeleted;
+  String drivermobileno;
+  String email;
+  int tpscheckInstatus;
+  String tpscheckInTimestamp;
+  int dockInstatus;
+  String dockInTimestamp;
+  int dockoutstatus;
+  String dockoutTimestamp;
+  String slottime;
+  String assignedDockName;
+  double latitude;
+  double longitude;
+  double radiusInKm;
+
+  GeofencingInfo({
+    required this.rowid,
+    required this.tokenno,
+    required this.tokendate,
+    required this.vehicleNo,
+    required this.drivername,
+    required this.dlno,
+    required this.pieces,
+    required this.grossweight,
+    required this.remark,
+    required this.iscancelled,
+    required this.isexpired,
+    required this.createdby,
+    required this.lastmodifiedby,
+    required this.lastModified,
+    required this.isdeleted,
+    required this.drivermobileno,
+    required this.email,
+    required this.tpscheckInstatus,
+    required this.tpscheckInTimestamp,
+    required this.dockInstatus,
+    required this.dockInTimestamp,
+    required this.dockoutstatus,
+    required this.dockoutTimestamp,
+    required this.slottime,
+    required this.assignedDockName,
+    required this.latitude,
+    required this.longitude,
+    required this.radiusInKm,
+  });
+
+  factory GeofencingInfo.fromJson(Map<String, dynamic> json) => GeofencingInfo(
+    rowid: json["ROWID"]== null ? 0 :json["ROWID"] ,
+    tokenno: json["TOKENNO"]== null ? "" :json["TOKENNO"] ,
+    tokendate: json["TOKENDATE"]== null ? "" :json["TOKENDATE"] ,
+    vehicleNo: json["VehicleNo"]== null ? "" :json["VehicleNo"] ,
+    drivername: json["DRIVERNAME"]== null ? "" :json["DRIVERNAME"] ,
+    dlno: json["DLNO"]== null ? "" :json["DLNO"] ,
+    pieces: json["PIECES"]== null ? 0 :json["PIECES"] ,
+    grossweight: json["GROSSWEIGHT"]== null ? 0 :json["GROSSWEIGHT"] ,
+    remark: json["Remark"]== null ? "" :json["Remark"],
+    iscancelled: json["ISCANCELLED"]== null ? "" :json["ISCANCELLED"] ,
+    isexpired: json["ISEXPIRED"]== null ? "" :json["ISEXPIRED"] ,
+    createdby: json["createdby"]== null ? "" :json["createdby"] ,
+    lastmodifiedby: json["lastmodifiedby"]== null ? "" :json["lastmodifiedby"] ,
+    lastModified: json["LastModified"]== null ? "" :json["LastModified"] ,
+    isdeleted: json["isdeleted"],
+    drivermobileno: json["drivermobileno"]== null ? "" :json["drivermobileno"] ,
+    email: json["Email"]== null ? "" :json["Email"] ,
+    tpscheckInstatus: json["tpscheckInstatus"]== null ? 0 :json["tpscheckInstatus"] ,
+    tpscheckInTimestamp: json["tpscheckInTimestamp"]== null ? "" :json["tpscheckInTimestamp"] ,
+    dockInstatus: json["DockInstatus"]== null ? 0 :json["DockInstatus"] ,
+    dockInTimestamp: json["DockInTimestamp"]== null ? "" :json["DockInTimestamp"] ,
+    dockoutstatus: json["Dockoutstatus"]== null ? 0 :json["Dockoutstatus"] ,
+    dockoutTimestamp: json["DockoutTimestamp"]== null ? "" :json["DockoutTimestamp"] ,
+    slottime: json["SLOTTIME"]== null ? "" :json["SLOTTIME"] ,
+    assignedDockName: json["AssignedDockName"]== null ? "" :json["AssignedDockName"] ,
+    latitude: json["Latitude"]?.toDouble(),
+    longitude: json["Longitude"]?.toDouble(),
+    radiusInKm: json["radiusInKm"]?.toDouble(),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "ROWID": rowid,
+    "TOKENNO": tokenno,
+    "TOKENDATE": tokendate,
+    "VehicleNo": vehicleNo,
+    "DRIVERNAME": drivername,
+    "DLNO": dlno,
+    "PIECES": pieces,
+    "GROSSWEIGHT": grossweight,
+    "Remark": remark,
+    "ISCANCELLED": iscancelled,
+    "ISEXPIRED": isexpired,
+    "createdby": createdby,
+    "lastmodifiedby": lastmodifiedby,
+    "LastModified": lastModified,
+    "isdeleted": isdeleted,
+    "drivermobileno": drivermobileno,
+    "Email": email,
+    "tpscheckInstatus": tpscheckInstatus,
+    "tpscheckInTimestamp": tpscheckInTimestamp,
+    "DockInstatus": dockInstatus,
+    "DockInTimestamp": dockInTimestamp,
+    "Dockoutstatus": dockoutstatus,
+    "DockoutTimestamp": dockoutTimestamp,
+    "SLOTTIME": slottime,
+    "AssignedDockName": assignedDockName,
+    "Latitude": latitude,
+    "Longitude": longitude,
+    "radiusInKm": radiusInKm,
+  };
+}

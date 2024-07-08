@@ -34,9 +34,39 @@ class _TruckYardCheckInDetailsState extends State<TruckYardCheckInDetails> {
 
   @override
   void initState() {
+    getGeoLocationOfStation();
     txtVTNO.text = widget.selectedVtDetails.VTNo; //"WIVT220627006";
-    if (isTrucker || isTruckerFF) checkLocation();
     super.initState();
+
+  }
+
+  getGeoLocationOfStation() async {
+    var queryParams = {
+      "OperationType": widget.isExport ? "3" : "4",
+      "OrganizationId": selectedBaseStationBranchID.toString(),
+      "VTNo": widget.selectedVtDetails.VTNo
+    };
+    await Global()
+        .getData(
+      Settings.SERVICES['VtDetailsMore'],
+      queryParams,
+    )
+        .then((response) {
+      print("data received ");
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> responseObjectList =
+          jsonResponse['ResponseObject']['Table0'];
+      geofencingInfo =
+          responseObjectList.map((e) => GeofencingInfo.fromJson(e)).toList();
+      print("length baseStationList = " + geofencingInfo.length.toString());
+      if (isTrucker || isTruckerFF) checkLocation();
+    }).catchError((onError) {
+      // setState(() {
+      //   isLoading = false;
+      // });
+      print(onError);
+    });
   }
 
   checkLocation() async {
@@ -71,7 +101,7 @@ class _TruckYardCheckInDetailsState extends State<TruckYardCheckInDetails> {
       }
 
       if (abc.toLowerCase().contains("ok")) {
-        print("getting locaation");
+        print("getting location");
         await getLocation();
       }
     } catch (Exc) {
@@ -91,7 +121,7 @@ class _TruckYardCheckInDetailsState extends State<TruckYardCheckInDetails> {
     print(latitude.toString());
     print(longitude.toString());
 
-    var disCalc = await distance(locationDetailsSaved[0].Latitude, locationDetailsSaved[0].Longitude, latitude, longitude);
+    var disCalc = await distance(geofencingInfo[0].latitude, geofencingInfo[0].longitude, latitude, longitude);
     print(disCalc);
 
  print(locationDetailsSaved[0].RadiousinMeter.toString());
