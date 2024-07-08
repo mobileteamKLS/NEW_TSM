@@ -43,6 +43,7 @@ class _DashboardsState extends State<Dashboards> {
   var printDate = ""; //DateFormat('dd-MMM-yyyy hh:mm').format(DateTime.now());
   bool useMobileLayout = false;
   late Timer _timer;
+  int custodianId = 0;
   List<WarehouseBaseStationBranch> dummyList = [
     // WarehouseBaseStationBranch(
     //     organizationId: 0,
@@ -51,7 +52,7 @@ class _DashboardsState extends State<Dashboards> {
     //     orgBranchName: "Select")
   ];
   // String selectedBaseStation = "Select";
-  String selectedBaseStationBranch = "Select Terminal";
+
 
   @override
   void initState() {
@@ -97,9 +98,11 @@ class _DashboardsState extends State<Dashboards> {
     selectedBaseStationBranchID = 0;
     selectedBaseStationBranch = "Select Terminal";
 
-
-
-    var queryParams = {"CityId": cityId.toString(), "OrganizationId": loggedinUser.OrganizationId.toString(), "UserId": loggedinUser.CreatedByUserId.toString()};
+    var queryParams = {
+      "CityId": cityId.toString(),
+      "OrganizationId": loggedinUser.OrganizationId.toString(),
+      "UserId": loggedinUser.CreatedByUserId.toString()
+    };
     await Global()
         .getData(
       Settings.SERVICES['GetBaseStationBranch'],
@@ -246,6 +249,7 @@ class _DashboardsState extends State<Dashboards> {
                                   selectedBaseStationBranch = (selected ? dummyList[index].orgBranchName : null)!;
 
                                 });
+                                walkInEnable();
                               },
                             );
                           },
@@ -344,6 +348,25 @@ class _DashboardsState extends State<Dashboards> {
             );
           }),
     );
+  }
+
+  walkInEnable() {
+    List<WarehouseTerminals> filteredTerminals = [];
+    for (int i = 0; i < baseStationBranchList.length; i++) {
+      filteredTerminals = terminalsList
+          .where(
+              (terminal) => terminal.custodianName == selectedBaseStationBranch)
+          .toList();
+      setState(() {
+        isWalkInEnable = filteredTerminals[0].iswalkinEnable!;
+        custodianId = filteredTerminals[0].custudian;
+      });
+    }
+
+    terminalsListDDL = [];
+    terminalsListDDL.add(filteredTerminals[0]);
+    print("TerminalListDDL===== "+terminalsListDDL.toString());
+    print(isWalkInEnable);
   }
 
   @override

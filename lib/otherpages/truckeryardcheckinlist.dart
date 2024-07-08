@@ -40,129 +40,7 @@ class _TruckYardCheckInListState extends State<TruckYardCheckInList> {
   List<VehicleToken> vehicleToeknListExport = [];
   List<VehicleToken> vehicleToeknListtRandom = [];
 
-  // List<VehicleToken> vehicleToeknListImport = [
-  //   TokenList(
-  //       VTNo: "IVT2206200020",
-  //       timefromto: "13:00 - 14:00",
-  //       DRIVERNAME: "John K",
-  //       VEHICLENO.toUpperCase(): "TNY34-563546"),
-  //   TokenList(
-  //       VTNo: "IVT2206200021",
-  //       timefromto: "14:00 - 15:00",
-  //       DRIVERNAME: "John K",
-  //       VEHICLENO.toUpperCase(): "TNY34-563546"),
-  //   TokenList(
-  //       VTNo: "IVT2206200022",
-  //       timefromto: "15:00 - 16:00",
-  //       DRIVERNAME: "John K",
-  //       VEHICLENO.toUpperCase(): "TNY34-563546"),
-  //   TokenList(
-  //       VTNo: "IVT2206200023",
-  //       timefromto: "16:00 - 17:00",
-  //       DRIVERNAME: "John K",
-  //       VEHICLENO.toUpperCase(): "TNY34-563546"),
-  //   TokenList(
-  //       VTNo: "IVT2206200024",
-  //       timefromto: "17:00 - 18:00",
-  //       DRIVERNAME: "John K",
-  //       VEHICLENO.toUpperCase(): "TNY34-563546"),
-  //   TokenList(
-  //       VTNo: "IVT2307200025",
-  //       timefromto: "18:00 - 19:00",
-  //       DRIVERNAME: "John K",
-  //       VEHICLENO.toUpperCase(): "TNY34-563546"),
-  //   TokenList(
-  //       VTNo: "IVT2307200025",
-  //       timefromto: "19:00 - 20:00",
-  //       DRIVERNAME: "John K",
-  //       VEHICLENO.toUpperCase(): "TNY34-563546"),
-  //   TokenList(
-  //       VTNo: "IVT2307200027",
-  //       timefromto: "20:00 - 21:00",
-  //       DRIVERNAME: "John K",
-  //       VEHICLENO.toUpperCase(): "TNY34-563546"),
-  //   TokenList(
-  //       VTNo: "IVT2307200028",
-  //       timefromto: "21:00 - 22:00",
-  //       DRIVERNAME: "John K",
-  //       VEHICLENO.toUpperCase(): "TNY34-563546"),
-  //   TokenList(
-  //       VTNo: "IVT2307200029",
-  //       timefromto: "22:00 - 23:00",
-  //       DRIVERNAME: "John K",
-  //       VEHICLENO.toUpperCase(): "TNY34-563546"),
-  // ];
 
-  // List<TokenList> vehicleToeknListExport = [
-  //   TokenList(
-  //       VTNo: "EVT2206200020",
-  //       timefromto: "13:00 - 14:00",
-  //       DRIVERNAME: "Joshua K",
-  //       VEHICLENO.toUpperCase(): "TNY34-563546"),
-  //   TokenList(
-  //       VTNo: "EVT2206200021",
-  //       timefromto: "14:00 - 15:00",
-  //       DRIVERNAME: "Joshua K",
-  //       VEHICLENO.toUpperCase(): "TNY34-563546"),
-  //   TokenList(
-  //       VTNo: "EVT2206200022",
-  //       timefromto: "15:00 - 16:00",
-  //       DRIVERNAME: "Joshua K",
-  //       VEHICLENO.toUpperCase(): "TNY34-563546"),
-  //   TokenList(
-  //       VTNo: "EVT2206200023",
-  //       timefromto: "16:00 - 17:00",
-  //       DRIVERNAME: "Joshua K",
-  //       VEHICLENO.toUpperCase(): "TNY34-563546"),
-  //   TokenList(
-  //       VTNo: "EVT2206200024",
-  //       timefromto: "17:00 - 18:00",
-  //       DRIVERNAME: "Joshua K",
-  //       VEHICLENO.toUpperCase(): "TNY34-563546"),
-  //   TokenList(
-  //       VTNo: "EVT2307200025",
-  //       timefromto: "18:00 - 19:00",
-  //       DRIVERNAME: "Joshua K",
-  //       VEHICLENO.toUpperCase(): "TNY34-563546"),
-  //   TokenList(
-  //       VTNo: "EVT2307200025",
-  //       timefromto: "19:00 - 20:00",
-  //       DRIVERNAME: "Joshua K",
-  //       VEHICLENO.toUpperCase(): "TNY34-563546"),
-  //   TokenList(
-  //       VTNo: "EVT2307200027",
-  //       timefromto: "20:00 - 21:00",
-  //       DRIVERNAME: "Joshua K",
-  //       VEHICLENO.toUpperCase(): "TNY34-563546"),
-  //   TokenList(
-  //       VTNo: "EVT2307200028",
-  //       timefromto: "21:00 - 22:00",
-  //       DRIVERNAME: "Joshua K",
-  //       VEHICLENO.toUpperCase(): "TNY34-563546"),
-  //   TokenList(
-  //       VTNo: "EVT2307210029",
-  //       timefromto: "22:00 - 23:00",
-  //       DRIVERNAME: "Joshua K",
-  //       VEHICLENO.toUpperCase(): "TNY34-563546"),
-  //   TokenList(
-  //       VTNo: "EVT2307220029",
-  //       timefromto: "22:00 - 23:00",
-  //       DRIVERNAME: "Joshua K",
-  //       VEHICLENO.toUpperCase(): "TNY34-563546"),
-  //   TokenList(
-  //       VTNo: "EVT2307230029",
-  //       timefromto: "22:00 - 23:00",
-  //       DRIVERNAME: "Joshua K",
-  //       VEHICLENO.toUpperCase(): "TNY34-563546"),
-  // ];
-
-  // List<TokenList> dockInListRandom = [
-  //   TokenList(
-  //       VTNo: "EVT2204200020",
-  //       timefromto: "06:00 - 07:00",
-  //       DRIVERNAME: "Killian S",
-  //       VEHICLENO.toUpperCase(): "IOQQ-563546"),
-  // ];
 
   @override
   void initState() {
@@ -225,25 +103,27 @@ class _TruckYardCheckInListState extends State<TruckYardCheckInList> {
 
     var queryParams = {
       "OperationType": modeType.toString(), // "",
-      "OrganizationBranchId": selectedBaseStationBranchID,
+      "OrganizationBranchId": selectedBaseStationBranchID.toString(),
       // selectedTerminalID, // loggedinUser.OrganizationBranchId,
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['VehicleTokenList'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-
-      var msg = json.decode(response.body)['d'];
+      //print(json.decode(response.body)['d']);
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
+      var msg = json.decode(response.body)['ResponseObject'];
       if (msg == "[]") {
         setState(() {
           hasNoRecord = true;
         });
       }
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      // var resp = json.decode(msg).cast<Map<String, dynamic>>();
 
       if (modeType == 2) //export
         vehicleToeknListExport = resp
@@ -296,6 +176,47 @@ class _TruckYardCheckInListState extends State<TruckYardCheckInList> {
       setState(() {
         isLoading = false;
       });
+      print(onError);
+    });
+  }
+
+  getGeoLocationOfStation(modeType) async {
+    var queryParams = {
+      "OperationType": modeType.toString(),
+      "OrganizationId": selectedBaseStationBranchID.toString(),
+      "VTNo": ""
+    };
+    await Global()
+        .getData(
+      Settings.SERVICES['VtDetailsMore'],
+      queryParams,
+    )
+        .then((response) {
+      print("data received ");
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
+      baseStationBranchList = responseObjectList.map((e) => WarehouseBaseStationBranch.fromJson(e)).toList();
+
+
+
+      WarehouseBaseStationBranch wt = new WarehouseBaseStationBranch(
+          orgName: "",
+          organizationId: 0,
+          organizationBranchId: 0,
+          orgBranchName: "Select");
+      // baseStationBranchList.add(wt);
+      baseStationBranchList.sort(
+              (a, b) => a.organizationBranchId.compareTo(b.organizationBranchId));
+
+      print("length baseStationList = " +
+          baseStationBranchList.length.toString());
+      print(baseStationBranchList.toString());
+      setState(() {});
+    }).catchError((onError) {
+      // setState(() {
+      //   isLoading = false;
+      // });
       print(onError);
     });
   }

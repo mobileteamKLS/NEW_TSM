@@ -230,25 +230,26 @@ class _VehicleTokenListState extends State<VehicleTokenList> {
     var queryParams = {
       "OperationType": modeType.toString(),
       // "",
-      "OrganizationBranchId": selectedBaseStationBranchID,
+      "OrganizationBranchId": selectedBaseStationBranchID.toString(),
       //selectedTerminalID,// loggedinUser.OrganizationBranchId,
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['VehicleTokenList'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-
-      var msg = json.decode(response.body)['d'];
+      //print(json.decode(response.body)['d']);
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
+      var msg = json.decode(response.body)['ResponseObject'];
       if (msg == "[]") {
         setState(() {
           hasNoRecord = true;
         });
       }
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
 
       if (modeType == 2) //export
         vehicleToeknListExport = resp

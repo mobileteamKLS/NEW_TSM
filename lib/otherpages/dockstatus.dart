@@ -262,7 +262,7 @@ class _LiveDockStatusState extends State<LiveDockStatus> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "Select Terminal",
+                                      "Selected Terminal",
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.normal,
@@ -271,52 +271,20 @@ class _LiveDockStatusState extends State<LiveDockStatus> {
                                     ),
                                     SizedBox(height: 10),
                                     Container(
+                                      margin: const EdgeInsets.all(15.0),
+                                      padding: const EdgeInsets.all(3.0),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(color: Colors.blueAccent)
+                                      ),
                                       width: useMobileLayout
                                           ? 260
                                           : MediaQuery.of(context).size.width /
                                               2.2,
-                                      child: DropdownButtonFormField(
-                                        decoration: InputDecoration(
-                                          contentPadding:
-                                              EdgeInsets.fromLTRB(8, 0, 0, 0),
-                                          // filled: true,
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.grey
-                                                    .withOpacity(0.5),
-                                                width: 1),
-                                            borderRadius:
-                                                BorderRadius.circular(4.0),
-                                          ),
-                                        ),
-
-                                        dropdownColor: Colors.white,
-                                        // isExpanded: true,
-                                        //underline: SizedBox(),
-                                        //icon: SvgPicture.asset("assets/icons/dropdown.svg"),
-                                        hint: Text("---- Select ----",
-                                            style: iPadYellowTextFontStyleBold),
-
-                                        value: selectedTerminalID,
-                                        items: terminalsList.map((terminal) {
-                                          return DropdownMenuItem(
-                                            child: Text(
-                                                terminal.custodianName
-                                                    .toUpperCase(),
-                                                style: useMobileLayout
-                                                    ? mobileTextFontStyle
-                                                    : iPadTextFontStyle), //label of item
-                                            value: terminal
-                                                .custudian, //value of item
-                                          );
-                                        }).toList(),
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedTerminal = value.toString();
-                                            selectedTerminalID =
-                                                int.parse(value.toString());
-                                          });
-                                        },
+                                      child: Text(
+                                        "$selectedBaseStationBranch",
+                                        style: useMobileLayout
+                                            ? mobileTextFontStyle
+                                            : iPadTextFontStyle,
                                       ),
                                     ),
                                   ],
@@ -345,80 +313,19 @@ class _LiveDockStatusState extends State<LiveDockStatus> {
                                     ),
                                     SizedBox(height: 10),
                                     Container(
+                                      margin: const EdgeInsets.all(15.0),
+                                      padding: const EdgeInsets.all(3.0),
+                                      decoration: BoxDecoration(
+                                          border: Border.all(color: Colors.blueAccent)
+                                      ),
                                       width: useMobileLayout
                                           ? MediaQuery.of(context).size.width /
                                               2.2
                                           : MediaQuery.of(context).size.width /
                                               2.2,
-                                      child: DropdownButtonFormField(
-                                        decoration: InputDecoration(
-                                          contentPadding:
-                                              EdgeInsets.fromLTRB(8, 0, 8, 0),
-                                          // filled: true,
-                                          enabledBorder: OutlineInputBorder(
-                                            borderSide: BorderSide(
-                                                color: Colors.grey
-                                                    .withOpacity(0.5),
-                                                width: 1),
-                                            borderRadius:
-                                                BorderRadius.circular(4.0),
-                                          ),
-                                        ),
-                                        hint: Text("---- Select ----",
-                                            style: iPadYellowTextFontStyleBold),
-                                        dropdownColor: Colors.white,
-                                        value: selectedTerminalID,
-                                        items: terminalsList.map((terminal) {
-                                          return DropdownMenuItem(
-                                            child: Text(
-                                                terminal.custodianName
-                                                    .toUpperCase(),
-                                                style: useMobileLayout
-                                                    ? mobileTextFontStyle
-                                                    : iPadTextFontStyle), //label of item
-                                            value: terminal
-                                                .custudian, //value of item
-                                          );
-                                        }).toList(),
-                                        onChanged: (value) {
-                                          setState(() {
-                                            selectedTerminal = value.toString();
-                                            selectedTerminalID =
-                                                int.parse(value.toString());
-                                          });
-                                        },
-                                        // isExpanded: true,
-                                        //underline: SizedBox(),
-                                        //icon: SvgPicture.asset("assets/icons/dropdown.svg"),
-                                        // value: "JFK-09",
-                                        // items: [
-                                        //   'ABC GH Services',
-                                        //   'AdminGHA',
-                                        //   'Bldg_151',
-                                        //   'Bldg_76',
-                                        //   'Bldg_9',
-                                        //   'JFK-09',
-                                        //   'JFK-151'
-                                        // ].map<DropdownMenuItem<String>>(
-                                        //     (String value) {
-                                        //   return DropdownMenuItem<String>(
-                                        //     value: value,
-                                        //     child: Text(
-                                        //       value,
-                                        //       style: TextStyle(
-                                        //         fontSize: useMobileLayout
-                                        //             ? MediaQuery.of(context)
-                                        //                     .size
-                                        //                     .width /
-                                        //                 26
-                                        //             : 20,
-                                        //         fontWeight: FontWeight.normal,
-                                        //       ),
-                                        //     ),
-                                        //   );
-                                        // }).toList(),
-                                        // onChanged: (value) {},
-                                      ),
+                                      child: Text("$selectedBaseStationBranchID",style: useMobileLayout
+                                          ? mobileTextFontStyle
+                                          : iPadTextFontStyle,),
                                     ),
                                   ],
                                 ),

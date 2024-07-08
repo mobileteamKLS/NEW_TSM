@@ -749,7 +749,7 @@ class _SlotsListState extends State<SlotsList> {
           };
 
     await Global()
-        .postData(
+        .getData(
       selectedMode == "Import"
           ? Settings.SERVICES['GetShipmentListImport']
           : Settings.SERVICES['GetShipmentListExport'],
@@ -757,10 +757,11 @@ class _SlotsListState extends State<SlotsList> {
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
+      // var msg = json.decode(response.body)['ResponseObject'];
+      // var resp = json.decode(msg).cast<Map<String, dynamic>>();
 
       if (selectedMode == "Import") {
         shipmentListImport = resp
