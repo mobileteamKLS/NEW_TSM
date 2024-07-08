@@ -258,6 +258,13 @@ class _YardCheckInNewState extends State<YardCheckInNew> {
     });
   }
 
+  bool isTerminalSelected() {
+    if (selectedBaseStationID == 0 || selectedBaseStationBranchID == 0) {
+      return false;
+    }
+    return true;
+  }
+
   selectTerminalBox() {
     return Container(
       height: MediaQuery.of(context).size.height / 5.2, // height: 250,
@@ -431,11 +438,25 @@ class _YardCheckInNewState extends State<YardCheckInNew> {
               child: ElevatedButton(
                 //textColor: Colors.black,
                 onPressed: () {
-                  setState(() {
-                    isTerminalAlreadySelected = true;
-                  });
-
-                  Navigator.of(context).pop();
+                  if(isTerminalSelected()){
+                    setState(() {
+                      isTerminalAlreadySelected = true;
+                    });
+                    Navigator.of(context).pop();
+                  }
+                  else{
+                    if (selectedBaseStationID == 0) {
+                      showAlertDialog(
+                          context, "Ok", "Alert", "Select Base Station");
+                      print("base");
+                      return;
+                    }
+                    if (selectedBaseStationBranchID == 0) {
+                      showAlertDialog(
+                          context, "Ok", "Alert", "Select Terminal");
+                      print("terminal");
+                    }
+                  }
                 },
                 style: ElevatedButton.styleFrom(
                   elevation: 4.0,

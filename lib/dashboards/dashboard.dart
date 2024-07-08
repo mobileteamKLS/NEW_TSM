@@ -56,7 +56,7 @@ class _DashboardsState extends State<Dashboards> {
 
   @override
   void initState() {
-    printDate = DateFormat('dd-MMM-yyyy hh:mm').format(DateTime.now());
+    printDate = DateFormat('dd-MMM-yyyy HH:mm').format(DateTime.now());
     // Timer.periodic(Duration(seconds:1), (Timer t)=>getCurrentDateTime());
     _timer = new Timer.periodic(
         Duration(seconds: 1), (Timer timer) => getCurrentDateTime());
@@ -80,7 +80,7 @@ class _DashboardsState extends State<Dashboards> {
 
   void getCurrentDateTime() {
     setState(() {
-      printDate = DateFormat('dd-MMM-yyyy hh:mm').format(DateTime.now());
+      printDate = DateFormat('dd-MMM-yyyy HH:mm').format(DateTime.now());
     });
   }
 
