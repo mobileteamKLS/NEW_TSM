@@ -280,8 +280,8 @@ const iPadToggleTextFontStyleWhite = TextStyle(
 class Settings {
   //New TSM
  // static const String ACSServiceURL = "https://wfssrvuat.kalelogistics.com/srvMobile.asmx"; //WFS UAT Server
-  static const String ACSServiceURL = "https://acsintapigateway.kalelogistics.com/api_tsm/SrvMobile"; //WFS UAT Server
-  static const String ACSServiceURLV2 = "https://wfssrvuat.kalelogistics.com/srvMobile.asmx";
+  static const String ACSServiceURL = "https://acsintapigateway.kalelogistics.com/api_tsm/SrvMobile"; //NEW TSM
+ // static const String ACSServiceURL = "https://bostonacsuat.kalelogistics.com/TSM_ALL_SRV/srvMobile.asmx"; //BOGOTA NEW
 
   //default API
  // static const String ACSServiceURL = "https://wfssrvuat.kalelogistics.com/srvMobile.asmx"; //WFS UAT Server
@@ -362,7 +362,7 @@ class Settings {
     "TerminalsList": "/GetTerminal", //To load available terminals list
     "SearchByVTNO":
         "/submitVehicleTokenNo", //To get details about VT for walk in vt check in
-
+    "GetExportWarehouseAcceptanceForTOKENNO":"/GetExportWarehouseAcceptanceForTOKENNO",
     "SearchByVehicleNO":
         "/submitVehicleNo", //To get details about Vehicle for walk in vt check in
     "PerformYardCheckIn":

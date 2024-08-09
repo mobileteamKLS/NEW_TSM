@@ -4041,22 +4041,24 @@ class _RecordPodDetailsState extends State<RecordPodDetails> {
       "OrganizationId": loggedinUser.OrganizationId.toString(),
       "VehicleTokenNo": widget.vtNumber.toString(),
       "OrganizationBranchId":
-      selectedBaseStationBranchID,// selectedTerminalID, // loggedinUser.OrganizationBranchId,
+      selectedBaseStationBranchID.toString(),// selectedTerminalID, // loggedinUser.OrganizationBranchId,
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['GetPODDets'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      print(json.decode(response.body)['ResponseObject']);
+      // var msg = json.decode(response.body)['d'];
+      // var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
 
       setState(() {
         awbPodDetails =
-            resp.map<AwbPod>((json) => AwbPod.fromJson(json)).toList();
+            responseObjectList.map((e) =>AwbPod.fromJson(e)).toList();
 
         if (awbPodDetails.isNotEmpty)
           txtDriverName.text = awbPodDetails[0].DRIVERNAME;
@@ -4110,8 +4112,8 @@ class _RecordPodDetailsState extends State<RecordPodDetails> {
         "Remark": txtRejectRemarks.text,
         "p_LoginUser": loggedinUser.Name,
         "p_LoginEmailId": loggedinUser.EmailId,
-        "p_rejectedReasonText":strRejectionReasonText, /// 
-           
+        "p_rejectedReasonText":strRejectionReasonText, ///
+
         "VehicleTokenID": awbPodDetails[0].VehicleTokenID.toString(),
         "AcceptanceReason": acceptanceReasonSelected,
         '_imageDataFromCamera': isSignature ? "" : fileInBase64.toString(),

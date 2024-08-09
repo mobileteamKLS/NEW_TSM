@@ -220,7 +220,7 @@ class _WarehouseAcceptanceAwbListState
       "VTNo": widget.vtNumber,
       "OperationType": modeType.toString(), // "",
       "OrganizationBranchId":
-      selectedBaseStationBranchID,//selectedTerminalID, // loggedinUser.OrganizationBranchId,
+      selectedBaseStationBranchID.toString(),//selectedTerminalID, // loggedinUser.OrganizationBranchId,
     };
     await Global()
         .getData(

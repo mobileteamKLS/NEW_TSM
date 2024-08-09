@@ -3870,29 +3870,32 @@ class _WarehouseAcceptanceDetailsState
     });
 
     var queryParams = {
-      "OperationType": "2",
+      "OperationType": "3",
+      "TOKENNO":widget.vtNumber,
       "AirlinePrefix": widget.prefix.toString(),
       "AwbNumber": widget.awbNumber.toString(),
       "HawbNumber": "",
       "CreatedByUserId": loggedinUser.CreatedByUserId.toString(),
       "OrganizationId": loggedinUser.OrganizationId.toString(),
       "OrganizationBranchId":
-      selectedBaseStationBranchID,//selectedTerminalID, // loggedinUser.OrganizationBranchId,
+      selectedBaseStationBranchID.toString(),//selectedTerminalID, // loggedinUser.OrganizationBranchId,
     };
     await Global()
-        .postData(
-      Settings.SERVICES['GetWarehouseAcceptanceDets'],
+        .getData(
+      Settings.SERVICES['GetExportWarehouseAcceptanceForTOKENNO'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      print(json.decode(response.body)['ResponseObject']);
+      // var msg = json.decode(response.body)['d'];
+      // var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
 
       setState(() {
         awbDetails =
-            resp.map<AwbDetails>((json) => AwbDetails.fromJson(json)).toList();
+            responseObjectList.map((e) => AwbDetails.fromJson(e)).toList();
 
         if (awbDetails.isNotEmpty)
           txtDriverName.text = awbDetails[0].DRIVERNAME;

@@ -238,7 +238,7 @@ class _DockOutState extends State<DockOut> {
       List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
 
 
-      if (responseObjectList == "[]") {
+      if (responseObjectList.isEmpty) {
         setState(() {
           hasNoRecord = true;
         });

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 import 'package:scan/scan.dart';
 import 'package:luxair/datastructure/vehicletoken.dart';
 import 'package:luxair/otherpages/warehouseaccawblist.dart';
@@ -28,11 +29,13 @@ class _WarehouseAcceptanceListState extends State<WarehouseAcceptanceList> {
   //  List<CodexPass> passList = [];
   // List<FilterArray> _filterArray = [];
   bool isLoading = false;
+  bool hasNoRecord = false;
   bool isSearched = false;
   bool checked = false;
   TextEditingController txtVTNO = new TextEditingController();
   final _controllerModeType = ValueNotifier<bool>(false);
   List<DockInOutVT> dockInOutVTListToBind = [];
+
   //List<DockInOutVT> dockInOutVTListImport = [];
   List<DockInOutVT> dockInOutVTListExport = [];
   List<DockInOutVT> dockInOutVTListRandom = [];
@@ -208,9 +211,10 @@ class _WarehouseAcceptanceListState extends State<WarehouseAcceptanceList> {
     });
 
     var queryParams = {
-      "OperationType": modeType.toString(), // "",
-      "OrganizationBranchId":
-      selectedBaseStationBranchID.toString(), // loggedinUser.OrganizationBranchId,
+      "OperationType": modeType.toString(),
+      // "",
+      "OrganizationBranchId": selectedBaseStationBranchID.toString(),
+      // loggedinUser.OrganizationBranchId,
     };
     await Global()
         .getData(
@@ -221,7 +225,7 @@ class _WarehouseAcceptanceListState extends State<WarehouseAcceptanceList> {
       print("data received ");
       print(json.decode(response.body)['ResponseObject']);
 
-     /* var msg = json.decode(response.body)['d'];
+      /* var msg = json.decode(response.body)['d'];
       var resp = json.decode(msg).cast<Map<String, dynamic>>();
 
       dockInOutVTListExport =
@@ -229,9 +233,13 @@ class _WarehouseAcceptanceListState extends State<WarehouseAcceptanceList> {
 
       Map<String, dynamic> jsonResponse = json.decode(response.body);
       List<dynamic> responseObjectList = jsonResponse['ResponseObject'];
-      dockInOutVTListExport = responseObjectList.map((e) => DockInOutVT.fromJson(e)).toList();
-
-
+      if (responseObjectList.isEmpty) {
+        setState(() {
+          hasNoRecord = true;
+        });
+      }
+      dockInOutVTListExport =
+          responseObjectList.map((e) => DockInOutVT.fromJson(e)).toList();
 
       print("length dockInOutVTListExport = " +
           dockInOutVTListExport.length.toString());
@@ -783,31 +791,38 @@ class _WarehouseAcceptanceListState extends State<WarehouseAcceptanceList> {
                         height: 100,
                         width: 100,
                         child: CircularProgressIndicator()))
-                : Expanded(
-                    child: SingleChildScrollView(
-                      child: Padding(
-                        padding: useMobileLayout
-                            ? const EdgeInsets.only(top: 2.0, left: 0.0)
-                            : const EdgeInsets.only(
-                                top: 2.0, bottom: 10.0, left: 16.0),
-                        child: SizedBox(
-                            width: useMobileLayout
-                                ? MediaQuery.of(context).size.width / 1.01
-                                : MediaQuery.of(context).size.width / 1.05,
-                            child: ListView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              itemBuilder: (BuildContext, index) {
-                                DockInOutVT _dockinlist =
-                                    dockInOutVTListToBind.elementAt(index);
-                                return buildDockList(_dockinlist, index);
-                              },
-                              itemCount: dockInOutVTListToBind.length,
-                              shrinkWrap: true,
-                              padding: EdgeInsets.all(2),
-                            )),
-                      ),
-                    ),
-                  )
+                : hasNoRecord
+                    ? Container(
+                        height: MediaQuery.of(context).size.height / 1.5,
+                        child: Center(
+                          child: Lottie.asset('assets/images/nodata.json'),
+                        ),
+                      )
+                    : Expanded(
+                        child: SingleChildScrollView(
+                          child: Padding(
+                            padding: useMobileLayout
+                                ? const EdgeInsets.only(top: 2.0, left: 0.0)
+                                : const EdgeInsets.only(
+                                    top: 2.0, bottom: 10.0, left: 16.0),
+                            child: SizedBox(
+                                width: useMobileLayout
+                                    ? MediaQuery.of(context).size.width / 1.01
+                                    : MediaQuery.of(context).size.width / 1.05,
+                                child: ListView.builder(
+                                  physics: NeverScrollableScrollPhysics(),
+                                  itemBuilder: (BuildContext, index) {
+                                    DockInOutVT _dockinlist =
+                                        dockInOutVTListToBind.elementAt(index);
+                                    return buildDockList(_dockinlist, index);
+                                  },
+                                  itemCount: dockInOutVTListToBind.length,
+                                  shrinkWrap: true,
+                                  padding: EdgeInsets.all(2),
+                                )),
+                          ),
+                        ),
+                      )
           ]),
     );
   }
