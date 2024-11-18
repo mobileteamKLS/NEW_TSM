@@ -69,25 +69,13 @@ class Global {
   Future<Post> postData(service, payload) async {
     print("payload " + payload.toString());
     print("encoded payload " + json.encode(payload));
-
-    // var connectivityResult = await (Connectivity().checkConnectivity());
-    // if (connectivityResult == ConnectivityResult.none) {
-    //   this.showToast("No internet Connection Available !");
-    // } else {
     return fetchDataPOST(service, payload);
-
-    //}
   }
+
   Future<Post> getData(service, payload) async {
     print("payload " + payload.toString());
     print("encoded payload " + json.encode(payload));
-
-    // var connectivityResult = await (Connectivity().checkConnectivity());
-    // if (connectivityResult == ConnectivityResult.none) {
-    //   this.showToast("No internet Connection Available !");
-    // } else {
     return fetchDataGET(service, payload);
-    //}
   }
 
   Future<Post> fetchDataPOST(apiname, payload) async {

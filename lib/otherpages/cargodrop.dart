@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lottie/lottie.dart';
 import 'package:scan/scan.dart';
 import 'package:luxair/datastructure/vehicletoken.dart';
 import 'package:luxair/otherpages/cargodropdetails.dart';
@@ -28,6 +29,7 @@ class _CargoDropState extends State<CargoDrop> {
   //  List<CodexPass> passList = [];
   // List<FilterArray> _filterArray = [];
   bool isLoading = false;
+  bool hasNoRecord = false;
   bool isSearched = false;
   bool checked = false;
   TextEditingController txtVTNO = new TextEditingController();
@@ -209,19 +211,24 @@ class _CargoDropState extends State<CargoDrop> {
 
     var queryParams = {
       "OperationType": modeType.toString(), // "",
-      "OrganizationBranchId": selectedTerminalID,// loggedinUser.OrganizationBranchId,
+      "OrganizationBranchId": selectedBaseStationBranchID.toString(),
     };
     await Global()
-        .postData(
+        .getData(
       Settings.SERVICES['VehicleTokenList'],
       queryParams,
     )
         .then((response) {
       print("data received ");
-      print(json.decode(response.body)['d']);
+      print(json.decode(response.body)['ResponseObject']);
+      Map<String, dynamic> jsonResponse = json.decode(response.body);
+      List<dynamic> resp = jsonResponse['ResponseObject'];
 
-      var msg = json.decode(response.body)['d'];
-      var resp = json.decode(msg).cast<Map<String, dynamic>>();
+      if (resp.isEmpty) {
+        setState(() {
+          hasNoRecord = true;
+        });
+      }
 
       vehicleToeknListExport = resp
           .map<VehicleToken>((json) => VehicleToken.fromJson(json))
@@ -754,6 +761,13 @@ class _CargoDropState extends State<CargoDrop> {
                         height: 100,
                         width: 100,
                         child: CircularProgressIndicator()))
+                : hasNoRecord
+                ? Container(
+              height: MediaQuery.of(context).size.height/1.5 ,
+              child: Center(
+                child: Lottie.asset('assets/images/nodata.json'),
+              ),
+            )
                 : Expanded(
                     child: SingleChildScrollView(
                       child: Padding(
@@ -800,8 +814,8 @@ class _CargoDropState extends State<CargoDrop> {
             child: Card(
               child: ListTile(
                 leading: Container(
-                  height: useMobileLayout ? 40 : 60,
-                  width: useMobileLayout ? 40 : 60,
+                  height: useMobileLayout ? 50 : 60,
+                  width: useMobileLayout ? 50 : 60,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(
@@ -811,7 +825,7 @@ class _CargoDropState extends State<CargoDrop> {
                       shape: BoxShape.circle),
                   child: Center(
                     child: Text(_dl.DOCKNAME,
-                        style: mobileGroupHeaderFontStyleBold),
+                        style: mobileGroupHeaderFontStyleBoldSmall),
                   ),
                 ),
                 title: useMobileLayout
@@ -949,8 +963,8 @@ class _CargoDropState extends State<CargoDrop> {
         : Card(
             child: ListTile(
               leading: Container(
-                height: useMobileLayout ? 40 : 60,
-                width: useMobileLayout ? 40 : 60,
+                height: useMobileLayout ? 50 : 60,
+                width: useMobileLayout ? 50 : 60,
                 decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
@@ -962,7 +976,7 @@ class _CargoDropState extends State<CargoDrop> {
                   child: Text(
                     _dl.DOCKNAME,
                     style: useMobileLayout
-                        ? mobileGroupHeaderFontStyleBold
+                        ? mobileGroupHeaderFontStyleBoldSmall
                         : TextStyle(
                             fontSize: 26,
                             fontWeight: FontWeight.bold,

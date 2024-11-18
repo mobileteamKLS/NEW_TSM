@@ -536,8 +536,8 @@ class _RecordPodListState extends State<RecordPodList> {
             child: Card(
               child: ListTile(
                 leading: Container(
-                  height: useMobileLayout ? 40 : 60,
-                  width: useMobileLayout ? 40 : 60,
+                  height: useMobileLayout ? 50 : 60,
+                  width: useMobileLayout ? 50 : 60,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(
@@ -548,7 +548,7 @@ class _RecordPodListState extends State<RecordPodList> {
                   child: Center(
                     child: Text(_dl.DOCKNAME == "" ? "--" : _dl.DOCKNAME,
                         style: useMobileLayout
-                            ? mobileGroupHeaderFontStyleBold
+                            ? mobileGroupHeaderFontStyleBoldSmall
                             : iPadGroupHeaderFontStyleBold),
                   ),
                 ),
@@ -686,8 +686,8 @@ class _RecordPodListState extends State<RecordPodList> {
         : Card(
             child: ListTile(
               leading: Container(
-                height: useMobileLayout ? 40 : 50,
-                width: useMobileLayout ? 40 : 50,
+                height: useMobileLayout ? 50 : 50,
+                width: useMobileLayout ? 50 : 50,
                 decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
@@ -699,7 +699,7 @@ class _RecordPodListState extends State<RecordPodList> {
                   child: Text(
                     _dl.DOCKNAME == "" ? "--" : _dl.DOCKNAME,
                     style: useMobileLayout
-                        ? mobileGroupHeaderFontStyleBold
+                        ? mobileGroupHeaderFontStyleBoldSmall
                         : TextStyle(
                             fontSize: 26,
                             fontWeight: FontWeight.bold,

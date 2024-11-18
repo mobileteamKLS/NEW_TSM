@@ -71,6 +71,7 @@ class _WarehouseAcceptanceDetailsState
     useMobileLayout = smallestDimension < 600;
     print("useMobileLayout");
     return Scaffold(
+
         body: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -1189,322 +1190,324 @@ class _WarehouseAcceptanceDetailsState
                                                             FontWeight.normal,
                                                         color: Colors
                                                             .red)), // To display the title it is optional
-                                                content: Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  children: [
-                                                    SizedBox(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              2.5,
-                                                      child: Text(
-                                                        "Rejection Reason",
-                                                        style: TextStyle(
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                          color:
-                                                              Color(0xFF11249F),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(height: 10),
-                                                    Container(
-                                                      height: 40,
-                                                      child:
-                                                          DropdownButtonFormField(
-                                                        isExpanded: true,
-                                                        isDense: true,
-                                                        //isExpanded: true,
-                                                        decoration:
-                                                            InputDecoration(
-                                                          //labelText: 'select option',
-                                                          contentPadding:
-                                                              EdgeInsets
-                                                                  .fromLTRB(8,
-                                                                      0, 8, 0),
-                                                          // filled: true,
-                                                          enabledBorder:
-                                                              OutlineInputBorder(
-                                                            borderSide: BorderSide(
-                                                                color: Colors
-                                                                    .grey
-                                                                    .withOpacity(
-                                                                        0.5),
-                                                                width: 1),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        4.0),
+                                                content: SingleChildScrollView(
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.start,
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      SizedBox(
+                                                        width:
+                                                            MediaQuery.of(context)
+                                                                    .size
+                                                                    .width /
+                                                                2.5,
+                                                        child: Text(
+                                                          "Rejection Reason",
+                                                          style: TextStyle(
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.normal,
+                                                            color:
+                                                                Color(0xFF11249F),
                                                           ),
                                                         ),
-                                                        dropdownColor:
-                                                            Colors.white,
-                                                        value:
-                                                            rejectionReasonSelected,
-                                                        items:
-                                                            rejectionReasonsList
-                                                                .map((at) {
-                                                          return DropdownMenuItem(
-                                                            child: Text(
-                                                                at.Reason,
-                                                                style: useMobileLayout
-                                                                    ? mobileTextFontStyle
-                                                                    : iPadTextFontStyle), //label of item
-                                                            value: at
-                                                                .ReasonID, //value of item
-                                                          );
-                                                        }).toList(),
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            rejectionReasonSelected =
-                                                                int.parse(value
-                                                                    .toString());
-
-                                                                                                     List<AcceptanceType>
-                                                                matches = [];
-                                                            matches.addAll(
-                                                                rejectionReasonsList);
-                                                            matches.retainWhere(
-                                                                (AcceptanceType
-                                                                        s) =>
-                                                                    s.ReasonID ==
-                                                                    value);
-
-                                                            strRejectionReasonText =
-                                                                matches[0]
-                                                                    .Reason;
-                                                          });
-                                                        },
                                                       ),
-                                                    ),
-
-                                                    SizedBox(height: 10),
-
-                                                    Text("Damage Type (Opt.)",
-                                                        style:
-                                                            mobileHeaderFontStyle),
-                                                    Container(
-                                                      height: 40,
-                                                      child:
-                                                          DropdownButtonFormField(
-                                                        isExpanded: true,
-                                                        isDense: true,
-                                                        //isExpanded: true,
-                                                        decoration:
-                                                            InputDecoration(
-                                                          contentPadding:
-                                                              EdgeInsets
-                                                                  .fromLTRB(8,
-                                                                      0, 8, 0),
-                                                          // filled: true,
-                                                          enabledBorder:
-                                                              OutlineInputBorder(
-                                                            borderSide: BorderSide(
-                                                                color: Colors
-                                                                    .grey
-                                                                    .withOpacity(
-                                                                        0.5),
-                                                                width: 1),
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        4.0),
+                                                      SizedBox(height: 10),
+                                                      Container(
+                                                        height: 40,
+                                                        child:
+                                                            DropdownButtonFormField(
+                                                          isExpanded: true,
+                                                          isDense: true,
+                                                          //isExpanded: true,
+                                                          decoration:
+                                                              InputDecoration(
+                                                            //labelText: 'select option',
+                                                            contentPadding:
+                                                                EdgeInsets
+                                                                    .fromLTRB(8,
+                                                                        0, 8, 0),
+                                                            // filled: true,
+                                                            enabledBorder:
+                                                                OutlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  color: Colors
+                                                                      .grey
+                                                                      .withOpacity(
+                                                                          0.5),
+                                                                  width: 1),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          4.0),
+                                                            ),
                                                           ),
+                                                          dropdownColor:
+                                                              Colors.white,
+                                                          value:
+                                                              rejectionReasonSelected,
+                                                          items:
+                                                              rejectionReasonsList
+                                                                  .map((at) {
+                                                            return DropdownMenuItem(
+                                                              child: Text(
+                                                                  at.Reason,
+                                                                  style: useMobileLayout
+                                                                      ? mobileTextFontStyle
+                                                                      : iPadTextFontStyle), //label of item
+                                                              value: at
+                                                                  .ReasonID, //value of item
+                                                            );
+                                                          }).toList(),
+                                                          onChanged: (value) {
+                                                            setState(() {
+                                                              rejectionReasonSelected =
+                                                                  int.parse(value
+                                                                      .toString());
+                                                  
+                                                                                                       List<AcceptanceType>
+                                                                  matches = [];
+                                                              matches.addAll(
+                                                                  rejectionReasonsList);
+                                                              matches.retainWhere(
+                                                                  (AcceptanceType
+                                                                          s) =>
+                                                                      s.ReasonID ==
+                                                                      value);
+                                                  
+                                                              strRejectionReasonText =
+                                                                  matches[0]
+                                                                      .Reason;
+                                                            });
+                                                          },
                                                         ),
-                                                        dropdownColor:
-                                                            Colors.white,
-                                                        value:
-                                                            damageTypeSelected,
-                                                        items: damageTypeList
-                                                            .map((dt) {
-                                                          return DropdownMenuItem(
-                                                            child: Text(
-                                                                dt.Damage
-                                                                    .toUpperCase(),
-                                                                style: useMobileLayout
-                                                                    ? mobileTextFontStyle
-                                                                    : iPadYellowTextFontStyleBold), //label of item
-                                                            value: dt
-                                                                .DamageID, //value of item
-                                                          );
-                                                        }).toList(),
-                                                        onChanged: (value) {
-                                                          setState(() {
-                                                            damageTypeSelected =
-                                                                int.parse(value
-                                                                    .toString());
-                                                          });
-                                                        },
-                                                        // items: [
-                                                        //   'No Damage',
-                                                        //   'Physical Damage',
-                                                        //   'Wet Damage',
-                                                        //   'Reefer Related Damage',
-                                                        //   'Infestation Damage'
-                                                        // ].map<
-                                                        //         DropdownMenuItem<
-                                                        //             String>>(
-                                                        //     (String value) {
-                                                        //   return DropdownMenuItem<
-                                                        //       String>(
-                                                        //     value: value,
-                                                        //     child: Text(
-                                                        //       value,
-                                                        //     ),
-                                                        //   );
-                                                        // }).toList(),
-                                                        // onChanged: (value) {},
                                                       ),
-                                                    ),
-
-                                                    SizedBox(height: 10),
-                                                    SizedBox(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              3.2,
-                                                      child: Text(
-                                                          "Damaged Pkgs",
+                                                  
+                                                      SizedBox(height: 10),
+                                                  
+                                                      Text("Damage Type (Opt.)",
                                                           style:
                                                               mobileHeaderFontStyle),
-                                                    ),
-                                                    // SizedBox(width: 10),
-                                                    Container(
-                                                      height: 40,
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              1.7,
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                          color: isValidDmgPkgs
-                                                              ? Colors.grey
-                                                                  .withOpacity(
-                                                                      0.5)
-                                                              : Colors.red,
-                                                          width: 1.0,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(4.0),
-                                                      ),
-                                                      child: TextField(
-                                                        // onChanged: (value) => _runFilter(value),
-                                                        controller:
-                                                            txtDamagedPKGS,
-                                                        keyboardType: TextInputType
-                                                            .numberWithOptions(
-                                                                decimal: false,
-                                                                signed: true),
-                                                        inputFormatters: [
-                                                          FilteringTextInputFormatter
-                                                              .allow(RegExp(
-                                                                  '[0-9]')),
-                                                        ],
-                                                        decoration:
-                                                            InputDecoration(
-                                                          border:
-                                                              InputBorder.none,
-                                                          hintText:
-                                                              "Enter Damaged Pkgs",
-                                                          hintStyle: TextStyle(
-                                                              color:
-                                                                  isValidDmgPkgs
-                                                                      ? Colors
-                                                                          .grey
-                                                                      : Colors
-                                                                          .red),
-                                                          contentPadding:
-                                                              EdgeInsets
-                                                                  .symmetric(
-                                                                      vertical:
-                                                                          8,
-                                                                      horizontal:
-                                                                          8),
+                                                      Container(
+                                                        height: 40,
+                                                        child:
+                                                            DropdownButtonFormField(
+                                                          isExpanded: true,
                                                           isDense: true,
-                                                        ),
-                                                        style: TextStyle(
-                                                          fontSize: 16.0,
-                                                          color: Colors.black,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(height: 10),
-
-                                                    SizedBox(
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width /
-                                                              2.5,
-                                                      child: Text(
-                                                        "Rejection Remark",
-                                                        style: TextStyle(
-                                                          fontSize: 18,
-                                                          fontWeight:
-                                                              FontWeight.normal,
-                                                          color:
-                                                              Color(0xFF11249F),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    SizedBox(height: 10),
-                                                    Container(
-                                                      height: 150,
-                                                      decoration: BoxDecoration(
-                                                        border: Border.all(
-                                                          color: Colors.grey
-                                                              .withOpacity(0.5),
-                                                          width: 1.0,
-                                                        ),
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(4.0),
-                                                      ),
-                                                      child: TextField(
-                                                        //  expands: true,
-                                                        // minLines: 1,
-                                                        controller:
-                                                            txtRejectRemarks,
-                                                        minLines: 1,
-                                                        maxLines:
-                                                            5, // allow user to enter 5 line in textfield
-                                                        keyboardType: TextInputType
-                                                            .multiline, // user keyboard will have a button to move cursor to next line
-                                                        decoration:
-                                                            InputDecoration(
-                                                          border:
-                                                              InputBorder.none,
-                                                          hintText:
-                                                              "Enter Rejection Remarks",
-                                                          hintStyle: TextStyle(
-                                                              color:
-                                                                  Colors.grey),
-                                                          contentPadding:
-                                                              EdgeInsets
-                                                                  .symmetric(
-                                                                      vertical:
-                                                                          8,
-                                                                      horizontal:
-                                                                          8),
-                                                          isDense: true,
-                                                        ),
-                                                        style: TextStyle(
-                                                          fontSize: 16.0,
-                                                          color: Colors.black,
+                                                          //isExpanded: true,
+                                                          decoration:
+                                                              InputDecoration(
+                                                            contentPadding:
+                                                                EdgeInsets
+                                                                    .fromLTRB(8,
+                                                                        0, 8, 0),
+                                                            // filled: true,
+                                                            enabledBorder:
+                                                                OutlineInputBorder(
+                                                              borderSide: BorderSide(
+                                                                  color: Colors
+                                                                      .grey
+                                                                      .withOpacity(
+                                                                          0.5),
+                                                                  width: 1),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          4.0),
+                                                            ),
+                                                          ),
+                                                          dropdownColor:
+                                                              Colors.white,
+                                                          value:
+                                                              damageTypeSelected,
+                                                          items: damageTypeList
+                                                              .map((dt) {
+                                                            return DropdownMenuItem(
+                                                              child: Text(
+                                                                  dt.Damage
+                                                                      .toUpperCase(),
+                                                                  style: useMobileLayout
+                                                                      ? mobileTextFontStyle
+                                                                      : iPadYellowTextFontStyleBold), //label of item
+                                                              value: dt
+                                                                  .DamageID, //value of item
+                                                            );
+                                                          }).toList(),
+                                                          onChanged: (value) {
+                                                            setState(() {
+                                                              damageTypeSelected =
+                                                                  int.parse(value
+                                                                      .toString());
+                                                            });
+                                                          },
+                                                          // items: [
+                                                          //   'No Damage',
+                                                          //   'Physical Damage',
+                                                          //   'Wet Damage',
+                                                          //   'Reefer Related Damage',
+                                                          //   'Infestation Damage'
+                                                          // ].map<
+                                                          //         DropdownMenuItem<
+                                                          //             String>>(
+                                                          //     (String value) {
+                                                          //   return DropdownMenuItem<
+                                                          //       String>(
+                                                          //     value: value,
+                                                          //     child: Text(
+                                                          //       value,
+                                                          //     ),
+                                                          //   );
+                                                          // }).toList(),
+                                                          // onChanged: (value) {},
                                                         ),
                                                       ),
-                                                    ),
-                                                  ],
+                                                  
+                                                      SizedBox(height: 10),
+                                                      SizedBox(
+                                                        width:
+                                                            MediaQuery.of(context)
+                                                                    .size
+                                                                    .width /
+                                                                3.2,
+                                                        child: Text(
+                                                            "Damaged Pkgs",
+                                                            style:
+                                                                mobileHeaderFontStyle),
+                                                      ),
+                                                      // SizedBox(width: 10),
+                                                      Container(
+                                                        height: 40,
+                                                        width:
+                                                            MediaQuery.of(context)
+                                                                    .size
+                                                                    .width /
+                                                                1.7,
+                                                        decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                            color: isValidDmgPkgs
+                                                                ? Colors.grey
+                                                                    .withOpacity(
+                                                                        0.5)
+                                                                : Colors.red,
+                                                            width: 1.0,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(4.0),
+                                                        ),
+                                                        child: TextField(
+                                                          // onChanged: (value) => _runFilter(value),
+                                                          controller:
+                                                              txtDamagedPKGS,
+                                                          keyboardType: TextInputType
+                                                              .numberWithOptions(
+                                                                  decimal: false,
+                                                                  signed: true),
+                                                          inputFormatters: [
+                                                            FilteringTextInputFormatter
+                                                                .allow(RegExp(
+                                                                    '[0-9]')),
+                                                          ],
+                                                          decoration:
+                                                              InputDecoration(
+                                                            border:
+                                                                InputBorder.none,
+                                                            hintText:
+                                                                "Enter Damaged Pkgs",
+                                                            hintStyle: TextStyle(
+                                                                color:
+                                                                    isValidDmgPkgs
+                                                                        ? Colors
+                                                                            .grey
+                                                                        : Colors
+                                                                            .red),
+                                                            contentPadding:
+                                                                EdgeInsets
+                                                                    .symmetric(
+                                                                        vertical:
+                                                                            8,
+                                                                        horizontal:
+                                                                            8),
+                                                            isDense: true,
+                                                          ),
+                                                          style: TextStyle(
+                                                            fontSize: 16.0,
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(height: 10),
+                                                  
+                                                      SizedBox(
+                                                        width:
+                                                            MediaQuery.of(context)
+                                                                    .size
+                                                                    .width /
+                                                                2.5,
+                                                        child: Text(
+                                                          "Rejection Remark",
+                                                          style: TextStyle(
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight.normal,
+                                                            color:
+                                                                Color(0xFF11249F),
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      SizedBox(height: 10),
+                                                      Container(
+                                                        height: 150,
+                                                        decoration: BoxDecoration(
+                                                          border: Border.all(
+                                                            color: Colors.grey
+                                                                .withOpacity(0.5),
+                                                            width: 1.0,
+                                                          ),
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(4.0),
+                                                        ),
+                                                        child: TextField(
+                                                          //  expands: true,
+                                                          // minLines: 1,
+                                                          controller:
+                                                              txtRejectRemarks,
+                                                          minLines: 1,
+                                                          maxLines:
+                                                              5, // allow user to enter 5 line in textfield
+                                                          keyboardType: TextInputType
+                                                              .multiline, // user keyboard will have a button to move cursor to next line
+                                                          decoration:
+                                                              InputDecoration(
+                                                            border:
+                                                                InputBorder.none,
+                                                            hintText:
+                                                                "Enter Rejection Remarks",
+                                                            hintStyle: TextStyle(
+                                                                color:
+                                                                    Colors.grey),
+                                                            contentPadding:
+                                                                EdgeInsets
+                                                                    .symmetric(
+                                                                        vertical:
+                                                                            8,
+                                                                        horizontal:
+                                                                            8),
+                                                            isDense: true,
+                                                          ),
+                                                          style: TextStyle(
+                                                            fontSize: 16.0,
+                                                            color: Colors.black,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
                                                 ), // Message which will be pop up on the screen
                                                 // Action widget which will provide the user to acknowledge the choice
                                                 actions: [
@@ -3840,7 +3843,9 @@ class _WarehouseAcceptanceDetailsState
                         ),
             ),
           ),
-        ]));
+        ]),
+
+    );
   }
 
   // process the base64 image

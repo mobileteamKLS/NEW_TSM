@@ -28,7 +28,7 @@ class TruckYardCheckInDetails extends StatefulWidget {
 }
 
 class _TruckYardCheckInDetailsState extends State<TruckYardCheckInDetails> {
-  bool useMobileLayout = false, isLoading = false, isDisable = false;
+  bool useMobileLayout = false, isLoading = false, isDisable = true;
 
   TextEditingController txtVTNO = new TextEditingController();
 
@@ -37,7 +37,12 @@ class _TruckYardCheckInDetailsState extends State<TruckYardCheckInDetails> {
     getGeoLocationOfStation();
     txtVTNO.text = widget.selectedVtDetails.VTNo; //"WIVT220627006";
     super.initState();
-
+    if (isTrucker || isTruckerFF){
+      getGeoLocationOfStation();
+    }
+    else{
+      isDisable=false;
+    }
   }
 
   getGeoLocationOfStation() async {
@@ -120,38 +125,90 @@ class _TruckYardCheckInDetailsState extends State<TruckYardCheckInDetails> {
 
     print(latitude.toString());
     print(longitude.toString());
+    print("LAT LONG==${geofencingInfo[0].longitude}  ${geofencingInfo[0].latitude}");
+    // var disCalc = await distance(19.173986, 72.821522, 19.2210662, 72.9757903);
+    var disCalc = await distance(geofencingInfo[0].latitude,
+        geofencingInfo[0].longitude, latitude, longitude);
+   //  print("LAT LONG======= ${geofencingInfo[0].longitude}++${geofencingInfo[0].latitude}");
+    print("DisCalculation Location======= ${disCalc}");
 
-    var disCalc = await distance(geofencingInfo[0].latitude, geofencingInfo[0].longitude, latitude, longitude);
-    print(disCalc);
-
- print(locationDetailsSaved[0].RadiousinMeter.toString());
-    if (disCalc > locationDetailsSaved[0].RadiousinMeter) {
+    print(
+        "DisCalculation Location Radious======= ${geofencingInfo[0].radiusInKm.toString()}");
+    print(geofencingInfo[0].radiusInKm.toString());
+    if (disCalc > geofencingInfo[0].radiusInKm) {
       setState(() {
         isDisable = true;
+        print("IS button disable == $isDisable");
+      });
+    }
+    else{
+      setState(() {
+        isDisable = false;
+        print("IS button disable == $isDisable");
       });
     }
   }
 
+
   distance(lat1, lon1, lat2, lon2) async {
-    if ((lat1 == lat2) && (lon1 == lon2)) {
-      return 0;
-    } else {
-      var radlat1 = math.pi * lat1 / 180;
-      var radlat2 = math.pi * lat2 / 180;
-      var theta = lon1 - lon2;
-      var radtheta = math.pi * theta / 180;
-      var dist = math.sin(radlat1) * math.sin(radlat2) +
-          math.cos(radlat1) * math.cos(radlat2) * math.cos(radtheta);
-      if (dist > 1) {
-        dist = 1;
-      }
-      dist = math.acos(dist);
-      dist = dist * 180 / math.pi;
-      dist = dist * 60 * 1.1515;
-//return 40;
-      return dist * 1.609344;
-    }
+    const double R = 6371; // Radius of Earth in kilometers
+    var radlat1 = lat1 * math.pi / 180; // Convert latitude 1 to radians
+    var radlat2 = lat2 * math.pi / 180; // Convert latitude 2 to radians
+    var dlat = (lat2 - lat1) * math.pi / 180; // Difference in latitude in radians
+    var dlon = (lon2 - lon1) * math.pi / 180; // Difference in longitude in radians
+
+    // Haversine formula to calculate the distance
+    var a = math.sin(dlat / 2) * math.sin(dlat / 2) +
+        math.cos(radlat1) * math.cos(radlat2) *
+            math.sin(dlon / 2) * math.sin(dlon / 2);
+    var c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a));
+    var distance = R * c; // Multiply by Earth's radius to get distance in kilometers
+
+    return distance;
   }
+
+
+  // distance(lat1, lon1, lat2, lon2) async {
+  //   print("$lat1, $lon1, $lat2, $lon2");
+  //   if ((lat1 == lat2) && (lon1 == lon2)) {
+  //     return 0;
+  //   } else {
+  //     var radlat1 = math.pi * lat1 / 180;
+  //     var radlat2 = math.pi * lat2 / 180;
+  //     var theta = lon1 - lon2;
+  //     var radtheta = math.pi * theta / 180;
+  //     var dist = math.sin(radlat1) * math.sin(radlat2) +
+  //         math.cos(radlat1) * math.cos(radlat2) * math.cos(radtheta);
+  //     if (dist > 1) {
+  //       dist = 1;
+  //     }
+  //     dist = math.acos(dist);
+  //
+  //     return dist * 6371;
+  //   }
+  // }
+
+
+//   distance(lat1, lon1, lat2, lon2) async {
+//     if ((lat1 == lat2) && (lon1 == lon2)) {
+//       return 0;
+//     } else {
+//       var radlat1 = math.pi * lat1 / 180;
+//       var radlat2 = math.pi * lat2 / 180;
+//       var theta = lon1 - lon2;
+//       var radtheta = math.pi * theta / 180;
+//       var dist = math.sin(radlat1) * math.sin(radlat2) +
+//           math.cos(radlat1) * math.cos(radlat2) * math.cos(radtheta);
+//       if (dist > 1) {
+//         dist = 1;
+//       }
+//       dist = math.acos(dist);
+//       dist = dist * 180 / math.pi;
+//       dist = dist * 60 * 1.1515;
+// //return 40;
+//       return dist * 1.609344;
+//     }
+//   }
 
   @override
   Widget build(BuildContext context) {
@@ -707,14 +764,14 @@ class _TruckYardCheckInDetailsState extends State<TruckYardCheckInDetails> {
         "pTPS_CHECK_IN": checkin,
         "pDOCK_IN": dockin,
         "pDOCK_OUT": dockout,
-        "CreatedByUserId": loggedinUser.CreatedByUserId,
+        "CreatedByUserId": loggedinUser.CreatedByUserId.toString(),
         "OrganizationBranchId":
-        selectedBaseStationBranchID,//selectedTerminalID, //  loggedinUser.OrganizationBranchId,
-        "OrganizationId": loggedinUser.OrganizationId,
+        selectedBaseStationBranchID.toString(),//selectedTerminalID, //  loggedinUser.OrganizationBranchId,
+        "OrganizationId": loggedinUser.OrganizationId.toString(),
         "IsGeoFencing": "true",
       };
       await Global()
-          .postData(
+          .getData(
         Settings.SERVICES['UpdateVT'],
         queryParams,
       )

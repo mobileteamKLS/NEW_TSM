@@ -245,7 +245,7 @@ class _VehicleTokenListState extends State<VehicleTokenList> {
       Map<String, dynamic> jsonResponse = json.decode(response.body);
       List<dynamic> resp = jsonResponse['ResponseObject'];
       var msg = json.decode(response.body)['ResponseObject'];
-      if (msg == "[]") {
+      if (resp.isEmpty) {
         setState(() {
           hasNoRecord = true;
         });
@@ -962,8 +962,8 @@ class _VehicleTokenListState extends State<VehicleTokenList> {
             child: Card(
               child: ListTile(
                 leading: Container(
-                  height: useMobileLayout ? 40 : 60,
-                  width: useMobileLayout ? 40 : 60,
+                  height: useMobileLayout ? 50 : 60,
+                  width: useMobileLayout ? 50 : 60,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(
@@ -973,7 +973,7 @@ class _VehicleTokenListState extends State<VehicleTokenList> {
                       shape: BoxShape.circle),
                   child: Center(
                     child: Text(_dl.DOCKNAME,
-                        style: mobileGroupHeaderFontStyleBold),
+                        style: mobileGroupHeaderFontStyleBoldSmall),
                   ),
                 ),
                 title: useMobileLayout

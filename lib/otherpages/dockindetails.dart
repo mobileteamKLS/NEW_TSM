@@ -1494,14 +1494,14 @@ class _DockInDetailsState extends State<DockInDetails> {
         "pTPS_CHECK_IN": checkin,
         "pDOCK_IN": dockin,
         "pDOCK_OUT": dockout,
-        "CreatedByUserId": loggedinUser.CreatedByUserId,
+        "CreatedByUserId": loggedinUser.CreatedByUserId.toString(),
         "OrganizationBranchId":
         selectedBaseStationBranchID.toString(), //selectedTerminalID.toString(), // loggedinUser.OrganizationBranchId,
-        "OrganizationId": loggedinUser.OrganizationId,
+        "OrganizationId": loggedinUser.OrganizationId.toString(),
         "IsGeoFencing": "true",
       };
       await Global()
-          .postData(
+          .getData(
         Settings.SERVICES['UpdateVT'],
         queryParams,
       )

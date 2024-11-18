@@ -841,8 +841,8 @@ class _WarehouseAcceptanceListState extends State<WarehouseAcceptanceList> {
             child: Card(
               child: ListTile(
                 leading: Container(
-                  height: useMobileLayout ? 40 : 60,
-                  width: useMobileLayout ? 40 : 60,
+                  height: useMobileLayout ? 50 : 60,
+                  width: useMobileLayout ? 50 : 60,
                   decoration: BoxDecoration(
                       color: Colors.white,
                       border: Border.all(
@@ -853,7 +853,7 @@ class _WarehouseAcceptanceListState extends State<WarehouseAcceptanceList> {
                   child: Center(
                     child: Text(_dl.DOCKNAME == "" ? "--" : _dl.DOCKNAME,
                         style: useMobileLayout
-                            ? mobileGroupHeaderFontStyleBold
+                            ? mobileGroupHeaderFontStyleBoldSmall
                             : iPadGroupHeaderFontStyleBold),
                   ),
                 ),
@@ -994,8 +994,8 @@ class _WarehouseAcceptanceListState extends State<WarehouseAcceptanceList> {
         : Card(
             child: ListTile(
               leading: Container(
-                height: useMobileLayout ? 40 : 50,
-                width: useMobileLayout ? 40 : 50,
+                height: useMobileLayout ? 50 : 50,
+                width: useMobileLayout ? 50 : 50,
                 decoration: BoxDecoration(
                     color: Colors.white,
                     border: Border.all(
@@ -1007,7 +1007,7 @@ class _WarehouseAcceptanceListState extends State<WarehouseAcceptanceList> {
                   child: Text(
                     _dl.DOCKNAME == "" ? "--" : _dl.DOCKNAME,
                     style: useMobileLayout
-                        ? mobileGroupHeaderFontStyleBold
+                        ? mobileGroupHeaderFontStyleBoldSmall
                         : TextStyle(
                             fontSize: 26,
                             fontWeight: FontWeight.bold,
