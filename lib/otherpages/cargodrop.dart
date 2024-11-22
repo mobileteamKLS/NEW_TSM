@@ -207,6 +207,7 @@ class _CargoDropState extends State<CargoDrop> {
 
     setState(() {
       isLoading = true;
+      hasNoRecord = false;
     });
 
     var queryParams = {

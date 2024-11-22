@@ -225,6 +225,7 @@ class _DockInState extends State<DockIn> {
 
     setState(() {
       isLoading = true;
+      hasNoRecord = false;
     });
 
     var queryParams = {

@@ -213,6 +213,7 @@ class _DockOutState extends State<DockOut> {
 
     setState(() {
       isLoading = true;
+      hasNoRecord = false;
     });
 
     var queryParams = {

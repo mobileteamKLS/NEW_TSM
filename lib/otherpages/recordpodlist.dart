@@ -62,6 +62,7 @@ class _RecordPodListState extends State<RecordPodList> {
 
     setState(() {
       isLoading = true;
+      hasNoRecord = false;
     });
 
     var queryParams = {

@@ -99,6 +99,7 @@ class _TruckYardCheckInListState extends State<TruckYardCheckInList> {
 
     setState(() {
       isLoading = true;
+      hasNoRecord = false;
     });
 
     var queryParams = {
@@ -122,6 +123,7 @@ class _TruckYardCheckInListState extends State<TruckYardCheckInList> {
         setState(() {
           hasNoRecord = true;
         });
+        print("hasNoRecord $hasNoRecord");
       }
       // var resp = json.decode(msg).cast<Map<String, dynamic>>();
 
@@ -151,7 +153,8 @@ class _TruckYardCheckInListState extends State<TruckYardCheckInList> {
             modeType == 2 ? vehicleToeknListExport : vehicleToeknListImport;
         isLoading = false;
       });
-
+      print("length vehicleToeknListImport BIND = " +
+          vehicleToeknListToBind.length.toString());
       // if (response.statusCode == HttpStatus.notFound) {
       //   setState(() {
       //     isLoading = false;

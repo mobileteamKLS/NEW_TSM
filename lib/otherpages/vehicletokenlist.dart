@@ -225,6 +225,7 @@ class _VehicleTokenListState extends State<VehicleTokenList> {
 
     setState(() {
       isLoading = true;
+      hasNoRecord = false;
     });
 
     var queryParams = {

@@ -207,6 +207,7 @@ class _CArgoPickUpState extends State<CArgoPickUp> {
       if (resp.isEmpty) {
         setState(() {
           hasNoRecord = true;
+          hasNoRecord = false;
         });
       }
 

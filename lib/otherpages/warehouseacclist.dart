@@ -208,6 +208,7 @@ class _WarehouseAcceptanceListState extends State<WarehouseAcceptanceList> {
 
     setState(() {
       isLoading = true;
+      hasNoRecord = false;
     });
 
     var queryParams = {

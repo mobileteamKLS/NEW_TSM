@@ -227,6 +227,7 @@ class _VehicleMovementTrackingListState
 
     setState(() {
       isLoading = true;
+      hasNoRecord = false;
     });
 
     var queryParams = {
