@@ -60,7 +60,7 @@ class _YardCheckInState extends State<YardCheckIn> {
   }
 
   getTerminal() async {
-    var queryParams = {'UserId': 0, 'OrganizationId': 0};
+    var queryParams = {'UserId': "0", 'OrganizationId': "0"};
     await Global()
         .getData(
       Settings.SERVICES['GetBaseStation'],

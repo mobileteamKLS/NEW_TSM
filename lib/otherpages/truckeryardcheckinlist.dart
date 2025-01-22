@@ -85,7 +85,6 @@ class _TruckYardCheckInListState extends State<TruckYardCheckInList> {
   @override
   void dispose() {
     _controllerModeType.dispose();
-
     super.dispose();
   }
 

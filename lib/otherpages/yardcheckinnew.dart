@@ -45,8 +45,8 @@ class _YardCheckInNewState extends State<YardCheckInNew> {
   @override
   void initState() {
     // getVehicleList();
-    // print("####### ${baseStationBranchList.toString()}########");
-    // print("####### $selectedBaseStation ########");
+    print("####### ${baseStationBranchList.toString()}########");
+    print("####### $selectedBaseStation ########");
     if (!isTerminalAlreadySelected) {
       selectedBaseStationID = 0;
       terminalsListDDL = [];
@@ -152,7 +152,7 @@ class _YardCheckInNewState extends State<YardCheckInNew> {
     });
   }
   getTerminal() async {
-    var queryParams = {'UserId': 0, 'OrganizationId': 0};
+    var queryParams = {'UserId': "0", 'OrganizationId': "0"};
     await Global()
         .getData(
       Settings.SERVICES['GetBaseStation'],

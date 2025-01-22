@@ -123,7 +123,7 @@ class _TruckYardCheckInDetailsState extends State<TruckYardCheckInDetails> {
     latitude = position.latitude;
     longitude = position.longitude;
 
-    print(latitude.toString());
+    print("---"+latitude.toString());
     print(longitude.toString());
     print("LAT LONG==${geofencingInfo[0].longitude}  ${geofencingInfo[0].latitude}");
     // var disCalc = await distance(19.173986, 72.821522, 19.2210662, 72.9757903);
