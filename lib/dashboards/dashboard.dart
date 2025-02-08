@@ -560,7 +560,7 @@ class _DashboardsState extends State<Dashboards> {
                                                 borderRadius:
                                                     BorderRadius.circular(5),
                                                 child: Image.asset(
-                                                    "assets/images/kls.jpg",
+                                                    "assets/images/wfs.png",
                                                     //YVR.png", //WFS_logo.png",
                                                     fit: kIsWeb
                                                         ? BoxFit.fill

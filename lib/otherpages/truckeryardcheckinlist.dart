@@ -26,7 +26,7 @@ class TruckYardCheckInList extends StatefulWidget {
 class _TruckYardCheckInListState extends State<TruckYardCheckInList> {
   String scannedCodeReceived = "";
   bool useMobileLayout = false;
-  int modeSelected = 0; //, modeSelected1 = 0;
+  int modeSelected = 1; //, modeSelected1 = 0;
   //  List<CodexPass> passList = [];
   // List<FilterArray> _filterArray = [];
   bool isLoading = false;
@@ -73,6 +73,7 @@ class _TruckYardCheckInListState extends State<TruckYardCheckInList> {
     });
 
     if (modeSelected == 1) {
+      checked = true;
       getVehicleToeknList(3); //Import
       print("import");
     } else {
@@ -353,7 +354,7 @@ class _TruckYardCheckInListState extends State<TruckYardCheckInList> {
                 ? Expanded(
                     flex: 0,
                     child: Container(
-                      height: 110,
+                      height: 70,
                       child: Padding(
                         padding: const EdgeInsets.only(
                             top: 0.0, bottom: 10.0, left: 10.0),
@@ -361,28 +362,28 @@ class _TruckYardCheckInListState extends State<TruckYardCheckInList> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width / 4,
-                                  child: Text("Mode",
-                                      style: mobileHeaderFontStyle),
-                                ),
-                                AdvancedSwitch(
-                                  activeColor: Color(0xFF11249F),
-                                  inactiveColor: Color(0xFF11249F),
-                                  activeChild: Text('Import',
-                                      style: mobileTextFontStyleWhite),
-                                  inactiveChild: Text('Export',
-                                      style: mobileTextFontStyleWhite),
-                                  width:
-                                      MediaQuery.of(context).size.width / 2.5,
-                                  height: 35,
-                                  controller: _controllerModeType,
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 5),
+                            // Row(
+                            //   children: [
+                            //     SizedBox(
+                            //       width: MediaQuery.of(context).size.width / 4,
+                            //       child: Text("Mode",
+                            //           style: mobileHeaderFontStyle),
+                            //     ),
+                            //     AdvancedSwitch(
+                            //       activeColor: Color(0xFF11249F),
+                            //       inactiveColor: Color(0xFF11249F),
+                            //       activeChild: Text('Import',
+                            //           style: mobileTextFontStyleWhite),
+                            //       inactiveChild: Text('Export',
+                            //           style: mobileTextFontStyleWhite),
+                            //       width:
+                            //           MediaQuery.of(context).size.width / 2.5,
+                            //       height: 35,
+                            //       controller: _controllerModeType,
+                            //     ),
+                            //   ],
+                            // ),
+                            // SizedBox(height: 5),
                             Row(children: [
                               SizedBox(
                                 width: MediaQuery.of(context).size.width / 4.2,

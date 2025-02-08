@@ -40,7 +40,7 @@ class VehicleTokenList extends StatefulWidget {
 class _VehicleTokenListState extends State<VehicleTokenList> {
   String scannedCodeReceived = "";
   bool useMobileLayout = false;
-  int modeSelected = 0; //, modeSelected1 = 0;
+  int modeSelected = 1; //, modeSelected1 = 0;
   //  List<CodexPass> passList = [];
   // List<FilterArray> _filterArray = [];
   bool isLoading = false;
@@ -202,8 +202,11 @@ class _VehicleTokenListState extends State<VehicleTokenList> {
         }
       });
     });
-    if (modeSelected == 1)
-      getVehicleToeknList(1); //Import
+    if (modeSelected == 1){
+      checked=true;
+      getVehicleToeknList(1);
+    }
+       //Import
     else
       getVehicleToeknList(2); //Export
     super.initState();
@@ -475,7 +478,7 @@ class _VehicleTokenListState extends State<VehicleTokenList> {
                 ? Expanded(
                     flex: 0,
                     child: Container(
-                      height: 110,
+                      height: 70,
                       child: Padding(
                         padding: const EdgeInsets.only(
                             top: 0.0, bottom: 10.0, left: 10.0),
@@ -483,28 +486,28 @@ class _VehicleTokenListState extends State<VehicleTokenList> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: MediaQuery.of(context).size.width / 4,
-                                  child: Text("Mode",
-                                      style: mobileHeaderFontStyle),
-                                ),
-                                AdvancedSwitch(
-                                  activeColor: Color(0xFF11249F),
-                                  inactiveColor: Color(0xFF11249F),
-                                  activeChild: Text('Import',
-                                      style: mobileTextFontStyleWhite),
-                                  inactiveChild: Text('Export',
-                                      style: mobileTextFontStyleWhite),
-                                  width:
-                                      MediaQuery.of(context).size.width / 2.5,
-                                  height: 35,
-                                  controller: _controllerModeType,
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 5),
+                            // Row(
+                            //   children: [
+                            //     SizedBox(
+                            //       width: MediaQuery.of(context).size.width / 4,
+                            //       child: Text("Mode",
+                            //           style: mobileHeaderFontStyle),
+                            //     ),
+                            //     AdvancedSwitch(
+                            //       activeColor: Color(0xFF11249F),
+                            //       inactiveColor: Color(0xFF11249F),
+                            //       activeChild: Text('Import',
+                            //           style: mobileTextFontStyleWhite),
+                            //       inactiveChild: Text('Export',
+                            //           style: mobileTextFontStyleWhite),
+                            //       width:
+                            //           MediaQuery.of(context).size.width / 2.5,
+                            //       height: 35,
+                            //       controller: _controllerModeType,
+                            //     ),
+                            //   ],
+                            // ),
+                            // SizedBox(height: 5),
                             Row(children: [
                               SizedBox(
                                 width: MediaQuery.of(context).size.width / 4.2,

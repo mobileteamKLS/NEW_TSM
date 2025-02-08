@@ -42,6 +42,7 @@ class _VehicleTokenDetailsState extends State<VehicleTokenDetails> {
 
   @override
   void initState() {
+    print("IS EXPORT ${widget.isExport}");
     if (widget.isExport)
       getVehicleTokenSMSList(3);
     else

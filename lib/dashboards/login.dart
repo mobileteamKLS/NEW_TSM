@@ -93,8 +93,8 @@ class _LoginPageState extends State<LoginPage> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomLeft,
                     colors: [
-                      Color(0xFF3383CD),
-                      Color(0xFF11249F),
+                      Color(0xFF003263),
+                      Color(0xFF003263),
                     ],
                   ),
                 ),
@@ -103,10 +103,26 @@ class _LoginPageState extends State<LoginPage> {
 
                 child: Container(
                   height: MediaQuery.of(context).size.height / 7, // 100,
-                  child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.asset("assets/images/ACSLogo1.png",
-                          fit: BoxFit.fill)),
+                  child: Stack(
+                    children: [
+                      ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.asset("assets/images/jfklogo.png",
+                              fit: BoxFit.fill)),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 8),
+                        child: Text(
+                          'CES at',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 24,
+                            color: Colors.white,
+
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -544,6 +560,14 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                             //Text('CONTAINED BUTTON'),
                           ),
+                   SizedBox(height: 12,),
+                   Container(
+                      height: MediaQuery.of(context).size.height / 7, // 100,
+                      child: ClipRRect(
+                          borderRadius: BorderRadius.circular(20),
+                          child: Image.asset("assets/images/ACSLogo1.png",
+                              fit: BoxFit.fill)),
+                    ),
                   ],
                 ),
           if (!isLoadingMain)
