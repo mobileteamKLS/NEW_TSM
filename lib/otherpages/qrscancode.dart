@@ -201,7 +201,8 @@ class _ScanQRCodeState extends State<ScanQRCode> {
                                     // await getShipmentDetails(scannedCode);
                                   }
                                 }
-                              } else {
+                              }
+                              else {
                                 final ImagePicker _picker = ImagePicker();
                                 final XFile? image = await _picker.pickImage(
                                     source:

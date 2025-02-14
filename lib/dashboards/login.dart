@@ -93,8 +93,8 @@ class _LoginPageState extends State<LoginPage> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomLeft,
                     colors: [
-                      Color(0xFF003263),
-                      Color(0xFF003263),
+                      Color(0xFF3383CD),
+                      Color(0xFF11249F),
                     ],
                   ),
                 ),
@@ -107,20 +107,9 @@ class _LoginPageState extends State<LoginPage> {
                     children: [
                       ClipRRect(
                           borderRadius: BorderRadius.circular(20),
-                          child: Image.asset("assets/images/jfklogo.png",
+                          child: Image.asset("assets/images/ces.png",
                               fit: BoxFit.fill)),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 8),
-                        child: Text(
-                          'CES at',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w700,
-                            fontSize: 24,
-                            color: Colors.white,
 
-                          ),
-                        ),
-                      ),
                     ],
                   ),
                 ),

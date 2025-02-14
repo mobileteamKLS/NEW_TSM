@@ -467,8 +467,11 @@ class _SplashScreenState extends State<SplashScreen> {
                   children: [
                     ClipRRect(
                         borderRadius: BorderRadius.circular(0),
-                        child: Image.asset("assets/images/kls.jpg",
-                            fit: BoxFit.fitHeight)),
+                        child: SizedBox(
+                          child: Image.asset("assets/images/kaleinfo.png",
+                              width: 260,
+                              fit: BoxFit.fitWidth),
+                        )),
                     SizedBox(width: 40), //YVRLogo_CMYK
                     // ClipRRect(
                     //     borderRadius: BorderRadius.circular(5),
@@ -480,8 +483,10 @@ class _SplashScreenState extends State<SplashScreen> {
                     //         fit: BoxFit.scaleDown)),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(20),
-                      child: Image.asset("assets/images/splash1.gif",
-                          fit: BoxFit.fitHeight),
+                      child: SizedBox(
+                        child: Image.asset("assets/images/splash1.gif",
+                            fit: BoxFit.fitHeight),
+                      ),
                     ),
                   ],
                 ),
