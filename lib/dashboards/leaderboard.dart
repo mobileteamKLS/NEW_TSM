@@ -818,7 +818,7 @@ class _LeaderBoardState extends State<LeaderBoard> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              PieChartSample2(),
+                              // PieChartSample2(),
                               Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
