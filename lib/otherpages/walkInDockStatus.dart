@@ -1481,7 +1481,187 @@ class _WalkInLiveDockStatusState extends State<WalkInLiveDockStatus> {
                             dsl.DockStatus != "A"
                                 ? dsl.DockStatus == "Y"
                                     ? Slidable(
-                                        actionPane: SlidableDrawerActionPane(),
+                              startActionPane:ActionPane(
+                                motion: DrawerMotion(),
+                                extentRatio: 0.15,
+                                children: <Widget>[
+                                  SlidableAction(
+                                    label: 'Update',
+                                    backgroundColor: Colors.blue,
+                                    icon: Icons.edit,
+                                    onPressed: (context) async {
+                                      print("avlDockList.length === " +
+                                          avlDockList.length
+                                              .toString());
+                                      if (avlDockList.isNotEmpty) {
+                                        await getDocksToUpdate(
+                                            modeSelected == 1
+                                                ? "2"
+                                                : "1");
+                                        if (!isSavingData) {
+                                          if (vehicleAndDocksList
+                                              .isEmpty) {
+                                          } else {
+                                            var newDockSelected =
+                                            await showDialog(
+                                              context: context,
+                                              barrierDismissible: false,
+                                              builder: (BuildContext
+                                              context) {
+                                                return UpdateDockDialog(
+                                                  isMobile:
+                                                  useMobileLayout,
+                                                  dockname:
+                                                  dsl.DockName,
+                                                  vtnum: dsl.VTNo,
+                                                  vehicleAndDocksList:
+                                                  vehicleAndDocksList,
+                                                  isAssign: false,
+                                                );
+                                              },
+                                            );
+                                            print("newDockSelected");
+                                            print(newDockSelected);
+                                            if (newDockSelected !=
+                                                null) {
+                                              var submitCheckin =
+                                              await submitForDockUpdate(
+                                                "Update",
+                                                dsl.VTNo,
+                                                modeSelected == 1
+                                                    ? "2"
+                                                    : "1",
+                                                newDockSelected
+                                                    .toString(),
+                                                dsl.DockName,
+                                              );
+                                              print(submitCheckin);
+                                              if (submitCheckin ==
+                                                  true) {
+                                                var dlgstatus =
+                                                await showDialog(
+                                                  context: context,
+                                                  builder: (BuildContext
+                                                  context) =>
+                                                      CustomDialog(
+                                                        title: dsl.VTNo,
+                                                        description: "VT# " +
+                                                            dsl.VTNo +
+                                                            " has been updated to new dock successfully",
+                                                        buttonText: "Okay",
+                                                        imagepath:
+                                                        'assets/images/successchk.gif',
+                                                        isMobile:
+                                                        useMobileLayout,
+                                                      ),
+                                                );
+                                                if (dlgstatus == true) {
+                                                  setState(() {
+                                                    refreshList();
+                                                  }); // To close the form
+                                                }
+                                              } else {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (BuildContext context) => customAlertMessageDialog(
+                                                      title: errMsgText ==
+                                                          ""
+                                                          ? "Error Occured"
+                                                          : "Update Dock Failed",
+                                                      description:
+                                                      errMsgText ==
+                                                          ""
+                                                          ? "Error occured while Updating Dock, Please try again after some time"
+                                                          : errMsgText,
+                                                      buttonText:
+                                                      "Okay",
+                                                      imagepath:
+                                                      'assets/images/warn.gif',
+                                                      isMobile:
+                                                      useMobileLayout),
+                                                );
+                                              }
+                                            }
+                                          }
+                                        }
+                                      } else {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext
+                                          context) =>
+                                              customAlertMessageDialog(
+                                                  title:
+                                                  "Update Failed",
+                                                  description:
+                                                  "No Docks Available at the moment to Assign",
+                                                  buttonText: "Okay",
+                                                  imagepath:
+                                                  'assets/images/warn.gif',
+                                                  isMobile:
+                                                  useMobileLayout),
+                                        );
+                                      }
+                                    },
+                                  ),
+                                  SlidableAction(
+                                      label: 'Push in Queue',
+                                      backgroundColor: Colors.indigo,
+                                      icon: Icons.redo,
+                                      onPressed: (context) async {
+                                        var submitCheckin =
+                                        await submitForPushToQueue(
+                                            "MoveToQueue",
+                                            dsl.VTNo,
+                                            modeSelected == 1
+                                                ? "2"
+                                                : "1");
+                                        print(submitCheckin);
+                                        if (submitCheckin == true) {
+                                          var dlgstatus =
+                                          await showDialog(
+                                            context: context,
+                                            builder: (BuildContext
+                                            context) =>
+                                                CustomDialog(
+                                                  title: dsl.VTNo,
+                                                  description: "VT# " +
+                                                      dsl.VTNo +
+                                                      " has been pushed to queue successfully",
+                                                  buttonText: "Okay",
+                                                  imagepath:
+                                                  'assets/images/successchk.gif',
+                                                  isMobile: useMobileLayout,
+                                                ),
+                                          );
+                                          if (dlgstatus == true) {
+                                            setState(() {
+                                              refreshList();
+                                            }); // To close the form
+                                          }
+                                        } else {
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext
+                                            context) =>
+                                                customAlertMessageDialog(
+                                                    title: errMsgText ==
+                                                        ""
+                                                        ? "Error Occured"
+                                                        : "Push To Queue Failed",
+                                                    description:
+                                                    errMsgText == ""
+                                                        ? "Error occured while performing Push To Queue, Please try again after some time"
+                                                        : errMsgText,
+                                                    buttonText: "Okay",
+                                                    imagepath:
+                                                    'assets/images/warn.gif',
+                                                    isMobile:
+                                                    useMobileLayout),
+                                          );
+                                        }
+                                      }),
+                                ],
+                              ),
 
                                         // closeOnCanceled: true,
                                         // dismissal: SlidableDismissal(
@@ -1498,7 +1678,7 @@ class _WalkInLiveDockStatusState extends State<WalkInLiveDockStatus> {
                                         //   //   // });
                                         //   // },
                                         // ),
-                                        actionExtentRatio: 0.15,
+
                                         child:
 
                                             // isSavingData
@@ -1536,184 +1716,7 @@ class _WalkInLiveDockStatusState extends State<WalkInLiveDockStatus> {
                                                 // "990909090",
                                                 useMobileLayout,
                                                 modeSelected),
-                                        secondaryActions: <Widget>[
-                                          IconSlideAction(
-                                            caption: 'Update',
-                                            color: Colors.blue,
-                                            icon: Icons.edit,
-                                            onTap: () async {
-                                              print("avlDockList.length === " +
-                                                  avlDockList.length
-                                                      .toString());
-                                              if (avlDockList.isNotEmpty) {
-                                                await getDocksToUpdate(
-                                                    modeSelected == 1
-                                                        ? "2"
-                                                        : "1");
 
-                                                if (!isSavingData) {
-                                                  if (vehicleAndDocksList
-                                                      .isEmpty) {
-                                                  } else {
-                                                    var newDockSelected =
-                                                        await showDialog(
-                                                      context: context,
-                                                      barrierDismissible: false,
-                                                      builder: (BuildContext
-                                                          context) {
-                                                        return UpdateDockDialog(
-                                                          isMobile:
-                                                              useMobileLayout,
-                                                          dockname:
-                                                              dsl.DockName,
-                                                          vtnum: dsl.VTNo,
-                                                          vehicleAndDocksList:
-                                                              vehicleAndDocksList,
-                                                          isAssign: false,
-                                                        );
-                                                      },
-                                                    );
-                                                    print("newDockSelected");
-                                                    print(newDockSelected);
-                                                    if (newDockSelected !=
-                                                        null) {
-                                                      var submitCheckin =
-                                                          await submitForDockUpdate(
-                                                        "Update",
-                                                        dsl.VTNo,
-                                                        modeSelected == 1
-                                                            ? "2"
-                                                            : "1",
-                                                        newDockSelected
-                                                            .toString(),
-                                                        dsl.DockName,
-                                                      );
-                                                      print(submitCheckin);
-                                                      if (submitCheckin ==
-                                                          true) {
-                                                        var dlgstatus =
-                                                            await showDialog(
-                                                          context: context,
-                                                          builder: (BuildContext
-                                                                  context) =>
-                                                              CustomDialog(
-                                                            title: dsl.VTNo,
-                                                            description: "VT# " +
-                                                                dsl.VTNo +
-                                                                " has been updated to new dock successfully",
-                                                            buttonText: "Okay",
-                                                            imagepath:
-                                                                'assets/images/successchk.gif',
-                                                            isMobile:
-                                                                useMobileLayout,
-                                                          ),
-                                                        );
-                                                        if (dlgstatus == true) {
-                                                          setState(() {
-                                                            refreshList();
-                                                          }); // To close the form
-                                                        }
-                                                      } else {
-                                                        showDialog(
-                                                          context: context,
-                                                          builder: (BuildContext context) => customAlertMessageDialog(
-                                                              title: errMsgText ==
-                                                                      ""
-                                                                  ? "Error Occured"
-                                                                  : "Update Dock Failed",
-                                                              description:
-                                                                  errMsgText ==
-                                                                          ""
-                                                                      ? "Error occured while Updating Dock, Please try again after some time"
-                                                                      : errMsgText,
-                                                              buttonText:
-                                                                  "Okay",
-                                                              imagepath:
-                                                                  'assets/images/warn.gif',
-                                                              isMobile:
-                                                                  useMobileLayout),
-                                                        );
-                                                      }
-                                                    }
-                                                  }
-                                                }
-                                              } else {
-                                                showDialog(
-                                                  context: context,
-                                                  builder: (BuildContext
-                                                          context) =>
-                                                      customAlertMessageDialog(
-                                                          title:
-                                                              "Update Failed",
-                                                          description:
-                                                              "No Docks Available at the moment to Assign",
-                                                          buttonText: "Okay",
-                                                          imagepath:
-                                                              'assets/images/warn.gif',
-                                                          isMobile:
-                                                              useMobileLayout),
-                                                );
-                                              }
-                                            },
-                                          ),
-                                          IconSlideAction(
-                                              caption: 'Push in Queue',
-                                              color: Colors.indigo,
-                                              icon: Icons.redo,
-                                              onTap: () async {
-                                                var submitCheckin =
-                                                    await submitForPushToQueue(
-                                                        "MoveToQueue",
-                                                        dsl.VTNo,
-                                                        modeSelected == 1
-                                                            ? "2"
-                                                            : "1");
-                                                print(submitCheckin);
-                                                if (submitCheckin == true) {
-                                                  var dlgstatus =
-                                                      await showDialog(
-                                                    context: context,
-                                                    builder: (BuildContext
-                                                            context) =>
-                                                        CustomDialog(
-                                                      title: dsl.VTNo,
-                                                      description: "VT# " +
-                                                          dsl.VTNo +
-                                                          " has been pushed to queue successfully",
-                                                      buttonText: "Okay",
-                                                      imagepath:
-                                                          'assets/images/successchk.gif',
-                                                      isMobile: useMobileLayout,
-                                                    ),
-                                                  );
-                                                  if (dlgstatus == true) {
-                                                    setState(() {
-                                                      refreshList();
-                                                    }); // To close the form
-                                                  }
-                                                } else {
-                                                  showDialog(
-                                                    context: context,
-                                                    builder: (BuildContext
-                                                            context) =>
-                                                        customAlertMessageDialog(
-                                                            title: errMsgText ==
-                                                                    ""
-                                                                ? "Error Occured"
-                                                                : "Push To Queue Failed",
-                                                            description:
-                                                                errMsgText == ""
-                                                                    ? "Error occured while performing Push To Queue, Please try again after some time"
-                                                                    : errMsgText,
-                                                            buttonText: "Okay",
-                                                            imagepath:
-                                                                'assets/images/warn.gif',
-                                                            isMobile:
-                                                                useMobileLayout),
-                                                  );
-                                                }
-                                              }),
-                                        ],
                                       )
                                     : DockstatusListWeidget(
                                         dsl.DockStatus == "D"

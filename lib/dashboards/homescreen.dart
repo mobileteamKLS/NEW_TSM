@@ -100,10 +100,10 @@ class _HomeScreenState extends State<HomeScreen> {
           (kIsWeb)
               ? FloatingActionButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => LeaderBoard()),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(builder: (context) => LeaderBoard()),
+                    // );
                   },
                   backgroundColor: Color(0xFF11249F), //Colors.green,
                   child: const Icon(Icons.leaderboard),

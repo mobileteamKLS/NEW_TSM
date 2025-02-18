@@ -678,62 +678,89 @@ class _NewSlotBookingState extends State<NewSlotBooking> {
                                                       BorderRadius.circular(
                                                           4.0),
                                                 ),
-                                                child: TypeAheadField(
-                                                  //he
-
-                                                  textFieldConfiguration:
-                                                      TextFieldConfiguration(
-                                                          autocorrect: false,
-                                                          style:
-                                                              mobileTextFontStyle,
+                                                child: TypeAheadField<VehicleNos>(
+                                                  controller: txtVehicleNo,
+                                                  builder: (context, controller,focusNode)=>
+                                                      TextField(
+                                                          controller: controller,
+                                                          focusNode: focusNode,
                                                           keyboardType:
-                                                              TextInputType
-                                                                  .streetAddress,
-                                                          //  maxLength: ,
-                                                          controller:
-                                                              txtVehicleNo,
-                                                          decoration:
-                                                              InputDecoration(
-                                                            border: InputBorder
-                                                                .none,
-                                                            counterText: "",
-                                                            isDense: true,
-                                                            hintText:
-                                                                "Select/Enter vehicle",
-                                                            hintStyle: TextStyle(
-                                                                color: Colors
-                                                                    .grey),
-                                                            contentPadding:
-                                                                EdgeInsets
-                                                                    .symmetric(
-                                                                        vertical:
-                                                                            8,
-                                                                        horizontal:
-                                                                            8),
-                                                          ),
+                                                          TextInputType
+                                                              .streetAddress,
+                                                          decoration: InputDecoration(
+                                                            border: InputBorder.none,
 
-                                                          // enabled: false,
+                                                            hintText: "Select/Enter vehicle",
+                                                            hintStyle: TextStyle(
+                                                                color: Colors.grey),
+                                                            contentPadding:
+                                                            EdgeInsets.symmetric(
+                                                                vertical: 8,
+                                                                horizontal: 8),
+                                                            isDense: true,
+
+                                                          ),
                                                           onChanged: (txt) {
                                                             // print('Vehicle No: ${txtVehicleNo.text.toString()}');
                                                             // print('Second text field: ${txt.toString()}');
 
                                                             txtDriverName.text =
-                                                                "";
+                                                            "";
                                                             txtMobileNo.text =
-                                                                "";
+                                                            "";
                                                             txtLicNo.text = "";
                                                             txtSTA.text = "";
-                                                          }),
+                                                          },
+                                                          style: mobileTextFontStyle),
+                                                  // textFieldConfiguration:
+                                                  //     TextFieldConfiguration(
+                                                  //         autocorrect: false,
+                                                  //         style:
+                                                  //             mobileTextFontStyle,
+                                                  //         keyboardType:
+                                                  //             TextInputType
+                                                  //                 .streetAddress,
+                                                  //         //  maxLength: ,
+                                                  //         controller:
+                                                  //             txtVehicleNo,
+                                                  //         decoration:
+                                                  //             InputDecoration(
+                                                  //           border: InputBorder
+                                                  //               .none,
+                                                  //           counterText: "",
+                                                  //           isDense: true,
+                                                  //           hintText:
+                                                  //               "Select/Enter vehicle",
+                                                  //           hintStyle: TextStyle(
+                                                  //               color: Colors
+                                                  //                   .grey),
+                                                  //           contentPadding:
+                                                  //               EdgeInsets
+                                                  //                   .symmetric(
+                                                  //                       vertical:
+                                                  //                           8,
+                                                  //                       horizontal:
+                                                  //                           8),
+                                                  //         ),
+                                                  //
+                                                  //         // enabled: false,
+                                                  //         onChanged: (txt) {
+                                                  //           // print('Vehicle No: ${txtVehicleNo.text.toString()}');
+                                                  //           // print('Second text field: ${txt.toString()}');
+                                                  //
+                                                  //           txtDriverName.text =
+                                                  //               "";
+                                                  //           txtMobileNo.text =
+                                                  //               "";
+                                                  //           txtLicNo.text = "";
+                                                  //           txtSTA.text = "";
+                                                  //         }),
                                                   suggestionsCallback:
                                                       (pattern) async {
                                                     return getSuggestionsVN(
                                                         pattern);
                                                   },
-                                                  transitionBuilder: (context,
-                                                      suggestionsBox,
-                                                      controller) {
-                                                    return suggestionsBox;
-                                                  },
+
                                                   itemBuilder: (context,
                                                       VehicleNos suggestion) {
                                                     return ListTile(
@@ -742,7 +769,7 @@ class _NewSlotBookingState extends State<NewSlotBooking> {
                                                           .toString()),
                                                     );
                                                   },
-                                                  onSuggestionSelected:
+                                               onSelected:
                                                       (VehicleNos suggestion) {
                                                     // print(suggestion);
                                                     this.txtVehicleNo.text =
@@ -883,42 +910,66 @@ class _NewSlotBookingState extends State<NewSlotBooking> {
                                                       BorderRadius.circular(
                                                           4.0),
                                                 ),
-                                                child: TypeAheadField(
-                                                    //he
-                                                    textFieldConfiguration:
-                                                        TextFieldConfiguration(
-                                                            autocorrect: false,
-                                                            style:
-                                                                mobileTextFontStyle,
+                                                child: TypeAheadField<DriverDetails>(
+                                                  controller:txtDriverName ,
+                                                    builder: (context, controller,focusNode)=>
+                                                        TextField(
+                                                          controller: controller,
+                                                            focusNode: focusNode,
                                                             keyboardType:
-                                                                TextInputType
-                                                                    .name,
-                                                            //  maxLength: ,
-                                                            controller:
-                                                                txtDriverName,
-                                                            decoration:
-                                                                InputDecoration(
-                                                              isDense: true,
-                                                              border:
-                                                                  InputBorder
-                                                                      .none,
-                                                              counterText: "",
-                                                              hintText:
-                                                                  "Select/Enter name",
-                                                              hintStyle: TextStyle(
-                                                                  color: Colors
-                                                                      .grey),
-                                                              contentPadding:
-                                                                  EdgeInsets.symmetric(
-                                                                      vertical:
-                                                                          8,
-                                                                      horizontal:
-                                                                          8),
-                                                            ),
+                                                            TextInputType
+                                                                .name,
+                                                            decoration: InputDecoration(
+                                                              border: InputBorder.none,
 
-                                                            // enabled: false,
-                                                            onChanged:
-                                                                (txt) {}),
+                                                              hintText: "Select/Enter name",
+                                                              hintStyle: TextStyle(
+                                                                  color: Colors.grey),
+                                                              contentPadding:
+                                                              EdgeInsets.symmetric(
+                                                                  vertical: 8,
+                                                                  horizontal: 8),
+                                                              isDense: true,
+
+                                                            ),
+                                                            onChanged: (txt) {
+
+                                                            },
+                                                            style: mobileTextFontStyle),
+                                                    // textFieldConfiguration:
+                                                    //     TextFieldConfiguration(
+                                                    //         autocorrect: false,
+                                                    //         style:
+                                                    //             mobileTextFontStyle,
+                                                    //         keyboardType:
+                                                    //             TextInputType
+                                                    //                 .name,
+                                                    //         //  maxLength: ,
+                                                    //         controller:
+                                                    //             txtDriverName,
+                                                    //         decoration:
+                                                    //             InputDecoration(
+                                                    //           isDense: true,
+                                                    //           border:
+                                                    //               InputBorder
+                                                    //                   .none,
+                                                    //           counterText: "",
+                                                    //           hintText:
+                                                    //               "Select/Enter name",
+                                                    //           hintStyle: TextStyle(
+                                                    //               color: Colors
+                                                    //                   .grey),
+                                                    //           contentPadding:
+                                                    //               EdgeInsets.symmetric(
+                                                    //                   vertical:
+                                                    //                       8,
+                                                    //                   horizontal:
+                                                    //                       8),
+                                                    //         ),
+                                                    //
+                                                    //         // enabled: false,
+                                                    //         onChanged:
+                                                    //             (txt) {}),
                                                     suggestionsCallback:
                                                         (pattern) async {
                                                       // txtMobileNo.text = "";
@@ -927,11 +978,7 @@ class _NewSlotBookingState extends State<NewSlotBooking> {
                                                       return getSuggestionsDD(
                                                           pattern);
                                                     },
-                                                    transitionBuilder: (context,
-                                                        suggestionsBox,
-                                                        controller) {
-                                                      return suggestionsBox;
-                                                    },
+
                                                     itemBuilder: (context,
                                                         DriverDetails
                                                             suggestion) {
@@ -956,7 +1003,7 @@ class _NewSlotBookingState extends State<NewSlotBooking> {
                                                     // },
 
                                                     //suggestionsBoxDecoration: ,
-                                                    onSuggestionSelected:
+                                                onSelected:
                                                         (DriverDetails
                                                             suggestion) {
                                                       // print(suggestion);

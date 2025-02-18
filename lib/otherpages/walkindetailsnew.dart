@@ -2886,52 +2886,72 @@ class _WalkInAwbDetailsNewState extends State<WalkInAwbDetailsNew> {
                         ),
                         borderRadius: BorderRadius.circular(4.0),
                       ),
-                      child: TypeAheadField(
-                          //he
-                          textFieldConfiguration: TextFieldConfiguration(
-                              keyboardType: TextInputType.numberWithOptions(
-                                  decimal: false, signed: true),
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-                                    RegExp('[0-9]')),
-                              ],
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                color: Colors.black,
-                              ),
-                              //  keyboardType: TextInputType.number,
-                              maxLength: 3,
-                              controller: txtPrefixM,
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                counterText: "",
-                                hintText: "Select prefix",
-                                hintStyle: TextStyle(color: Colors.grey),
-                                contentPadding: EdgeInsets.symmetric(
-                                    vertical: 8, horizontal: 8),
-                              ),
+                      child: TypeAheadField<AirlinesPrefix>(
+                          controller: txtPrefixM,
+                          builder: (context, controller,focusNode)=>
+                              TextField(
+                                controller: controller,
+                                focusNode: focusNode,
+                                keyboardType: TextInputType.numberWithOptions(
+                                    decimal: false, signed: true),
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.allow(
+                                      RegExp('[0-9]')),
+                                ],
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  color: Colors.black,
+                                ),
+                                //  keyboardType: TextInputType.number,
+                                maxLength: 3,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  counterText: "",
+                                  hintText: "Select prefix",
+                                  hintStyle: TextStyle(color: Colors.grey),
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 8, horizontal: 8),
+                                ),
+                                onChanged: (txt) {
 
-                              // enabled: false,
-                              onChanged: (txt) {}),
+                                },
+                              ),
+                          // textFieldConfiguration: TextFieldConfiguration(
+                          //     keyboardType: TextInputType.numberWithOptions(
+                          //         decimal: false, signed: true),
+                          //     inputFormatters: [
+                          //       FilteringTextInputFormatter.allow(
+                          //           RegExp('[0-9]')),
+                          //     ],
+                          //     style: TextStyle(
+                          //       fontSize: 18.0,
+                          //       color: Colors.black,
+                          //     ),
+                          //     //  keyboardType: TextInputType.number,
+                          //     maxLength: 3,
+                          //     controller: txtPrefixM,
+                          //     decoration: InputDecoration(
+                          //       border: InputBorder.none,
+                          //       counterText: "",
+                          //       hintText: "Select prefix",
+                          //       hintStyle: TextStyle(color: Colors.grey),
+                          //       contentPadding: EdgeInsets.symmetric(
+                          //           vertical: 8, horizontal: 8),
+                          //     ),
+                          //
+                          //     // enabled: false,
+                          //     onChanged: (txt) {}),
                           suggestionsCallback: (pattern) async {
                             return getSuggestionsPrefix(pattern);
                           },
-                          transitionBuilder:
-                              (context, suggestionsBox, controller) {
-                            return suggestionsBox;
-                          },
+
                           itemBuilder: (context, AirlinesPrefix suggestion) {
-                            return Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 24.0, vertical: 2.0),
-                              child: Text(
-                                suggestion.AirlinePrefix.toString(),
-                                style: TextStyle(fontSize: 20),
-                              ),
+                            return ListTile(
+                              title: Text(suggestion.AirlinePrefix.toString()),
                             );
                           },
                           //suggestionsBoxDecoration: ,
-                          onSuggestionSelected: (AirlinesPrefix suggestion) {
+                          onSelected: (AirlinesPrefix suggestion) {
                             this.txtPrefixM.text =
                                 suggestion.AirlinePrefix.toString();
 
@@ -2995,47 +3015,61 @@ class _WalkInAwbDetailsNewState extends State<WalkInAwbDetailsNew> {
                         borderRadius: BorderRadius.circular(4.0),
                       ),
                       child: TypeAheadField(
-                          //he
-                          textFieldConfiguration: TextFieldConfiguration(
-                              style: TextStyle(
-                                fontSize: 18.0,
-                                color: Colors.black,
+                          controller: txtOriginM,
+                          builder: (context, controller,focusNode)=>
+                              TextField(
+                                controller: controller,
+                                focusNode: focusNode,
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  color: Colors.black,
+                                ),
+                                // ),
+                                keyboardType: TextInputType.text,
+                                maxLength: 3,
+                                textCapitalization: TextCapitalization.characters,
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  counterText: "",
+                                  hintText: "Select origin",
+                                  hintStyle: TextStyle(color: Colors.grey),
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: 8, horizontal: 8),
+                                ),
+                                onChanged: (txt) {
+                                },
                               ),
-                              // ),
-                              keyboardType: TextInputType.text,
-                              maxLength: 3,
-                              controller: txtOriginM,
-                              textCapitalization: TextCapitalization.characters,
-                              decoration: InputDecoration(
-                                border: InputBorder.none,
-                                counterText: "",
-                                hintText: "Select origin",
-                                hintStyle: TextStyle(color: Colors.grey),
-                                contentPadding: EdgeInsets.symmetric(
-                                    vertical: 8, horizontal: 8),
-                              ),
-                              onChanged: (txt) {}),
+                          // textFieldConfiguration: TextFieldConfiguration(
+                          //     style: TextStyle(
+                          //       fontSize: 18.0,
+                          //       color: Colors.black,
+                          //     ),
+                          //     // ),
+                          //     keyboardType: TextInputType.text,
+                          //     maxLength: 3,
+                          //     controller: txtOriginM,
+                          //     textCapitalization: TextCapitalization.characters,
+                          //     decoration: InputDecoration(
+                          //       border: InputBorder.none,
+                          //       counterText: "",
+                          //       hintText: "Select origin",
+                          //       hintStyle: TextStyle(color: Colors.grey),
+                          //       contentPadding: EdgeInsets.symmetric(
+                          //           vertical: 8, horizontal: 8),
+                          //     ),
+                          //     onChanged: (txt) {}),
                           suggestionsCallback: (pattern) async {
                             return getSuggestionsOrgDest(pattern);
                           },
-                          transitionBuilder:
-                              (context, suggestionsBox, controller) {
-                            return suggestionsBox;
-                          },
+
                           itemBuilder: (context, Airport suggestion) {
-                            return Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 20.0, vertical: 2.0),
-                              child: Text(
-                                suggestion.CityCode.toString(),
-                                style: TextStyle(fontSize: 20),
-                              ),
+                            return ListTile(
+                              title: Text(suggestion.CityCode.toString()),
                             );
                           },
                           // suggestionsBoxDecoration: ,
-                          onSuggestionSelected: (Airport suggestion) {
-                            this.txtOriginM.text =
-                                suggestion.CityCode.toString();
+                          onSelected: (Airport suggestion) {
+                            this.txtOriginM.text = suggestion.CityCode.toString();
 
                             // bookingDetailsSave['Mode'] = suggestion.toString();
                           }),

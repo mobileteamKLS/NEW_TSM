@@ -290,20 +290,22 @@ class _BookedSlotsListState extends State<BookedSlotsList> {
     // print(dateNow);
 
     return Slidable(
-      actionPane: SlidableDrawerActionPane(),
-      actionExtentRatio: 0.15,
-      actions: <Widget>[
-        IconSlideAction(
-            caption: 'Edit',
-            color: Colors.blue,
-            icon: Icons.edit,
-            onTap: () {}),
-        IconSlideAction(
-            caption: 'Cancel',
-            color: Colors.red.shade400,
-            icon: Icons.close,
-            onTap: () {}),
-      ],
+      endActionPane:ActionPane(
+        motion: DrawerMotion(),
+        extentRatio: 0.15,
+        children: [
+          SlidableAction(
+              label: 'Edit',
+              backgroundColor: Colors.blue,
+              icon: Icons.edit,
+              onPressed: (context) {}),
+          SlidableAction(
+              label: 'Cancel',
+              backgroundColor: Colors.red.shade400,
+              icon: Icons.close,
+              onPressed: (context) {}),
+        ],
+      ),
       child: Card(
         color: Colors.white,
         child: Padding(
