@@ -103,15 +103,10 @@ class _LoginPageState extends State<LoginPage> {
 
                 child: Container(
                   height: MediaQuery.of(context).size.height / 7, // 100,
-                  child: Stack(
-                    children: [
-                      ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.asset("assets/images/ces.png",
-                              fit: BoxFit.fill)),
-
-                    ],
-                  ),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(20),
+                      child: Image.asset("assets/images/ACSLogo1.png",
+                          fit: BoxFit.fill)),
                 ),
               ),
             ),
@@ -550,13 +545,7 @@ class _LoginPageState extends State<LoginPage> {
                             //Text('CONTAINED BUTTON'),
                           ),
                    SizedBox(height: 12,),
-                   Container(
-                      height: MediaQuery.of(context).size.height / 7, // 100,
-                      child: ClipRRect(
-                          borderRadius: BorderRadius.circular(20),
-                          child: Image.asset("assets/images/ACSLogo1.png",
-                              fit: BoxFit.fill)),
-                    ),
+
                   ],
                 ),
           if (!isLoadingMain)
