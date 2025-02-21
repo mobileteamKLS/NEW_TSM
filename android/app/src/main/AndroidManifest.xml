@@ -13,7 +13,7 @@
         </intent>
     </queries>
    <application
-        android:label="WFS-CES TSM"
+        android:label="TSM-TK Cargo"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
